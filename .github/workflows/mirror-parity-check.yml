@@ -21,18 +21,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configure git auth for private remotes
+      - name: Validate secrets
         env:
-          TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
+          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
         run: |
-          if [ -z "$TOKEN" ]; then
+          if [ -z "$SOURCE_TOKEN" ]; then
+            echo "::error::Missing secret PRO777_MIRROR_PAT"
+            exit 1
+          fi
+          if [ -z "$DEST_TOKEN" ]; then
             echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
             exit 1
           fi
-          git config --global url."https://x-access-token:${TOKEN}@github.com/".insteadOf "git@github.com:"
 
       - name: Check parity
         id: parity
+        env:
+          SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
+          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
         run: ./scripts/ops/check_mirror_parity.sh
 
       - name: Open drift issue on failure
