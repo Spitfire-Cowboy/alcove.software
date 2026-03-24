@@ -1,0 +1,10 @@
+# alcove.software
+
+Alcove is local-first search infrastructure.
+
+- Retrieval over operator-controlled corpora.
+- Local disk by default.
+- AI optional, not mandatory.
+- Retrieval, not generation.
+
+Primary codebase: https://github.com/Pro777/alcove

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alcove Software</title>
+  <meta name="description" content="Alcove is local-first search infrastructure. Retrieval, not generation.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <link rel="canonical" href="https://alcove.software/">
+  <style>
+    :root {
+      --bg: #f9faf8;
+      --ink: #1f2a1f;
+      --muted: #4c5a4c;
+      --card: #ffffff;
+      --line: #d9e2d5;
+      --brand: #1f6f43;
+      --brand-2: #0f5130;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, #e8f5ea 0, transparent 45%),
+        radial-gradient(circle at bottom left, #eef3ea 0, transparent 45%),
+        var(--bg);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin: 0 0 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    p.lead {
+      font-size: 1.12rem;
+      color: var(--muted);
+      margin: 0 0 1.75rem;
+      max-width: 62ch;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 8px 24px rgba(31, 42, 31, 0.05);
+    }
+    .card h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1.05rem;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .actions {
+      margin-top: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    a.btn {
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 0.62rem 0.9rem;
+      font-weight: 600;
+      transition: transform 120ms ease, opacity 120ms ease;
+      border: 1px solid transparent;
+    }
+    a.btn:hover { transform: translateY(-1px); opacity: 0.96; }
+    a.btn.primary {
+      background: var(--brand);
+      color: #fff;
+    }
+    a.btn.secondary {
+      color: var(--brand-2);
+      border-color: #bcd4c1;
+      background: #f3faf4;
+    }
+    footer {
+      margin-top: 2.25rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Alcove, indexed for the open web.</h1>
+    <p class="lead">
+      This site is the public surface for Alcove: local-first search infrastructure.
+      Alcove retrieves real document text from local indexes. It is retrieval, not generation.
+    </p>
+
+    <section class="grid" aria-label="Key points">
+      <article class="card">
+        <h2>Local-first by design</h2>
+        <p>Data stays on operator-controlled disk by default. No mandatory cloud dependencies.</p>
+      </article>
+      <article class="card">
+        <h2>Retrieval system</h2>
+        <p>Alcove finds relevant chunks and returns them. It does not fabricate new content.</p>
+      </article>
+      <article class="card">
+        <h2>AI optional</h2>
+        <p>Semantic embedding is opt-in. Operators choose whether and where AI is involved.</p>
+      </article>
+    </section>
+
+    <nav class="actions" aria-label="Primary links">
+      <a class="btn primary" href="https://github.com/Pro777/alcove">Core Repository</a>
+      <a class="btn secondary" href="/llms.txt">LLMs Manifest</a>
+      <a class="btn secondary" href="/sitemap.xml">Sitemap</a>
+      <a class="btn secondary" href="/robots.txt">Robots Policy</a>
+    </nav>
+
+    <footer>
+      <p>Domain owner: alcove.software</p>
+    </footer>
+  </main>
+</body>
+</html>
