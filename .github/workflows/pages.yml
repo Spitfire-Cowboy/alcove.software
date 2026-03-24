@@ -3,6 +3,10 @@ name: deploy-pages
 on:
   push:
     branches: ["main"]
+    paths:
+      - "site/**"
+      - "scripts/validate_site.sh"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
