@@ -28,12 +28,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate secret
+      - name: Validate secrets
         env:
           SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
+          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
         run: |
           if [ -z "$SOURCE_TOKEN" ]; then
             echo "::error::Missing secret PRO777_MIRROR_PAT"
+            exit 1
+          fi
+          if [ -z "$DEST_TOKEN" ]; then
+            echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
             exit 1
           fi
 
@@ -42,5 +47,5 @@ jobs:
           SOURCE_REPO: ${{ matrix.source_repo }}
           DEST_REPO: ${{ matrix.dest_repo }}
           SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
-          DEST_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
         run: ./scripts/ops/mirror_repo_pair.sh

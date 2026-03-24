@@ -8,11 +8,15 @@ This repository runs scheduled one-way mirroring for:
 Workflow: `.github/workflows/mirror-pro777-repos.yml`
 Script: `scripts/ops/mirror_repo_pair.sh`
 
-## Required Secret
+## Required Secrets
 
 - `PRO777_MIRROR_PAT`
   - Fine-grained PAT recommended
-  - Scope: read-only access to source repositories in `Pro777`
+  - Scope: read access to source repositories in `Pro777`
+
+- `SPITFIRE_MIRROR_PAT`
+  - Fine-grained PAT recommended
+  - Scope: contents write on destination repositories in `Spitfire-Cowboy`
 
 ## Behavior
 
