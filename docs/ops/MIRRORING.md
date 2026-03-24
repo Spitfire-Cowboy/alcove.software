@@ -14,9 +14,14 @@ Script: `scripts/ops/mirror_repo_pair.sh`
   - Fine-grained PAT recommended
   - Scope: read access to source repositories in `Pro777`
 
+- `SPITFIRE_MIRROR_SSH_KEY`
+  - Private SSH key for a GitHub user with write access to destination repositories in `Spitfire-Cowboy`
+  - Used for destination push to avoid OAuth `workflow` scope limitations
+
 - `SPITFIRE_MIRROR_PAT`
   - Fine-grained PAT recommended
-  - Scope: contents write + repo settings management on destination repositories in `Spitfire-Cowboy`
+  - Scope: read access + repo settings management for destination repositories in `Spitfire-Cowboy`
+  - Used by parity/policy governance workflows
 
 ## Behavior
 
