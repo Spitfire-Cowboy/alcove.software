@@ -1,0 +1,48 @@
+name: enforce-repo-policy
+
+on:
+  schedule:
+    - cron: "37 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: enforce-repo-policy
+  cancel-in-progress: false
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Validate admin token
+        env:
+          GH_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
+            exit 1
+          fi
+
+      - name: Enforce repository policy
+        env:
+          GH_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+        run: ./scripts/ops/enforce_spitfire_repo_policy.sh
+
+      - name: Open policy issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          gh issue create --repo Spitfire-Cowboy/alcove.software \
+            --title "Repo policy enforcement failed (${ts})" \
+            --body "Automatic enforcement failed. Check workflow logs and re-run after fixing token/permissions." || true
