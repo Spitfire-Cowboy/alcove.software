@@ -16,7 +16,7 @@ Script: `scripts/ops/mirror_repo_pair.sh`
 
 - `SPITFIRE_MIRROR_PAT`
   - Fine-grained PAT recommended
-  - Scope: contents write on destination repositories in `Spitfire-Cowboy`
+  - Scope: contents write + repo settings management on destination repositories in `Spitfire-Cowboy`
 
 ## Behavior
 
@@ -24,6 +24,12 @@ Script: `scripts/ops/mirror_repo_pair.sh`
 - Uses prune mode so deleted source branches/tags are deleted in destination.
 - Does not mirror Issues/PR metadata/settings/secrets.
 - Hidden GitHub refs (`refs/pull/*`) are intentionally excluded.
+
+## Monitoring
+
+- Drift check workflow: `.github/workflows/mirror-parity-check.yml`
+- Weekly status workflow: `.github/workflows/weekly-mirror-health.yml`
+- Weekly status is appended as comments to issue #9.
 
 ## Operational Rules
 
