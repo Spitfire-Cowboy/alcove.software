@@ -1,0 +1,46 @@
+name: mirror-parity-check
+
+on:
+  schedule:
+    - cron: "41 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: mirror-parity-check
+  cancel-in-progress: false
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure git auth for private remotes
+        env:
+          TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
+            exit 1
+          fi
+          git config --global url."https://x-access-token:${TOKEN}@github.com/".insteadOf "git@github.com:"
+
+      - name: Check parity
+        id: parity
+        run: ./scripts/ops/check_mirror_parity.sh
+
+      - name: Open drift issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          title="Mirror parity drift detected (${ts})"
+          body="Automatic parity check detected divergence between Pro777 source repos and Spitfire-Cowboy mirrors.\n\nRunbook: docs/ops/MIRRORING.md and docs/ops/CUTOVER_CHECKLIST.md"
+          gh issue create --repo Spitfire-Cowboy/alcove.software --title "$title" --body "$body" || true
