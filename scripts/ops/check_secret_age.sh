@@ -8,6 +8,7 @@ max_age_days="${MAX_SECRET_AGE_DAYS:-30}"
 required_secrets=(
   "PRO777_MIRROR_PAT"
   "SPITFIRE_MIRROR_PAT"
+  "SPITFIRE_MIRROR_SSH_KEY"
 )
 
 json=$(gh api "/repos/${repo}/actions/secrets?per_page=100")
