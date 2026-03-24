@@ -18,17 +18,17 @@ for f in "${required[@]}"; do
   fi
 done
 
-if ! rg -q '^Sitemap: https://alcove\.software/sitemap\.xml$' "$SITE_DIR/robots.txt"; then
+if ! grep -Eq '^Sitemap: https://alcove\.software/sitemap\.xml$' "$SITE_DIR/robots.txt"; then
   echo "robots.txt must include canonical sitemap URL" >&2
   exit 1
 fi
 
-if ! rg -q '<loc>https://alcove\.software/</loc>' "$SITE_DIR/sitemap.xml"; then
+if ! grep -Eq '<loc>https://alcove\.software/</loc>' "$SITE_DIR/sitemap.xml"; then
   echo "sitemap.xml missing root URL" >&2
   exit 1
 fi
 
-if ! rg -q 'https://github.com/Pro777/alcove' "$SITE_DIR/llms.txt"; then
+if ! grep -Eq 'https://github.com/Pro777/alcove' "$SITE_DIR/llms.txt"; then
   echo "llms.txt missing canonical codebase URL" >&2
   exit 1
 fi
