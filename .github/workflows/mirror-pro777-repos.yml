@@ -1,0 +1,46 @@
+name: mirror-pro777-repos
+
+on:
+  schedule:
+    - cron: "11 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mirror-pro777-repos
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - source_repo: Pro777/alcove-private
+            dest_repo: Spitfire-Cowboy/alcove-private
+          - source_repo: Pro777/alcove-demo
+            dest_repo: Spitfire-Cowboy/alcove-demo
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate secret
+        env:
+          SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
+        run: |
+          if [ -z "$SOURCE_TOKEN" ]; then
+            echo "::error::Missing secret PRO777_MIRROR_PAT"
+            exit 1
+          fi
+
+      - name: Mirror source to destination
+        env:
+          SOURCE_REPO: ${{ matrix.source_repo }}
+          DEST_REPO: ${{ matrix.dest_repo }}
+          SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
+          DEST_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./scripts/ops/mirror_repo_pair.sh
