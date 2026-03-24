@@ -46,13 +46,18 @@ jobs:
           report_path="$(./scripts/ops/report_mirror_health.sh)"
           echo "report_path=${report_path}" >> "$GITHUB_OUTPUT"
 
-      - name: Open weekly report issue
+      - name: Append report to tracking issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           d="$(date -u +%Y-%m-%d)"
-          title="Weekly mirror health report (${d})"
-          gh issue create \
-            --repo Spitfire-Cowboy/alcove.software \
-            --title "$title" \
-            --body-file "${{ steps.report.outputs.report_path }}"
+          body="$RUNNER_TEMP/weekly-comment.md"
+          {
+            echo "## Weekly mirror health report (${d})"
+            echo
+            cat "${{ steps.report.outputs.report_path }}"
+          } > "$body"
+
+          gh api --method POST \
+            /repos/Spitfire-Cowboy/alcove.software/issues/9/comments \
+            -F body=@"$body"
