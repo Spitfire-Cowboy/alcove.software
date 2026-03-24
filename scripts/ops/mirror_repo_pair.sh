@@ -5,9 +5,19 @@ set -euo pipefail
 : "${DEST_REPO:?DEST_REPO is required (e.g. Spitfire-Cowboy/alcove-private)}"
 : "${SOURCE_TOKEN:?SOURCE_TOKEN is required}"
 
-DEST_TOKEN="${DEST_TOKEN:-${GITHUB_TOKEN:-}}"
-if [[ -z "$DEST_TOKEN" ]]; then
-  echo "DEST_TOKEN or GITHUB_TOKEN must be set" >&2
+DEST_PUSH_MODE="${DEST_PUSH_MODE:-https}"
+
+if [[ "$DEST_PUSH_MODE" == "https" ]]; then
+  DEST_TOKEN="${DEST_TOKEN:-${GITHUB_TOKEN:-}}"
+  if [[ -z "$DEST_TOKEN" ]]; then
+    echo "DEST_TOKEN or GITHUB_TOKEN must be set for https mode" >&2
+    exit 1
+  fi
+  dest_remote="https://x-access-token:${DEST_TOKEN}@github.com/${DEST_REPO}.git"
+elif [[ "$DEST_PUSH_MODE" == "ssh" ]]; then
+  dest_remote="git@github.com:${DEST_REPO}.git"
+else
+  echo "Unsupported DEST_PUSH_MODE: $DEST_PUSH_MODE" >&2
   exit 1
 fi
 
@@ -19,7 +29,7 @@ mirror="$tmp_dir/mirror.git"
 git init --bare "$mirror" >/dev/null
 
 git -C "$mirror" remote add source "https://x-access-token:${SOURCE_TOKEN}@github.com/${SOURCE_REPO}.git"
-git -C "$mirror" remote add dest "https://x-access-token:${DEST_TOKEN}@github.com/${DEST_REPO}.git"
+git -C "$mirror" remote add dest "$dest_remote"
 
 # Fetch source refs (heads + tags only). Hidden refs such as refs/pull/* are intentionally excluded.
 git -C "$mirror" fetch --prune source \

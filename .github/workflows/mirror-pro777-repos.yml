@@ -33,21 +33,32 @@ jobs:
       - name: Validate secrets
         env:
           SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
-          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          SSH_KEY: ${{ secrets.SPITFIRE_MIRROR_SSH_KEY }}
         run: |
           if [ -z "$SOURCE_TOKEN" ]; then
             echo "::error::Missing secret PRO777_MIRROR_PAT"
             exit 1
           fi
-          if [ -z "$DEST_TOKEN" ]; then
-            echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
+          if [ -z "$SSH_KEY" ]; then
+            echo "::error::Missing secret SPITFIRE_MIRROR_SSH_KEY"
             exit 1
           fi
+
+      - name: Configure SSH auth for destination push
+        env:
+          SSH_KEY: ${{ secrets.SPITFIRE_MIRROR_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
 
       - name: Mirror source to destination
         env:
           SOURCE_REPO: ${{ matrix.source_repo }}
           DEST_REPO: ${{ matrix.dest_repo }}
           SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
-          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          DEST_PUSH_MODE: ssh
         run: ./scripts/ops/mirror_repo_pair.sh
