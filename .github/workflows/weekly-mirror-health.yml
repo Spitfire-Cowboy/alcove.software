@@ -1,0 +1,58 @@
+name: weekly-mirror-health
+
+on:
+  schedule:
+    - cron: "12 15 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: weekly-mirror-health
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Validate secrets
+        env:
+          SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
+          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+        run: |
+          if [ -z "$SOURCE_TOKEN" ]; then
+            echo "::error::Missing secret PRO777_MIRROR_PAT"
+            exit 1
+          fi
+          if [ -z "$DEST_TOKEN" ]; then
+            echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
+            exit 1
+          fi
+
+      - name: Build health report
+        id: report
+        env:
+          SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
+          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+        run: |
+          report_path="$(./scripts/ops/report_mirror_health.sh)"
+          echo "report_path=${report_path}" >> "$GITHUB_OUTPUT"
+
+      - name: Open weekly report issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          d="$(date -u +%Y-%m-%d)"
+          title="Weekly mirror health report (${d})"
+          gh issue create \
+            --repo Spitfire-Cowboy/alcove.software \
+            --title "$title" \
+            --body-file "${{ steps.report.outputs.report_path }}"
