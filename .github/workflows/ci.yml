@@ -3,17 +3,7 @@ name: ci
 on:
   push:
     branches: ["main", "Pro777/**"]
-    paths:
-      - "site/**"
-      - "scripts/**"
-      - ".github/workflows/ci.yml"
-      - ".github/workflows/pages.yml"
   pull_request:
-    paths:
-      - "site/**"
-      - "scripts/**"
-      - ".github/workflows/ci.yml"
-      - ".github/workflows/pages.yml"
 
 concurrency:
   group: ci-${{ github.ref }}
