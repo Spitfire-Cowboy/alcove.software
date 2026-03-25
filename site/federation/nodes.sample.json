@@ -1,0 +1,44 @@
+[
+  {
+    "node_id": "alcove-public-demo",
+    "display_name": "Alcove Public Demo",
+    "base_url": "https://api.alcove.software/v1",
+    "api_version": "v1",
+    "mode": "public",
+    "policy": {
+      "allow_crawlers": true,
+      "contains_pii": false,
+      "data_license": "CC-BY-4.0"
+    },
+    "capabilities": {
+      "query": true,
+      "collections": true,
+      "health": true,
+      "languages": [
+        "en"
+      ]
+    }
+  },
+  {
+    "node_id": "alcove-operator-sample",
+    "display_name": "Operator Sample Node",
+    "base_url": "https://example-operator.invalid/v1",
+    "api_version": "v1",
+    "mode": "hybrid",
+    "policy": {
+      "allow_crawlers": false,
+      "contains_pii": true,
+      "data_license": "Proprietary"
+    },
+    "capabilities": {
+      "query": true,
+      "collections": true,
+      "health": true,
+      "languages": [
+        "en",
+        "es"
+      ]
+    }
+  }
+]
+
