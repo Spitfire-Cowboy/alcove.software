@@ -50,6 +50,7 @@ Fallback behavior is required:
 ## Rate-Limit Controls
 
 - Use REST-first automation (`gh api`) in scripts and workflows.
+- Route GitHub API calls through `scripts/ops/gh_api_retry.sh` for bounded retry with jitter.
 - Avoid high fan-out parallel writes (cap matrix parallelism when needed).
 - Keep scheduled jobs offset by minute to avoid top-of-hour spikes.
 

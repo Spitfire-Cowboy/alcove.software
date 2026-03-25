@@ -2,6 +2,8 @@
 set -euo pipefail
 
 : "${GH_TOKEN:?GH_TOKEN is required}"
+OPS_DIR="$(cd "$(dirname "$0")" && pwd)"
+GH_API_RETRY="${OPS_DIR}/gh_api_retry.sh"
 
 repos=(
   "Spitfire-Cowboy/alcove:main:false"
@@ -18,7 +20,7 @@ for entry in "${repos[@]}"; do
   echo "Enforcing policy for ${repo}"
 
   # Primary patch: enforce visibility and default branch.
-  gh api --method PATCH "/repos/${repo}" \
+  "$GH_API_RETRY" --method PATCH "/repos/${repo}" \
     -f private="${is_private}" \
     -f default_branch="${default_branch}" \
     --jq '{full_name,private,visibility,allow_forking,default_branch}'
@@ -26,7 +28,7 @@ for entry in "${repos[@]}"; do
   if [[ "${is_private}" == "true" ]]; then
     # Secondary patch: allow_forking=false. Some orgs block this write for private repos.
     set +e
-    out=$(gh api --method PATCH "/repos/${repo}" -f allow_forking=false 2>&1)
+    out=$("$GH_API_RETRY" --method PATCH "/repos/${repo}" -f allow_forking=false 2>&1)
     rc=$?
     set -e
     if [[ $rc -ne 0 ]]; then

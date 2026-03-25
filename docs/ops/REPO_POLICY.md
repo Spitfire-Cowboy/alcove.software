@@ -8,6 +8,7 @@ This policy automation keeps migration target repositories in compliant state:
 
 Workflow: `.github/workflows/enforce-repo-policy.yml`
 Script: `scripts/ops/enforce_spitfire_repo_policy.sh`
+API retry wrapper: `scripts/ops/gh_api_retry.sh`
 
 ## Enforced Rules
 
