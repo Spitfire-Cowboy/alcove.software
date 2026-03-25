@@ -38,6 +38,20 @@ Keep these on GitHub-hosted runners:
 - untrusted fork PR jobs
 - lightweight lint/unit checks that need fast queue times
 
+## Runner Selection Variable
+
+Ops workflows in this repo now use a safe fallback selector:
+
+- Repository/org variable: `ALCOVE_RUNNER_LABELS_JSON`
+- Value example:
+  - `["self-hosted","linux","x64","cpu-default"]`
+
+Behavior:
+- If `ALCOVE_RUNNER_LABELS_JSON` is set, workflows run on that label set.
+- If unset, workflows fall back to `ubuntu-latest`.
+
+This allows progressive cutover without editing workflow files for rollback.
+
 ## Hardening
 
 - Restrict inbound SSH to trusted admin IPs only.
@@ -52,3 +66,5 @@ Keep these on GitHub-hosted runners:
 2. Validate stability for one week.
 3. Move remaining heavy jobs in batches.
 4. Keep rollback path to GitHub-hosted runner labels.
+5. Track workflow runtime and queue pressure with:
+   - `scripts/ops/workflow_runtime_inventory.sh`

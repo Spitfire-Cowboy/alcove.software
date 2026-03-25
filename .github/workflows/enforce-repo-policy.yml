@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   enforce:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.ALCOVE_RUNNER_LABELS_JSON != '' && fromJSON(vars.ALCOVE_RUNNER_LABELS_JSON) || 'ubuntu-latest' }}
     timeout-minutes: 15
     steps:
       - name: Checkout
