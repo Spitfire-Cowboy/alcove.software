@@ -43,6 +43,7 @@ Fallback behavior is required:
    - Apply the same runner-label variable pattern in `alcove-private` and `alcove-demo`.
 4. Stage 3: Tighten churn controls
    - Add/verify `concurrency` and `paths` filters across active workflows.
+   - Run `./scripts/ops/audit_runner_routing.sh` and keep `runner-routing-audit` workflow green.
 5. Stage 4: Review
    - Confirm hosted minutes reduced by at least 50% on migrated jobs.
    - Confirm no increase in median PR wait time.
