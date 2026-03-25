@@ -13,6 +13,7 @@ Publish a clean, indexable public surface for the Alcove ecosystem while keeping
 ## Current Build Surface
 
 - `site/index.html`: primary landing page
+- `site/docs/index.html`: public docs landing page
 - `site/robots.txt`: crawler policy
 - `site/sitemap.xml`: public URL inventory
 - `site/llms.txt`: machine-readable project summary

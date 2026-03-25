@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alcove Docs</title>
+  <meta name="description" content="Public operator documentation for alcove.software">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://alcove.software/docs/">
+  <style>
+    :root {
+      --bg: #f8faf8;
+      --ink: #1f2a1f;
+      --muted: #4d5b4d;
+      --card: #ffffff;
+      --line: #dbe5d9;
+      --brand: #1f6f43;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.25rem 1.25rem 3rem;
+    }
+    h1 { margin: 0 0 0.5rem; font-size: clamp(1.8rem, 4vw, 2.5rem); }
+    p.lead { margin: 0 0 1.5rem; color: var(--muted); max-width: 64ch; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.9rem;
+    }
+    .card {
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 12px;
+      padding: 0.95rem;
+    }
+    .card h2 { margin: 0 0 0.4rem; font-size: 1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .links {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Alcove Public Docs</h1>
+    <p class="lead">
+      These docs cover install posture, trust boundaries, API direction, and operator policies for the public Alcove surface.
+    </p>
+
+    <section class="grid" aria-label="Docs navigation">
+      <article class="card">
+        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/INSTALL.md">Install</a></h2>
+        <p>Entry points and what lives in this repo vs core runtime repo.</p>
+      </article>
+      <article class="card">
+        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/TRUST_MODEL.md">Trust Model</a></h2>
+        <p>Local-first guarantees, boundaries, and out-of-scope behaviors.</p>
+      </article>
+      <article class="card">
+        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/API_READONLY_OVERVIEW.md">API</a></h2>
+        <p>Read-only public API direction and implementation status.</p>
+      </article>
+      <article class="card">
+        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/FAQ.md">FAQ</a></h2>
+        <p>What Alcove is, what it is not, and common operator questions.</p>
+      </article>
+      <article class="card">
+        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/CHANGELOG_POLICY.md">Versioning & Changelog</a></h2>
+        <p>Release note and versioning policy for public changes.</p>
+      </article>
+      <article class="card">
+        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/DOCS_CONTRIBUTION_MODEL.md">Docs Contribution Model</a></h2>
+        <p>How to submit docs-only changes with minimal friction.</p>
+      </article>
+    </section>
+
+    <div class="links">
+      <a href="https://alcove.software/">Home</a>
+      <a href="https://alcove.software/sitemap.xml">Sitemap</a>
+      <a href="https://alcove.software/robots.txt">Robots</a>
+      <a href="https://alcove.software/llms.txt">LLMs Manifest</a>
+      <a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/DOCS_INFORMATION_ARCHITECTURE.md">Docs IA</a>
+    </div>
+  </main>
+</body>
+</html>
+
