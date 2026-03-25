@@ -4,6 +4,17 @@ on:
   schedule:
     - cron: "11 * * * *"
   workflow_dispatch:
+    inputs:
+      allow_force_mirror:
+        description: "Allow destructive reconciliation (branch/tag rewrites and large prune deletes)"
+        required: false
+        default: false
+        type: boolean
+      max_prune_deletions:
+        description: "Max destination branch deletions allowed in safe mode"
+        required: false
+        default: "5"
+        type: string
 
 permissions:
   contents: read
@@ -64,4 +75,7 @@ jobs:
           DEST_REPO: ${{ matrix.dest_repo }}
           SOURCE_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
           DEST_PUSH_MODE: ssh
+          STRICT_PAIRING: "1"
+          MAX_PRUNE_DELETIONS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.max_prune_deletions || '5' }}
+          ALLOW_FORCE_MIRROR: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.allow_force_mirror == 'true' && '1' || '0' }}
         run: ./scripts/ops/mirror_repo_pair.sh
