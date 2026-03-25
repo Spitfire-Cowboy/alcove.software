@@ -4,9 +4,10 @@ Repository: `Spitfire-Cowboy/alcove.software`
 
 Managed secrets:
 
-- `PRO777_MIRROR_PAT` (source read)
-- `SPITFIRE_MIRROR_PAT` (destination read/settings automation)
-- `SPITFIRE_MIRROR_SSH_KEY` (destination mirror push auth)
+- `SPITFIRE_MIRROR_PAT` (source read + alcove.software secret governance API access)
+- `PRO777_MIRROR_PAT` (destination read/settings automation)
+- `PRO777_MIRROR_SSH_KEY` (destination mirror push auth, preferred)
+- `SPITFIRE_MIRROR_SSH_KEY` (fallback destination mirror push auth)
 
 ## Automation
 
@@ -21,7 +22,7 @@ If required secrets are missing or older than threshold, automation opens an iss
 1. Mint replacement fine-grained tokens and SSH key material with least privilege.
 2. Update repo secrets in `alcove.software`.
 3. Re-run:
-   - `mirror-pro777-repos`
+   - `mirror-spitfire-repos`
    - `mirror-parity-check`
    - `enforce-repo-policy`
 4. Revoke old tokens/keys.

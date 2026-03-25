@@ -25,23 +25,23 @@ jobs:
 
       - name: Validate secrets
         env:
-          SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
-          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          SOURCE_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          DEST_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
         run: |
           if [ -z "$SOURCE_TOKEN" ]; then
-            echo "::error::Missing secret PRO777_MIRROR_PAT"
+            echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
             exit 1
           fi
           if [ -z "$DEST_TOKEN" ]; then
-            echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
+            echo "::error::Missing secret PRO777_MIRROR_PAT"
             exit 1
           fi
 
       - name: Build health report
         id: report
         env:
-          SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
-          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          SOURCE_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          DEST_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
         run: |
           report_path="$(./scripts/ops/report_mirror_health.sh)"
           echo "report_path=${report_path}" >> "$GITHUB_OUTPUT"

@@ -5,9 +5,9 @@ set -euo pipefail
 : "${DEST_TOKEN:?DEST_TOKEN is required}"
 
 pairs=(
-  "Pro777/alcove Spitfire-Cowboy/alcove main"
-  "Pro777/alcove-private Spitfire-Cowboy/alcove-private develop"
-  "Pro777/alcove-demo Spitfire-Cowboy/alcove-demo main"
+  "Spitfire-Cowboy/alcove Pro777/alcove main"
+  "Spitfire-Cowboy/alcove-private Pro777/alcove-private develop"
+  "Spitfire-Cowboy/alcove-demo Pro777/alcove-demo main"
 )
 
 src_url() {

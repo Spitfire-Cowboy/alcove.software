@@ -25,23 +25,23 @@ jobs:
 
       - name: Validate secrets
         env:
-          SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
-          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          SOURCE_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          DEST_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
         run: |
           if [ -z "$SOURCE_TOKEN" ]; then
-            echo "::error::Missing secret PRO777_MIRROR_PAT"
+            echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
             exit 1
           fi
           if [ -z "$DEST_TOKEN" ]; then
-            echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
+            echo "::error::Missing secret PRO777_MIRROR_PAT"
             exit 1
           fi
 
       - name: Check parity
         id: parity
         env:
-          SOURCE_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
-          DEST_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          SOURCE_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
+          DEST_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
         run: ./scripts/ops/check_mirror_parity.sh
 
       - name: Open drift issue on failure
@@ -51,5 +51,5 @@ jobs:
         run: |
           ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           title="Mirror parity drift detected (${ts})"
-          body="Automatic parity check detected divergence between Pro777 source repos and Spitfire-Cowboy mirrors.\n\nRunbook: docs/ops/MIRRORING.md and docs/ops/CUTOVER_CHECKLIST.md"
+          body="Automatic parity check detected divergence between Spitfire-Cowboy canonical repos and Pro777 mirrors.\n\nRunbook: docs/ops/MIRRORING.md and docs/ops/CUTOVER_CHECKLIST.md"
           gh issue create --repo Spitfire-Cowboy/alcove.software --title "$title" --body "$body" || true
