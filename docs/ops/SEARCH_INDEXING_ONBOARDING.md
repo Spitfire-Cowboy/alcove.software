@@ -38,18 +38,31 @@ Run local validation before each deploy:
 ./scripts/validate_site.sh
 ```
 
+Run live-domain cutover checks when DNS or Pages settings change:
+
+```bash
+./scripts/ops/check_domain_cutover.sh alcove.software
+```
+
+Or run in CI via manual dispatch:
+
+- Workflow: `.github/workflows/cutover-verification.yml`
+- Input: `domain` (defaults to `alcove.software`)
+
 Validation includes:
 - `robots.txt` policy and sitemap declaration
 - Googlebot/Bingbot crawl stanzas
 - `sitemap.xml` root + llms entries
 - canonical codebase link in `llms.txt`
 - canonical and robots meta tags in `index.html`
+- live domain resolution, HTTPS endpoint health, and HTTP->HTTPS redirect behavior
 
 ## 4) Post-Submit Monitoring
 
 - Check index coverage weekly in Google/Bing dashboards.
 - Watch for crawl errors (4xx/5xx, robots blocked, canonical mismatch).
 - Re-submit sitemap after major structural changes.
+- Paste `check_domain_cutover.sh` output into issue updates for #1/#28 during cutover.
 
 ## 5) Rollback
 
@@ -60,4 +73,3 @@ If indexing artifacts regress:
 3. Revalidate:
    - `./scripts/validate_site.sh`
 4. Re-submit sitemap in both consoles.
-

@@ -1,0 +1,29 @@
+name: cutover-verification
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: "Domain to validate"
+        required: false
+        default: "alcove.software"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ${{ vars.ALCOVE_RUNNER_LABELS_JSON != '' && fromJSON(vars.ALCOVE_RUNNER_LABELS_JSON) || 'ubuntu-latest' }}
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Verify domain cutover
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ./scripts/ops/check_domain_cutover.sh "${{ github.event.inputs.domain || 'alcove.software' }}"
