@@ -33,8 +33,21 @@ Script: `scripts/ops/mirror_repo_pair.sh`
 
 - Mirrors all branches and tags.
 - Uses prune mode so deleted source branches/tags are deleted in destination.
+- Default mode is safety-first:
+  - Fast-forward-only branch updates
+  - Tag rewrites blocked
+  - Large prune deletions blocked when count exceeds `MAX_PRUNE_DELETIONS` (default `5`)
+- Destructive reconciliation requires explicit opt-in (`ALLOW_FORCE_MIRROR=1`) via manual workflow dispatch.
 - Does not mirror Issues/PR metadata/settings/secrets.
 - Hidden GitHub refs (`refs/pull/*`) are intentionally excluded.
+
+## Manual Dispatch
+
+- Use scheduled runs for normal operation.
+- Use manual dispatch only when needed:
+  - `allow_force_mirror=false` (default): safe mode
+  - `allow_force_mirror=true`: allows non-fast-forward updates and large prune deletes
+  - `max_prune_deletions`: safe-mode deletion guardrail override for that run
 
 ## Monitoring
 
