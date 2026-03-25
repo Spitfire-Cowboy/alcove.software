@@ -33,6 +33,8 @@ Use this checklist for operating with `Spitfire-Cowboy/*` as canonical and `Pro7
 - [ ] Keep fork-safe/minimal checks on GitHub-hosted runners.
 - [ ] Add workflow `concurrency` and `paths` filters where possible.
 - [ ] Capture baseline and weekly runtime snapshots with `scripts/ops/workflow_runtime_inventory.sh`.
+- [ ] Enable and verify `runner-cleanup.timer` on Hetzner hosts.
+- [ ] Run one incident-response drill from `docs/ops/RUNNER_INCIDENT_RESPONSE.md`.
 
 ## 5) Integrations and Webhooks
 

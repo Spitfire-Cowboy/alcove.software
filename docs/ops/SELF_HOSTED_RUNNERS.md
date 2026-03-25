@@ -10,21 +10,32 @@ This baseline is for reducing GitHub-hosted Actions usage for `Spitfire-Cowboy` 
 
 ## Files
 
+- `deploy/hetzner-runners/bootstrap_host.sh`
 - `deploy/hetzner-runners/docker-compose.yml`
 - `deploy/hetzner-runners/.env.example`
+- `deploy/hetzner-runners/harden_firewall.sh`
+- `deploy/hetzner-runners/cleanup_runner_data.sh`
+- `deploy/hetzner-runners/check_runner_registration.sh`
 - `deploy/hetzner-runners/systemd/runner-fleet.service`
+- `deploy/hetzner-runners/systemd/runner-cleanup.service`
+- `deploy/hetzner-runners/systemd/runner-cleanup.timer`
+- `docs/ops/RUNNER_INCIDENT_RESPONSE.md`
 
 ## Quick Start
 
 1. Provision a Hetzner VM (Ubuntu 24.04+).
-2. Install Docker + Compose plugin.
-3. Copy `deploy/hetzner-runners/` to `/opt/runner-fleet`.
-4. Create `/opt/runner-fleet/.env` from `.env.example`.
+2. Run bootstrap from this repo:
+   - `sudo deploy/hetzner-runners/bootstrap_host.sh`
+3. Edit `/opt/runner-fleet/.env` and set `ACCESS_TOKEN`.
+4. Optionally apply firewall baseline:
+   - `sudo /opt/runner-fleet/harden_firewall.sh`
 5. Start services:
-   - `docker compose up -d`
+   - `sudo systemctl enable --now runner-fleet.service`
 6. Confirm runners appear in GitHub org settings with labels:
    - `cpu-default`
    - `high-mem`
+7. Verify registration and online count:
+   - `GH_TOKEN=... ORG_NAME=Spitfire-Cowboy /opt/runner-fleet/check_runner_registration.sh`
 
 ## Workflow Label Policy
 
@@ -59,6 +70,10 @@ This allows progressive cutover without editing workflow files for rollback.
 - Enforce outbound allowlist where feasible.
 - Rotate registration token/PAT regularly.
 - Add job `timeout-minutes` and workflow `concurrency`.
+- Enable cleanup timer:
+  - `sudo systemctl enable --now runner-cleanup.timer`
+- Practice incident response from:
+  - `docs/ops/RUNNER_INCIDENT_RESPONSE.md`
 
 ## Rollout Sequence
 
@@ -68,3 +83,6 @@ This allows progressive cutover without editing workflow files for rollback.
 4. Keep rollback path to GitHub-hosted runner labels.
 5. Track workflow runtime and queue pressure with:
    - `scripts/ops/workflow_runtime_inventory.sh`
+6. Restrict runner group repository access to:
+   - `Spitfire-Cowboy/alcove-private`
+   - `Spitfire-Cowboy/alcove-demo`
