@@ -23,3 +23,4 @@
 - `robots.txt` and `sitemap.xml` available at root
 - Search engines can discover docs
 - AI crawlers are explicitly allowed
+- Search console onboarding completed via `docs/ops/SEARCH_INDEXING_ONBOARDING.md`

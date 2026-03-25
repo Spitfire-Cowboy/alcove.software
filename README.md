@@ -21,6 +21,9 @@ Artifacts are served directly from `site/`.
 
 GitHub Actions deploys `site/` to GitHub Pages from `main`.
 
+Search indexing operator runbook:
+- `docs/ops/SEARCH_INDEXING_ONBOARDING.md`
+
 ## Scope
 
 This repo is intentionally separate from the core `alcove` engine codebase.
