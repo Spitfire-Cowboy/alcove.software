@@ -5,6 +5,7 @@ set -euo pipefail
 : "${DEST_TOKEN:?DEST_TOKEN is required}"
 
 pairs=(
+  "Pro777/alcove Spitfire-Cowboy/alcove main"
   "Pro777/alcove-private Spitfire-Cowboy/alcove-private develop"
   "Pro777/alcove-demo Spitfire-Cowboy/alcove-demo main"
 )

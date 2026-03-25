@@ -20,6 +20,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - source_repo: Pro777/alcove
+            dest_repo: Spitfire-Cowboy/alcove
           - source_repo: Pro777/alcove-private
             dest_repo: Spitfire-Cowboy/alcove-private
           - source_repo: Pro777/alcove-demo
