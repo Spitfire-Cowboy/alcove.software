@@ -31,6 +31,7 @@ Use this checklist for operating with `Spitfire-Cowboy/*` as canonical and `Pro7
 - [ ] Set `ALCOVE_RUNNER_LABELS_JSON` (repo/org variable) for controlled self-hosted routing.
 - [ ] Move heavy jobs to `self-hosted` labels.
 - [ ] Keep fork-safe/minimal checks on GitHub-hosted runners.
+- [ ] Run `./scripts/ops/audit_runner_routing.sh` and verify `runner-routing-audit` workflow is passing.
 - [ ] Add workflow `concurrency` and `paths` filters where possible.
 - [ ] Capture baseline and weekly runtime snapshots with `scripts/ops/workflow_runtime_inventory.sh`.
 - [ ] Enable and verify `runner-cleanup.timer` on Hetzner hosts.
