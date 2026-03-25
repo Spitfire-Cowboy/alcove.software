@@ -6,6 +6,7 @@ SITE_DIR="$ROOT_DIR/site"
 
 required=(
   "$SITE_DIR/index.html"
+  "$SITE_DIR/docs/index.html"
   "$SITE_DIR/robots.txt"
   "$SITE_DIR/sitemap.xml"
   "$SITE_DIR/llms.txt"
@@ -40,6 +41,11 @@ fi
 
 if ! grep -Eq '<loc>https://alcove\.software/llms\.txt</loc>' "$SITE_DIR/sitemap.xml"; then
   echo "sitemap.xml missing llms manifest URL" >&2
+  exit 1
+fi
+
+if ! grep -Eq '<loc>https://alcove\.software/docs/</loc>' "$SITE_DIR/sitemap.xml"; then
+  echo "sitemap.xml missing docs landing URL" >&2
   exit 1
 fi
 

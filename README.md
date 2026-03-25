@@ -20,6 +20,7 @@ Artifacts are served directly from `site/`.
 ## Deployment
 
 GitHub Actions deploys `site/` to GitHub Pages from `main`.
+Public docs landing page is served at `https://alcove.software/docs/`.
 
 Search indexing operator runbook:
 - `docs/ops/SEARCH_INDEXING_ONBOARDING.md`
