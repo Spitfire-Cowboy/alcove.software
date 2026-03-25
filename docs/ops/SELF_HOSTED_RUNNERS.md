@@ -28,7 +28,7 @@ This baseline is for reducing GitHub-hosted Actions usage for `Spitfire-Cowboy` 
    - `sudo deploy/hetzner-runners/bootstrap_host.sh`
 3. Edit `/opt/runner-fleet/.env` and set `ACCESS_TOKEN`.
 4. Optionally apply firewall baseline:
-   - `sudo /opt/runner-fleet/harden_firewall.sh`
+   - `sudo ALLOW_UFW_RESET=1 /opt/runner-fleet/harden_firewall.sh`
 5. Start services:
    - `sudo systemctl enable --now runner-fleet.service`
 6. Confirm runners appear in GitHub org settings with labels:

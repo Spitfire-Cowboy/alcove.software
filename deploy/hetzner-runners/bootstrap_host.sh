@@ -26,6 +26,7 @@ apt-get install -y \
   curl \
   docker.io \
   docker-compose-plugin \
+  gh \
   jq \
   rsync \
   ufw
@@ -36,6 +37,7 @@ systemctl enable --now docker
 echo "[bootstrap] Preparing fleet directory at ${TARGET_DIR}..."
 mkdir -p "${TARGET_DIR}"
 rsync -a --delete \
+  --filter 'P .env' \
   --exclude 'runner-data/' \
   "${SCRIPT_DIR}/" "${TARGET_DIR}/"
 

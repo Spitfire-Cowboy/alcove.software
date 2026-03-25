@@ -16,6 +16,13 @@ if ! command -v ufw >/dev/null 2>&1; then
 fi
 
 echo "[firewall] applying baseline policy..."
+echo "[firewall] WARNING: this can reset existing UFW rules"
+ufw_state="$(ufw status | head -n1 | awk '{print tolower($2)}')"
+if [ "${ufw_state}" != "inactive" ] && [ "${ALLOW_UFW_RESET:-0}" != "1" ]; then
+  echo "UFW is active. Re-run with ALLOW_UFW_RESET=1 to confirm reset." >&2
+  exit 1
+fi
+
 ufw --force reset >/dev/null
 ufw default deny incoming >/dev/null
 ufw default allow outgoing >/dev/null
@@ -41,4 +48,3 @@ fi
 
 ufw --force enable >/dev/null
 ufw status verbose
-

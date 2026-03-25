@@ -8,10 +8,25 @@ if [ -z "${GH_TOKEN:-}" ]; then
   exit 1
 fi
 
-json="$(gh api "orgs/${ORG_NAME}/actions/runners?per_page=100")"
+tmp_file="$(mktemp)"
+trap 'rm -f "$tmp_file"' EXIT
+echo "[]" > "$tmp_file"
 
-total="$(jq '.total_count' <<< "${json}")"
-online="$(jq '[.runners[] | select(.status=="online")] | length' <<< "${json}")"
+page=1
+while true; do
+  resp="$(gh api "orgs/${ORG_NAME}/actions/runners?per_page=100&page=${page}")"
+  page_count="$(jq '.runners | length' <<< "${resp}")"
+  if [ "${page_count}" -eq 0 ]; then
+    break
+  fi
+
+  jq -s '.[0] + .[1]' "$tmp_file" <(jq '.runners' <<< "${resp}") > "${tmp_file}.new"
+  mv "${tmp_file}.new" "$tmp_file"
+  page=$((page + 1))
+done
+
+total="$(jq 'length' "$tmp_file")"
+online="$(jq '[.[] | select(.status=="online")] | length' "$tmp_file")"
 
 echo "org=${ORG_NAME}"
 echo "total_runners=${total}"
@@ -19,10 +34,9 @@ echo "online_runners=${online}"
 echo
 echo "labels:"
 jq -r '
-  [.runners[] | .labels[]?.name]
+  [.[] | .labels[]?.name]
   | sort
   | group_by(.)
   | map("\(.[0])=\(length)")
   | .[]
-' <<< "${json}"
-
+' "$tmp_file"
