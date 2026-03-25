@@ -1,6 +1,6 @@
 # Spitfire-Cowboy Cutover Checklist
 
-Use this checklist for completing migration from `Pro777/*` to `Spitfire-Cowboy/*`.
+Use this checklist for operating with `Spitfire-Cowboy/*` as canonical and `Pro777/*` as mirrors.
 
 ## 1) Mirror Baseline
 
@@ -11,7 +11,9 @@ Use this checklist for completing migration from `Pro777/*` to `Spitfire-Cowboy/
 
 ## 2) Secrets and Environments
 
+- [ ] `SPITFIRE_MIRROR_PAT` set and documented owner/expiry.
 - [ ] `PRO777_MIRROR_PAT` set and documented owner/expiry.
+- [ ] Destination SSH key secret present (`PRO777_MIRROR_SSH_KEY`, or fallback `SPITFIRE_MIRROR_SSH_KEY`).
 - [ ] Destination repos have all required Actions secrets.
 - [ ] Destination repos have all required environment secrets/approvals.
 - [ ] Rotate mirror PAT to least privilege after initial validation.
@@ -39,7 +41,7 @@ Use this checklist for completing migration from `Pro777/*` to `Spitfire-Cowboy/
 
 ## 6) Cutover Execution
 
-- [ ] Announce freeze window and stop source writes.
+- [ ] Announce freeze window and stop destination (`Pro777/*`) writes.
 - [ ] Run final manual mirror workflow.
 - [ ] Switch docs/remotes/automation to `Spitfire-Cowboy/*` canonical URLs.
-- [ ] Monitor for 7-14 days and then archive/lock source repos.
+- [ ] Monitor for 7-14 days and then archive/lock destination mirror repos if no longer needed.
