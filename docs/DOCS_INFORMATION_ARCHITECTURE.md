@@ -10,6 +10,7 @@ This is the public documentation map for `alcove.software`.
   - `docs/TRUST_MODEL.md`
 - API
   - `docs/API_READONLY_OVERVIEW.md`
+  - `docs/API_READONLY_SPEC.md`
 - FAQ
   - `docs/FAQ.md`
 
@@ -28,4 +29,6 @@ This is the public documentation map for `alcove.software`.
   - `docs/CHANGELOG_POLICY.md`
 - Docs contribution model
   - `docs/DOCS_CONTRIBUTION_MODEL.md`
-
+- Federation schema/governance
+  - `docs/FEDERATION_DIRECTORY_SPEC.md`
+  - `docs/FEDERATION_GOVERNANCE.md`
