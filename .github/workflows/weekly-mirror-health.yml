@@ -58,6 +58,6 @@ jobs:
             cat "${{ steps.report.outputs.report_path }}"
           } > "$body"
 
-          gh api --method POST \
+          ./scripts/ops/gh_api_retry.sh --method POST \
             /repos/Spitfire-Cowboy/alcove.software/issues/9/comments \
             -F body=@"$body"

@@ -8,6 +8,8 @@ set -euo pipefail
 ORG="${ORG:-Spitfire-Cowboy}"
 REPOS="${REPOS:-alcove-private alcove-demo}"
 DAYS="${DAYS:-14}"
+OPS_DIR="$(cd "$(dirname "$0")" && pwd)"
+GH_API_RETRY="${OPS_DIR}/gh_api_retry.sh"
 
 if ! [[ "$DAYS" =~ ^[0-9]+$ ]]; then
   echo "DAYS must be a non-negative integer" >&2
@@ -18,7 +20,7 @@ tmp_file="$(mktemp)"
 trap 'rm -f "$tmp_file"' EXIT
 
 for repo in $REPOS; do
-  gh api "repos/${ORG}/${repo}/actions/runs?per_page=100" \
+  "$GH_API_RETRY" "repos/${ORG}/${repo}/actions/runs?per_page=100" \
     | jq -c \
       --arg repo "$repo" \
       --argjson days "$DAYS" \

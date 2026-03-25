@@ -5,6 +5,8 @@ set -euo pipefail
 
 repo="Spitfire-Cowboy/alcove.software"
 max_age_days="${MAX_SECRET_AGE_DAYS:-30}"
+OPS_DIR="$(cd "$(dirname "$0")" && pwd)"
+GH_API_RETRY="${OPS_DIR}/gh_api_retry.sh"
 required_secrets=(
   "SPITFIRE_MIRROR_PAT"
   "PRO777_MIRROR_PAT"
@@ -14,7 +16,7 @@ ssh_key_candidates=(
   "SPITFIRE_MIRROR_SSH_KEY"
 )
 
-json=$(gh api "/repos/${repo}/actions/secrets?per_page=100")
+json=$("$GH_API_RETRY" "/repos/${repo}/actions/secrets?per_page=100")
 now_epoch=$(date -u +%s)
 violations=0
 
