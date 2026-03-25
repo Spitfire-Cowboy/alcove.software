@@ -23,13 +23,38 @@ if ! grep -Eq '^Sitemap: https://alcove\.software/sitemap\.xml$' "$SITE_DIR/robo
   exit 1
 fi
 
+if ! grep -Eq '^User-agent: Googlebot$' "$SITE_DIR/robots.txt"; then
+  echo "robots.txt missing Googlebot policy stanza" >&2
+  exit 1
+fi
+
+if ! grep -Eq '^User-agent: Bingbot$' "$SITE_DIR/robots.txt"; then
+  echo "robots.txt missing Bingbot policy stanza" >&2
+  exit 1
+fi
+
 if ! grep -Eq '<loc>https://alcove\.software/</loc>' "$SITE_DIR/sitemap.xml"; then
   echo "sitemap.xml missing root URL" >&2
   exit 1
 fi
 
-if ! grep -Eq 'https://github.com/Pro777/alcove' "$SITE_DIR/llms.txt"; then
+if ! grep -Eq '<loc>https://alcove\.software/llms\.txt</loc>' "$SITE_DIR/sitemap.xml"; then
+  echo "sitemap.xml missing llms manifest URL" >&2
+  exit 1
+fi
+
+if ! grep -Eq 'https://github.com/Spitfire-Cowboy/alcove' "$SITE_DIR/llms.txt"; then
   echo "llms.txt missing canonical codebase URL" >&2
+  exit 1
+fi
+
+if ! grep -Eq '<meta name="robots" content="index,follow' "$SITE_DIR/index.html"; then
+  echo "index.html missing index/follow robots meta" >&2
+  exit 1
+fi
+
+if ! grep -Eq '<link rel="canonical" href="https://alcove\.software/">' "$SITE_DIR/index.html"; then
+  echo "index.html missing canonical URL tag" >&2
   exit 1
 fi
 

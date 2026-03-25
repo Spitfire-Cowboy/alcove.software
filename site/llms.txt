@@ -7,4 +7,4 @@ Alcove is local-first search infrastructure.
 - AI optional, not mandatory.
 - Retrieval, not generation.
 
-Primary codebase: https://github.com/Pro777/alcove
+Primary codebase: https://github.com/Spitfire-Cowboy/alcove
