@@ -5,7 +5,7 @@ Use this checklist for completing migration from `Pro777/*` to `Spitfire-Cowboy/
 ## 1) Mirror Baseline
 
 - [ ] Scheduled mirror workflow passes in `Spitfire-Cowboy/alcove.software`.
-- [ ] Manual workflow dispatch passes for both repo pairs.
+- [ ] Manual workflow dispatch passes for all configured repo pairs (`alcove`, `alcove-private`, `alcove-demo`).
 - [ ] Branch/tag counts match between source and destination.
 - [ ] Default branch commit SHAs match per repo.
 

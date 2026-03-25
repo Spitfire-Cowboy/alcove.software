@@ -2,6 +2,7 @@
 
 This repository runs scheduled one-way mirroring for:
 
+- `Pro777/alcove` -> `Spitfire-Cowboy/alcove`
 - `Pro777/alcove-private` -> `Spitfire-Cowboy/alcove-private`
 - `Pro777/alcove-demo` -> `Spitfire-Cowboy/alcove-demo`
 
@@ -39,7 +40,8 @@ Script: `scripts/ops/mirror_repo_pair.sh`
 ## Operational Rules
 
 - Source repos remain canonical until final cutover.
-- Destination repos stay private and non-forkable.
+- Destination private repos stay private and non-forkable.
+- `Spitfire-Cowboy/alcove` mirrors public visibility from `Pro777/alcove`.
 - During transition, all production writes happen to source repos only.
 
 ## Final Cutover Steps

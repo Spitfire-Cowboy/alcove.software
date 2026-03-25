@@ -2,6 +2,7 @@
 
 This policy automation keeps migration target repositories in compliant state:
 
+- `Spitfire-Cowboy/alcove`
 - `Spitfire-Cowboy/alcove-private`
 - `Spitfire-Cowboy/alcove-demo`
 
@@ -10,9 +11,11 @@ Script: `scripts/ops/enforce_spitfire_repo_policy.sh`
 
 ## Enforced Rules
 
-- Repositories are private.
+- `alcove` stays public.
+- `alcove-private` and `alcove-demo` stay private.
 - Private repository forking remains disabled.
 - Default branches are pinned:
+  - `alcove`: `main`
   - `alcove-private`: `develop`
   - `alcove-demo`: `main`
 
