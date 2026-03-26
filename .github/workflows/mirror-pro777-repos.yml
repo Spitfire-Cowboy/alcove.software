@@ -18,6 +18,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
   group: mirror-spitfire-repos
@@ -70,6 +71,8 @@ jobs:
           chmod 644 ~/.ssh/known_hosts
 
       - name: Mirror source to destination
+        id: mirror
+        continue-on-error: true
         env:
           SOURCE_REPO: ${{ matrix.source_repo }}
           DEST_REPO: ${{ matrix.dest_repo }}
@@ -79,3 +82,13 @@ jobs:
           MAX_PRUNE_DELETIONS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.max_prune_deletions || '5' }}
           ALLOW_FORCE_MIRROR: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.allow_force_mirror == 'true' && '1' || '0' }}
         run: ./scripts/ops/mirror_repo_pair.sh
+
+      - name: Open mirror issue on failure
+        if: steps.mirror.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          title="Mirror sync blocked (${ts})"
+          body="Mirror attempt failed for `${{ matrix.source_repo }}` -> `${{ matrix.dest_repo }}`.\n\nThis workflow is advisory while destination branch protections require PR-based updates.\n\nRunbook: docs/ops/MIRRORING.md and docs/ops/CUTOVER_CHECKLIST.md"
+          gh issue create --repo Spitfire-Cowboy/alcove.software --title "$title" --body "$body" || true
