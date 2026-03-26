@@ -39,13 +39,14 @@ jobs:
 
       - name: Check parity
         id: parity
+        continue-on-error: true
         env:
           SOURCE_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
           DEST_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
         run: ./scripts/ops/check_mirror_parity.sh
 
       - name: Open drift issue on failure
-        if: failure()
+        if: steps.parity.outcome == 'failure'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
