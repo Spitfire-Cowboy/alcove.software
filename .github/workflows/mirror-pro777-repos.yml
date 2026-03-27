@@ -17,7 +17,9 @@ on:
         type: string
 
 permissions:
+  actions: read
   contents: read
+  issues: write
 
 concurrency:
   group: mirror-spitfire-repos
@@ -40,7 +42,7 @@ jobs:
             dest_repo: Pro777/alcove-demo
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           persist-credentials: false
 
@@ -70,6 +72,8 @@ jobs:
           chmod 644 ~/.ssh/known_hosts
 
       - name: Mirror source to destination
+        id: mirror
+        continue-on-error: true
         env:
           SOURCE_REPO: ${{ matrix.source_repo }}
           DEST_REPO: ${{ matrix.dest_repo }}
@@ -79,3 +83,65 @@ jobs:
           MAX_PRUNE_DELETIONS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.max_prune_deletions || '5' }}
           ALLOW_FORCE_MIRROR: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.allow_force_mirror == 'true' && '1' || '0' }}
         run: ./scripts/ops/mirror_repo_pair.sh
+
+      - name: Open mirror issue on failure
+        if: steps.mirror.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          title="Mirror sync blocked (rolling incident)"
+          body="Mirror attempt failed for ${{ matrix.source_repo }} -> ${{ matrix.dest_repo }}.\n\nThis workflow is advisory while destination branch protections require PR-based updates.\n\nRunbook: docs/ops/MIRRORING.md and docs/ops/CUTOVER_CHECKLIST.md"
+          issue_number="$(gh issue list --repo Spitfire-Cowboy/alcove.software --state open --search "$title in:title" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -1)"
+          if [ -z "$issue_number" ]; then
+            issue_number="$(gh api repos/Spitfire-Cowboy/alcove.software/issues -X POST -f title="$title" -f body="$body" --jq '.number')"
+          fi
+          marker="mirror-alert type:mirror-blocked run:${{ github.run_id }}"
+          existing_for_run="$(gh api repos/Spitfire-Cowboy/alcove.software/issues/$issue_number/comments?per_page=200 --jq "[.[] | select(.body | contains(\"${marker}\"))] | length")"
+          if [ "${existing_for_run}" -gt 0 ]; then
+            echo "Run marker already posted for this run; skipping duplicate incident comment."
+            exit 0
+          fi
+          gh issue comment "$issue_number" --repo Spitfire-Cowboy/alcove.software --body "[$ts] mirror blocked for \`${{ matrix.source_repo }} -> ${{ matrix.dest_repo }}\` in run: $run_url\n\n<!-- ${marker} -->"
+
+  close-rolling-incident:
+    needs: mirror
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: read
+      issues: write
+    steps:
+      - name: Close rolling mirror-blocked issue after healthy streak
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          title="Mirror sync blocked (rolling incident)"
+          issue_number="$(gh issue list --repo Spitfire-Cowboy/alcove.software --state open --search "$title in:title" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -1)"
+          if [ -z "$issue_number" ]; then
+            echo "No open rolling mirror-blocked issue."
+            exit 0
+          fi
+
+          # Close only after 3 consecutive runs with no failure marker.
+          streak_runs="$(gh api repos/Spitfire-Cowboy/alcove.software/actions/workflows/mirror-pro777-repos.yml/runs?per_page=3 --jq '.workflow_runs[].id')"
+          comments="$(gh api repos/Spitfire-Cowboy/alcove.software/issues/$issue_number/comments?per_page=200 --jq '.[].body')"
+          unhealthy=0
+          while read -r run_id; do
+            [ -z "$run_id" ] && continue
+            if printf '%s\n' "$comments" | grep -q "mirror-alert type:mirror-blocked run:${run_id}"; then
+              unhealthy=1
+              break
+            fi
+          done <<< "$streak_runs"
+
+          if [ "$unhealthy" -eq 0 ]; then
+            ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            gh issue comment "$issue_number" --repo Spitfire-Cowboy/alcove.software --body "[$ts] Closing after 3 healthy mirror runs with no block marker."
+            gh issue close "$issue_number" --repo Spitfire-Cowboy/alcove.software
+          else
+            echo "Healthy streak not reached yet."
+          fi
