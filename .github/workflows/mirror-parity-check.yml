@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   issues: write
 
@@ -51,6 +52,43 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          title="Mirror parity drift detected (${ts})"
+          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          title="Mirror parity drift detected (rolling incident)"
           body="Automatic parity check detected divergence between Spitfire-Cowboy canonical repos and Pro777 mirrors.\n\nRunbook: docs/ops/MIRRORING.md and docs/ops/CUTOVER_CHECKLIST.md"
-          gh issue create --repo Spitfire-Cowboy/alcove.software --title "$title" --body "$body" || true
+          issue_number="$(gh issue list --repo Spitfire-Cowboy/alcove.software --state open --search "$title in:title" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -1)"
+          if [ -z "$issue_number" ]; then
+            issue_number="$(gh api repos/Spitfire-Cowboy/alcove.software/issues -X POST -f title="$title" -f body="$body" --jq '.number')"
+          fi
+          gh issue comment "$issue_number" --repo Spitfire-Cowboy/alcove.software --body "[$ts] parity drift detected in run: $run_url\n\n<!-- mirror-alert type:parity-drift run:${{ github.run_id }} -->"
+
+      - name: Close rolling parity issue after healthy streak
+        if: steps.parity.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          title="Mirror parity drift detected (rolling incident)"
+          issue_number="$(gh issue list --repo Spitfire-Cowboy/alcove.software --state open --search "$title in:title" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -1)"
+          if [ -z "$issue_number" ]; then
+            echo "No open rolling parity issue."
+            exit 0
+          fi
+
+          streak_runs="$(gh api repos/Spitfire-Cowboy/alcove.software/actions/workflows/mirror-parity-check.yml/runs?per_page=3 --jq '.workflow_runs[].id')"
+          comments="$(gh api repos/Spitfire-Cowboy/alcove.software/issues/$issue_number/comments?per_page=200 --jq '.[].body')"
+          unhealthy=0
+          while read -r run_id; do
+            [ -z "$run_id" ] && continue
+            if printf '%s\n' "$comments" | grep -q "mirror-alert type:parity-drift run:${run_id}"; then
+              unhealthy=1
+              break
+            fi
+          done <<< "$streak_runs"
+
+          if [ "$unhealthy" -eq 0 ]; then
+            ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            gh issue comment "$issue_number" --repo Spitfire-Cowboy/alcove.software --body "[$ts] Closing after 3 healthy parity runs with no drift marker."
+            gh issue close "$issue_number" --repo Spitfire-Cowboy/alcove.software
+          else
+            echo "Healthy streak not reached yet."
+          fi
