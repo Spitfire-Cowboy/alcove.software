@@ -89,6 +89,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -euo pipefail
           ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           title="Mirror sync blocked (rolling incident)"
@@ -97,7 +98,13 @@ jobs:
           if [ -z "$issue_number" ]; then
             issue_number="$(gh api repos/Spitfire-Cowboy/alcove.software/issues -X POST -f title="$title" -f body="$body" --jq '.number')"
           fi
-          gh issue comment "$issue_number" --repo Spitfire-Cowboy/alcove.software --body "[$ts] mirror blocked for \`${{ matrix.source_repo }} -> ${{ matrix.dest_repo }}\` in run: $run_url\n\n<!-- mirror-alert type:mirror-blocked run:${{ github.run_id }} -->"
+          marker="mirror-alert type:mirror-blocked run:${{ github.run_id }}"
+          existing_for_run="$(gh api repos/Spitfire-Cowboy/alcove.software/issues/$issue_number/comments?per_page=200 --jq "[.[] | select(.body | contains(\"${marker}\"))] | length")"
+          if [ "${existing_for_run}" -gt 0 ]; then
+            echo "Run marker already posted for this run; skipping duplicate incident comment."
+            exit 0
+          fi
+          gh issue comment "$issue_number" --repo Spitfire-Cowboy/alcove.software --body "[$ts] mirror blocked for \`${{ matrix.source_repo }} -> ${{ matrix.dest_repo }}\` in run: $run_url\n\n<!-- ${marker} -->"
 
   close-rolling-incident:
     needs: mirror

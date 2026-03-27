@@ -54,6 +54,11 @@ Script: `scripts/ops/mirror_repo_pair.sh`
 - Drift check workflow: `.github/workflows/mirror-parity-check.yml`
 - Weekly status workflow: `.github/workflows/weekly-mirror-health.yml`
 - Weekly status is appended as comments to issue #9.
+- Rolling incident issues:
+  - Parity drift: #116
+  - Mirror blocked: #117
+- Alert dedupe: workflows post at most one marker comment per workflow run to each rolling incident issue.
+- Closure condition: rolling incidents auto-close only after 3 consecutive healthy workflow runs.
 
 ## Operational Rules
 
