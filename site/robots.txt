@@ -14,12 +14,12 @@ User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ClaudeBot
-Disallow: /
+Allow: /
 
 User-agent: Claude-SearchBot
-Disallow: /
+Allow: /
 
 User-agent: Claude-User
-Disallow: /
+Allow: /
 
 Sitemap: https://alcove.software/sitemap.xml
