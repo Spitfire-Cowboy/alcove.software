@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alcove Software</title>
   <meta name="description" content="Alcove is local-first search infrastructure. Retrieval, not generation.">
-  <meta name="plausible-domain" content="alcove.software">
-  <meta name="plausible-script-src" content="https://analytics.spitfirecowboy.com/js/script.js">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="https://alcove.software/">
+  <script defer data-domain="alcove.software" src="https://analytics.spitfirecowboy.com/js/script.js"></script>
   <style>
     :root {
       --bg: #f9faf8;
@@ -98,22 +97,6 @@
       font-size: 0.9rem;
     }
   </style>
-  <script>
-    (function () {
-      const domain = document
-        .querySelector('meta[name="plausible-domain"]')
-        ?.getAttribute("content");
-      const src = document
-        .querySelector('meta[name="plausible-script-src"]')
-        ?.getAttribute("content");
-      if (!domain || !src) return;
-      const script = document.createElement("script");
-      script.defer = true;
-      script.setAttribute("data-domain", domain);
-      script.src = src;
-      document.head.appendChild(script);
-    })();
-  </script>
 </head>
 <body>
   <main class="wrap">
