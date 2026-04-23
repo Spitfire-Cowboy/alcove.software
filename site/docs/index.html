@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alcove Docs</title>
   <meta name="description" content="Public operator documentation for alcove.software">
+  <meta name="plausible-domain" content="alcove.software">
+  <meta name="plausible-script-src" content="https://analytics.spitfirecowboy.com/js/script.js">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://alcove.software/docs/">
   <style>
@@ -53,6 +55,22 @@
       gap: 0.8rem 1rem;
     }
   </style>
+  <script>
+    (function () {
+      const domain = document
+        .querySelector('meta[name="plausible-domain"]')
+        ?.getAttribute("content");
+      const src = document
+        .querySelector('meta[name="plausible-script-src"]')
+        ?.getAttribute("content");
+      if (!domain || !src) return;
+      const script = document.createElement("script");
+      script.defer = true;
+      script.setAttribute("data-domain", domain);
+      script.src = src;
+      document.head.appendChild(script);
+    })();
+  </script>
 </head>
 <body>
   <main>
