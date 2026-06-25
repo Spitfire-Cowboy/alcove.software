@@ -4,19 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alcove Software</title>
-  <meta name="description" content="Alcove is local-first search infrastructure. Retrieval, not generation.">
+  <meta name="description" content="Alcove is local-first document retrieval infrastructure: operator-controlled indexes, retrieval instead of generation, and optional AI.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="https://alcove.software/">
   <script defer data-domain="alcove.software" src="https://analytics.spitfirecowboy.com/js/script.js"></script>
   <style>
     :root {
-      --bg: #f9faf8;
-      --ink: #1f2a1f;
+      --bg: #f7faf6;
+      --ink: #182319;
       --muted: #4c5a4c;
       --card: #ffffff;
       --line: #d9e2d5;
       --brand: #1f6f43;
       --brand-2: #0f5130;
+      --shadow: 0 18px 40px rgba(21, 43, 24, 0.08);
     }
     * { box-sizing: border-box; }
     body {
@@ -24,27 +25,114 @@
       font-family: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at top right, #e8f5ea 0, transparent 45%),
-        radial-gradient(circle at bottom left, #eef3ea 0, transparent 45%),
+        radial-gradient(circle at top right, #e8f5ea 0, transparent 42%),
+        radial-gradient(circle at bottom left, #eef3ea 0, transparent 42%),
         var(--bg);
-      line-height: 1.5;
+      line-height: 1.55;
     }
     .wrap {
-      max-width: 900px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 2.5rem 1.25rem 4rem;
     }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 0.85rem;
+      padding: 0.28rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--brand-2);
+      background: #eef8f0;
+      border: 1px solid #cfe2d1;
+    }
     h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.1;
-      margin: 0 0 0.75rem;
-      letter-spacing: -0.02em;
+      font-size: clamp(2.2rem, 4.8vw, 4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      margin: 0 0 0.9rem;
+      max-width: 11ch;
     }
     p.lead {
       font-size: 1.12rem;
       color: var(--muted);
-      margin: 0 0 1.75rem;
-      max-width: 62ch;
+      margin: 0 0 1.25rem;
+      max-width: 60ch;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.8rem;
+      margin: 1.25rem 0 0;
+    }
+    .summary .stat {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 0.85rem 0.9rem;
+    }
+    .summary strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+    .summary span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .actions {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    a.btn {
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 0.68rem 0.96rem;
+      font-weight: 600;
+      transition: transform 120ms ease, opacity 120ms ease;
+      border: 1px solid transparent;
+    }
+    a.btn:hover { transform: translateY(-1px); opacity: 0.97; }
+    a.btn.primary { background: var(--brand); color: #fff; }
+    a.btn.secondary {
+      color: var(--brand-2);
+      border-color: #bcd4c1;
+      background: #f3faf4;
+    }
+    .shot {
+      background: rgba(255,255,255,0.76);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 0.9rem;
+      box-shadow: var(--shadow);
+    }
+    .shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid #d7e3d8;
+    }
+    .caption {
+      margin-top: 0.65rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    section.block { margin-top: 2.2rem; }
+    h2.section-title {
+      margin: 0 0 0.9rem;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
     }
     .grid {
       display: grid;
@@ -58,79 +146,128 @@
       padding: 1rem;
       box-shadow: 0 8px 24px rgba(31, 42, 31, 0.05);
     }
-    .card h2 {
+    .card h3 {
       margin: 0 0 0.4rem;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
     }
     .card p {
       margin: 0;
       color: var(--muted);
       font-size: 0.95rem;
     }
-    .actions {
-      margin-top: 1.75rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
+    .three-up {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
     }
-    a.btn {
+    .mini-link {
       text-decoration: none;
-      border-radius: 10px;
-      padding: 0.62rem 0.9rem;
-      font-weight: 600;
-      transition: transform 120ms ease, opacity 120ms ease;
-      border: 1px solid transparent;
+      color: inherit;
+      display: block;
     }
-    a.btn:hover { transform: translateY(-1px); opacity: 0.96; }
-    a.btn.primary {
-      background: var(--brand);
-      color: #fff;
-    }
-    a.btn.secondary {
-      color: var(--brand-2);
-      border-color: #bcd4c1;
-      background: #f3faf4;
-    }
+    .mini-link:hover h3 { color: var(--brand); }
     footer {
-      margin-top: 2.25rem;
+      margin-top: 2.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--line);
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
+    }
+    footer a { color: var(--brand-2); }
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+      h1 { max-width: none; }
     }
   </style>
 </head>
 <body>
   <main class="wrap">
-    <h1>Alcove, indexed for the open web.</h1>
-    <p class="lead">
-      This site is the public surface for Alcove: local-first search infrastructure.
-      Alcove retrieves real document text from local indexes. It is retrieval, not generation.
-    </p>
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Local-first document retrieval</span>
+        <h1>Search infrastructure for documents you control.</h1>
+        <p class="lead">
+          Alcove ingests local files, builds local indexes, and returns matching excerpts through a CLI or local web API.
+          It is retrieval, not generation: real text from operator-controlled corpora, with semantic search as an option instead of a requirement.
+        </p>
 
-    <section class="grid" aria-label="Key points">
-      <article class="card">
-        <h2>Local-first by design</h2>
-        <p>Data stays on operator-controlled disk by default. No mandatory cloud dependencies.</p>
-      </article>
-      <article class="card">
-        <h2>Retrieval system</h2>
-        <p>Alcove finds relevant chunks and returns them. It does not fabricate new content.</p>
-      </article>
-      <article class="card">
-        <h2>AI optional</h2>
-        <p>Semantic embedding is opt-in. Operators choose whether and where AI is involved.</p>
-      </article>
+        <div class="actions" aria-label="Primary links">
+          <a class="btn primary" href="https://github.com/Spitfire-Cowboy/alcove">View the core repository</a>
+          <a class="btn secondary" href="/docs/">Read the public docs</a>
+          <a class="btn secondary" href="https://spitfire-cowboy.github.io/alcove/demo.html">See the 30-second demo</a>
+        </div>
+
+        <div class="summary" aria-label="Alcove summary">
+          <div class="stat">
+            <strong>Local by default</strong>
+            <span>Indexes live on operator-controlled disk.</span>
+          </div>
+          <div class="stat">
+            <strong>Retrieval, not generation</strong>
+            <span>Results are excerpts, not invented answers.</span>
+          </div>
+          <div class="stat">
+            <strong>AI optional</strong>
+            <span>Hash, semantic, or hybrid search depending on operator choice.</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="shot" aria-label="Alcove screenshot">
+        <img src="/assets/web-ui-light.png" alt="Alcove local search web UI from the public core repository">
+        <p class="caption">
+          Screenshot from the public <a href="https://github.com/Spitfire-Cowboy/alcove">Alcove core repository</a>.
+          The shipped runtime includes a local web UI, CLI, API server, and machine-readable capability surface.
+        </p>
+      </aside>
     </section>
 
-    <nav class="actions" aria-label="Primary links">
-      <a class="btn primary" href="https://github.com/Spitfire-Cowboy/alcove">Core Repository</a>
-      <a class="btn secondary" href="/docs/">Docs</a>
-      <a class="btn secondary" href="/llms.txt">LLMs Manifest</a>
-      <a class="btn secondary" href="/sitemap.xml">Sitemap</a>
-      <a class="btn secondary" href="/robots.txt">Robots Policy</a>
-    </nav>
+    <section class="block" aria-labelledby="what-you-get">
+      <h2 id="what-you-get" class="section-title">What Alcove gives you</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Operator-controlled retrieval</h3>
+          <p>Recursive ingest, chunking, indexing, and query over local corpora without turning the product into a chat wrapper.</p>
+        </article>
+        <article class="card">
+          <h3>Multiple search modes</h3>
+          <p>Keyword, semantic, and hybrid retrieval are all available, with deterministic offline defaults for smoke tests and low-trust environments.</p>
+        </article>
+        <article class="card">
+          <h3>Composable runtime surfaces</h3>
+          <p>CLI commands, a local API, a web UI, and machine-readable capabilities make Alcove usable from scripts, apps, and operator workflows.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="where-next">
+      <h2 id="where-next" class="section-title">Start in the right place</h2>
+      <div class="three-up">
+        <a class="mini-link" href="https://github.com/Spitfire-Cowboy/alcove#quick-start">
+          <article class="card">
+            <h3>Quick start</h3>
+            <p>Install the package, seed the demo corpus, and run the local server in a few commands.</p>
+          </article>
+        </a>
+        <a class="mini-link" href="/docs/">
+          <article class="card">
+            <h3>Public docs</h3>
+            <p>Trust boundaries, API direction, federation schema, and operator-facing documentation for the public Alcove surface.</p>
+          </article>
+        </a>
+        <a class="mini-link" href="https://github.com/Spitfire-Cowboy/alcove/blob/main/docs/ARCHITECTURE.md">
+          <article class="card">
+            <h3>Architecture</h3>
+            <p>See how ingest, index, query, plugins, and the local service boundary fit together in the core project.</p>
+          </article>
+        </a>
+      </div>
+    </section>
 
     <footer>
-      <p>Domain owner: alcove.software</p>
+      <p>
+        Looking for machine-readable artifacts? They still exist for crawlers and tooling, but the public homepage now stays focused on people.
+      </p>
     </footer>
   </main>
 </body>

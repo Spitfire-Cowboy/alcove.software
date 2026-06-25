@@ -16,6 +16,7 @@
       --card: #ffffff;
       --line: #dbe5d9;
       --brand: #1f6f43;
+      --shadow: 0 16px 32px rgba(26, 45, 28, 0.06);
     }
     * { box-sizing: border-box; }
     body {
@@ -26,54 +27,112 @@
       line-height: 1.5;
     }
     main {
-      max-width: 960px;
+      max-width: 1080px;
       margin: 0 auto;
       padding: 2.25rem 1.25rem 3rem;
     }
-    h1 { margin: 0 0 0.5rem; font-size: clamp(1.8rem, 4vw, 2.5rem); }
-    p.lead { margin: 0 0 1.5rem; color: var(--muted); max-width: 64ch; }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.82fr);
+      gap: 1.25rem;
+      align-items: start;
+    }
+    h1 { margin: 0 0 0.5rem; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.08; }
+    p.lead { margin: 0 0 1.3rem; color: var(--muted); max-width: 64ch; }
+    .hero-card, .card {
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+    .hero-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid #d7e3d8;
+    }
+    .hero-card p {
+      margin: 0.7rem 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 0.62rem 0.9rem;
+      font-weight: 600;
+      border: 1px solid #bfd6c3;
+      color: #0f5130;
+      background: #f3faf4;
+    }
+    .btn.primary {
+      background: var(--brand);
+      color: #fff;
+      border-color: transparent;
+    }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 0.9rem;
-    }
-    .card {
-      border: 1px solid var(--line);
-      background: var(--card);
-      border-radius: 12px;
-      padding: 0.95rem;
+      margin-top: 1.4rem;
     }
     .card h2 { margin: 0 0 0.4rem; font-size: 1rem; }
     .card p { margin: 0; color: var(--muted); font-size: 0.93rem; }
-    a { color: var(--brand); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    .card a, a.inline { color: var(--brand); text-decoration: none; }
+    .card a:hover, a.inline:hover { text-decoration: underline; }
     .links {
-      margin-top: 1.25rem;
+      margin-top: 1.5rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.8rem 1rem;
+      color: var(--muted);
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <main>
-    <h1>Alcove Public Docs</h1>
-    <p class="lead">
-      These docs cover install posture, trust boundaries, API direction, and operator policies for the public Alcove surface.
-    </p>
+    <section class="hero">
+      <div>
+        <h1>Public docs for Alcove operators</h1>
+        <p class="lead">
+          This is the public documentation surface for Alcove: install posture, trust boundaries, API direction, federation planning, and the operator-facing contracts that matter outside the core runtime repo.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="https://github.com/Spitfire-Cowboy/alcove">Core repository</a>
+          <a class="btn" href="https://github.com/Spitfire-Cowboy/alcove#quick-start">Quick start</a>
+          <a class="btn" href="https://spitfire-cowboy.github.io/alcove/demo.html">Live demo</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <img src="/assets/web-ui-light.png" alt="Alcove web UI screenshot from the public core repository">
+        <p>Current UI screenshot from the public Alcove repo. The docs here explain how the public surface relates to the local-first core runtime.</p>
+      </aside>
+    </section>
 
     <section class="grid" aria-label="Docs navigation">
       <article class="card">
         <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/INSTALL.md">Install</a></h2>
-        <p>Entry points and what lives in this repo vs core runtime repo.</p>
+        <p>Entry points and what lives in this repo vs the core runtime repo.</p>
       </article>
       <article class="card">
         <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/TRUST_MODEL.md">Trust Model</a></h2>
-        <p>Local-first guarantees, boundaries, and out-of-scope behaviors.</p>
+        <p>Local-first guarantees, boundaries, and explicitly out-of-scope behaviors.</p>
       </article>
       <article class="card">
         <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/API_READONLY_OVERVIEW.md">API</a></h2>
-        <p>Read-only public API direction and implementation status.</p>
+        <p>Read-only public API direction and current implementation posture.</p>
       </article>
       <article class="card">
         <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/API_READONLY_SPEC.md">API Spec (v0.1)</a></h2>
@@ -84,26 +143,23 @@
         <p>What Alcove is, what it is not, and common operator questions.</p>
       </article>
       <article class="card">
-        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/CHANGELOG_POLICY.md">Versioning & Changelog</a></h2>
-        <p>Release note and versioning policy for public changes.</p>
+        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/CHANGELOG_POLICY.md">Versioning &amp; changelog</a></h2>
+        <p>Release note and versioning policy for public-facing changes.</p>
       </article>
       <article class="card">
-        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/DOCS_CONTRIBUTION_MODEL.md">Docs Contribution Model</a></h2>
-        <p>How to submit docs-only changes with minimal friction.</p>
+        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/DOCS_CONTRIBUTION_MODEL.md">Docs contribution model</a></h2>
+        <p>How to ship docs-only improvements with minimal friction.</p>
       </article>
       <article class="card">
-        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/FEDERATION_DIRECTORY_SPEC.md">Federation Schema</a></h2>
+        <h2><a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/FEDERATION_DIRECTORY_SPEC.md">Federation schema</a></h2>
         <p>Node metadata schema, validation, health probing, and merge strategy.</p>
       </article>
     </section>
 
     <div class="links">
-      <a href="https://alcove.software/">Home</a>
-      <a href="https://alcove.software/sitemap.xml">Sitemap</a>
-      <a href="https://alcove.software/robots.txt">Robots</a>
-      <a href="https://alcove.software/llms.txt">LLMs Manifest</a>
-      <a href="https://alcove.software/federation/nodes.sample.json">Sample Node Registry</a>
-      <a href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/DOCS_INFORMATION_ARCHITECTURE.md">Docs IA</a>
+      <a class="inline" href="https://alcove.software/">Home</a>
+      <a class="inline" href="https://alcove.software/federation/nodes.sample.json">Sample node registry</a>
+      <a class="inline" href="https://github.com/Spitfire-Cowboy/alcove.software/blob/main/docs/DOCS_INFORMATION_ARCHITECTURE.md">Docs IA</a>
     </div>
   </main>
 </body>
