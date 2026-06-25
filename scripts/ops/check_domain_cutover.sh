@@ -3,6 +3,9 @@ set -euo pipefail
 
 DOMAIN="${1:-alcove.software}"
 PAGES_REPO="${PAGES_REPO:-Spitfire-Cowboy/alcove.software}"
+EXPECTED_CNAME="${EXPECTED_CNAME:-$DOMAIN}"
+EXPECTED_PUBLIC="${EXPECTED_PUBLIC:-true}"
+EXPECTED_HTTPS_ENFORCED="${EXPECTED_HTTPS_ENFORCED:-true}"
 
 failures=0
 
@@ -40,6 +43,31 @@ for ip in ips:
     print(ip)
 PY
 }
+
+json_field() {
+  local expr="$1"
+  python3 -c '''
+import json
+import sys
+
+obj = json.load(sys.stdin)
+cur = obj
+for part in sys.argv[1].split("."):
+    if isinstance(cur, dict):
+        cur = cur.get(part)
+    else:
+        cur = None
+        break
+
+if cur is None:
+    print("")
+elif isinstance(cur, bool):
+    print(str(cur).lower())
+else:
+    print(cur)
+''' "$expr"
+}
+
 
 check_https_path() {
   local path="$1"
@@ -81,12 +109,50 @@ check_pages_settings() {
   fi
 
   local pages
-  if ! pages="$(gh api "repos/${PAGES_REPO}/pages" --jq '{cname: .cname, https_enforced: .https_enforced, source: .source}' 2>/dev/null)"; then
+  if ! pages="$(gh api "repos/${PAGES_REPO}/pages" 2>/dev/null)"; then
     echo "INFO: unable to read Pages API for ${PAGES_REPO} (missing token or permissions)."
     return
   fi
 
-  echo "Pages API: ${pages}"
+  local actual_cname actual_public actual_https cert_state cert_desc build_type
+  actual_cname="$(printf '%s' "$pages" | json_field cname)"
+  actual_public="$(printf '%s' "$pages" | json_field public)"
+  actual_https="$(printf '%s' "$pages" | json_field https_enforced)"
+  cert_state="$(printf '%s' "$pages" | json_field https_certificate.state)"
+  cert_desc="$(printf '%s' "$pages" | json_field https_certificate.description)"
+  build_type="$(printf '%s' "$pages" | json_field build_type)"
+
+  echo "Pages API: $(printf '%s' "$pages" | python3 -c 'import json,sys; obj=json.load(sys.stdin); print(json.dumps({"cname":obj.get("cname"),"public":obj.get("public"),"https_enforced":obj.get("https_enforced"),"build_type":obj.get("build_type"),"https_certificate":obj.get("https_certificate")}, separators=(",",":")))')"
+
+  if [[ "$actual_cname" == "$EXPECTED_CNAME" ]]; then
+    ok "Pages custom domain is ${EXPECTED_CNAME}"
+  else
+    fail "Pages custom domain expected ${EXPECTED_CNAME}, got ${actual_cname:-<empty>}"
+  fi
+
+  if [[ "$actual_public" == "$EXPECTED_PUBLIC" ]]; then
+    ok "Pages visibility is ${EXPECTED_PUBLIC}"
+  else
+    fail "Pages visibility expected ${EXPECTED_PUBLIC}, got ${actual_public:-<empty>}"
+  fi
+
+  if [[ "$actual_https" == "$EXPECTED_HTTPS_ENFORCED" ]]; then
+    ok "Pages HTTPS enforcement is ${EXPECTED_HTTPS_ENFORCED}"
+  else
+    fail "Pages HTTPS enforcement expected ${EXPECTED_HTTPS_ENFORCED}, got ${actual_https:-<empty>}"
+  fi
+
+  if [[ "$build_type" == "workflow" ]]; then
+    ok "Pages build type is workflow"
+  else
+    fail "Pages build type expected workflow, got ${build_type:-<empty>}"
+  fi
+
+  if [[ "$cert_state" == "approved" ]]; then
+    ok "Pages certificate is approved"
+  else
+    fail "Pages certificate expected approved, got ${cert_state:-<empty>} (${cert_desc:-no description})"
+  fi
 }
 
 require_cmd curl
