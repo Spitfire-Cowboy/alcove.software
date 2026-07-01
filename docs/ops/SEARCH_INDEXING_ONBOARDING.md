@@ -56,6 +56,9 @@ Validation includes:
 - canonical codebase link in `llms.txt`
 - canonical and robots meta tags in `index.html`
 - live domain resolution, HTTPS endpoint health, and HTTP->HTTPS redirect behavior
+- GitHub Pages public/custom-domain/HTTPS/build-mode state when strict cutover assertions are enabled
+
+The scheduled production monitor (`.github/workflows/domain-health.yml`) is intentionally narrower: it tracks public HTTPS availability and the Pages custom-domain binding that the repo can observe safely in automation. Keep the stricter manual cutover verification for GitHub Pages certificate/build-mode recovery or edge-routing changes.
 
 ## 4) Post-Submit Monitoring
 

@@ -26,6 +26,12 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
+          # The public site is currently served at the Cloudflare edge while
+          # GitHub Pages custom-domain redirect/TLS state is repaired manually.
+          EXPECTED_HTTP_REDIRECT: "false"
+          EXPECTED_HTTPS_ENFORCED: ""
+          EXPECTED_PAGES_BUILD_TYPE: ""
+          EXPECTED_CERT_STATE: ""
         run: ./scripts/ops/check_domain_cutover.sh alcove.software
 
       - name: Open or update domain health incident
@@ -45,10 +51,11 @@ jobs:
             echo
             echo "Checks include:"
             echo "- apex domain resolves"
-            echo "- https://alcove.software/ returns 200"
-            echo "- robots.txt, sitemap.xml, and llms.txt return 200 over HTTPS"
-            echo "- http://alcove.software/ redirects cleanly to HTTPS"
-            echo "- GitHub Pages API reports public site, custom domain, workflow mode, and approved certificate"
+            echo "- https://alcove.software/ plus robots.txt, sitemap.xml, and llms.txt return 200"
+            echo "- GitHub Pages API still reports a public site and the expected custom domain"
+            echo
+            echo "Strict HTTP redirect and GitHub Pages TLS/workflow-mode assertions remain in"
+            echo "the manual cutover verification workflow while the Cloudflare edge fallback is active."
           } > "$body"
           if [ -n "$issue_number" ]; then
             gh issue comment "$issue_number" --body-file "$body"

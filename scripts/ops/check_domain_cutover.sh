@@ -5,12 +5,19 @@ DOMAIN="${1:-alcove.software}"
 PAGES_REPO="${PAGES_REPO:-Spitfire-Cowboy/alcove.software}"
 EXPECTED_CNAME="${EXPECTED_CNAME:-$DOMAIN}"
 EXPECTED_PUBLIC="${EXPECTED_PUBLIC:-true}"
-EXPECTED_HTTPS_ENFORCED="${EXPECTED_HTTPS_ENFORCED:-true}"
+EXPECTED_HTTPS_ENFORCED="${EXPECTED_HTTPS_ENFORCED-true}"
+EXPECTED_HTTP_REDIRECT="${EXPECTED_HTTP_REDIRECT-true}"
+EXPECTED_PAGES_BUILD_TYPE="${EXPECTED_PAGES_BUILD_TYPE-workflow}"
+EXPECTED_CERT_STATE="${EXPECTED_CERT_STATE-approved}"
 
 failures=0
 
 ok() {
   echo "OK: $1"
+}
+
+info() {
+  echo "INFO: $1"
 }
 
 fail() {
@@ -95,6 +102,12 @@ check_http_redirect() {
   fi
   http_code="${result%% *}"
   final_url="${result#* }"
+
+  if [[ "$EXPECTED_HTTP_REDIRECT" != "true" ]]; then
+    info "HTTP->HTTPS redirect expectation disabled; observed ${http_code} (${final_url})"
+    return
+  fi
+
   if [[ "$http_code" == "200" && "$final_url" == "https://${DOMAIN}"* ]]; then
     ok "${url} redirects to HTTPS (${final_url})"
   else
@@ -136,22 +149,28 @@ check_pages_settings() {
     fail "Pages visibility expected ${EXPECTED_PUBLIC}, got ${actual_public:-<empty>}"
   fi
 
-  if [[ "$actual_https" == "$EXPECTED_HTTPS_ENFORCED" ]]; then
+  if [[ -z "$EXPECTED_HTTPS_ENFORCED" ]]; then
+    info "Skipping Pages HTTPS enforcement check (observed ${actual_https:-<empty>})"
+  elif [[ "$actual_https" == "$EXPECTED_HTTPS_ENFORCED" ]]; then
     ok "Pages HTTPS enforcement is ${EXPECTED_HTTPS_ENFORCED}"
   else
     fail "Pages HTTPS enforcement expected ${EXPECTED_HTTPS_ENFORCED}, got ${actual_https:-<empty>}"
   fi
 
-  if [[ "$build_type" == "workflow" ]]; then
-    ok "Pages build type is workflow"
+  if [[ -z "$EXPECTED_PAGES_BUILD_TYPE" ]]; then
+    info "Skipping Pages build type check (observed ${build_type:-<empty>})"
+  elif [[ "$build_type" == "$EXPECTED_PAGES_BUILD_TYPE" ]]; then
+    ok "Pages build type is ${EXPECTED_PAGES_BUILD_TYPE}"
   else
-    fail "Pages build type expected workflow, got ${build_type:-<empty>}"
+    fail "Pages build type expected ${EXPECTED_PAGES_BUILD_TYPE}, got ${build_type:-<empty>}"
   fi
 
-  if [[ "$cert_state" == "approved" ]]; then
-    ok "Pages certificate is approved"
+  if [[ -z "$EXPECTED_CERT_STATE" ]]; then
+    info "Skipping Pages certificate state check (observed ${cert_state:-<empty>}: ${cert_desc:-no description})"
+  elif [[ "$cert_state" == "$EXPECTED_CERT_STATE" ]]; then
+    ok "Pages certificate is ${EXPECTED_CERT_STATE}"
   else
-    fail "Pages certificate expected approved, got ${cert_state:-<empty>} (${cert_desc:-no description})"
+    fail "Pages certificate expected ${EXPECTED_CERT_STATE}, got ${cert_state:-<empty>} (${cert_desc:-no description})"
   fi
 }
 
