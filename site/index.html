@@ -116,12 +116,129 @@
       padding: 0.9rem;
       box-shadow: var(--shadow);
     }
-    .shot img {
+    .ui-shot {
       display: block;
       width: 100%;
-      height: auto;
       border-radius: 12px;
       border: 1px solid #d7e3d8;
+      overflow: hidden;
+      background: linear-gradient(180deg, #fdfefd 0%, #f4f9f4 100%);
+    }
+    .ui-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.65rem 0.8rem;
+      border-bottom: 1px solid #dbe6dc;
+      background: #eef6ef;
+    }
+    .ui-dots {
+      display: flex;
+      gap: 0.35rem;
+    }
+    .ui-dots span {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: #c3d2c4;
+      display: inline-block;
+    }
+    .ui-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #426046;
+      letter-spacing: 0.01em;
+    }
+    .ui-body {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      min-height: 270px;
+    }
+    .ui-nav {
+      border-right: 1px solid #e0e8e1;
+      padding: 0.85rem 0.7rem;
+      background: rgba(238, 246, 239, 0.58);
+    }
+    .ui-nav-chip,
+    .ui-result-chip {
+      display: inline-block;
+      border-radius: 999px;
+      background: #e7f2e8;
+      color: #285333;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.22rem 0.5rem;
+      margin-bottom: 0.7rem;
+    }
+    .ui-nav-line,
+    .ui-line {
+      height: 0.48rem;
+      border-radius: 999px;
+      background: #d7e5d9;
+      margin-bottom: 0.5rem;
+    }
+    .ui-nav-line.short,
+    .ui-line.short { width: 58%; }
+    .ui-nav-line.mid,
+    .ui-line.mid { width: 76%; }
+    .ui-main {
+      padding: 0.9rem;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(247,251,247,0.96));
+    }
+    .ui-search {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      border: 1px solid #cfe0d1;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+      box-shadow: 0 8px 18px rgba(31, 42, 31, 0.05);
+      margin-bottom: 0.8rem;
+    }
+    .ui-search-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #0f5130;
+      background: #e8f4ea;
+      border-radius: 999px;
+      padding: 0.22rem 0.5rem;
+      white-space: nowrap;
+    }
+    .ui-search-text {
+      color: #4e6251;
+      font-size: 0.78rem;
+    }
+    .ui-results {
+      display: grid;
+      gap: 0.7rem;
+    }
+    .ui-result {
+      border: 1px solid #dbe7dc;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.96);
+      padding: 0.75rem;
+      box-shadow: 0 6px 16px rgba(24, 35, 25, 0.04);
+    }
+    .ui-result-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.55rem;
+    }
+    .ui-result-heading {
+      width: 46%;
+      height: 0.62rem;
+      border-radius: 999px;
+      background: #b8d5bd;
+    }
+    .ui-result-meta {
+      width: 20%;
+      height: 0.45rem;
+      border-radius: 999px;
+      background: #d8e7da;
     }
     .caption {
       margin-top: 0.65rem;
@@ -214,9 +331,54 @@
       </div>
 
       <aside class="shot" aria-label="Alcove screenshot">
-        <img src="/assets/web-ui-light.png" alt="Alcove local search web UI from the public core repository">
+        <div class="ui-shot" role="img" aria-label="Illustrated Alcove interface showing a local search query, filters, and retrieved excerpt cards.">
+          <div class="ui-bar">
+            <div class="ui-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="ui-title">Alcove local web UI</div>
+          </div>
+          <div class="ui-body">
+            <div class="ui-nav" aria-hidden="true">
+              <div class="ui-nav-chip">Sources</div>
+              <div class="ui-nav-line mid"></div>
+              <div class="ui-nav-line"></div>
+              <div class="ui-nav-line short"></div>
+              <div class="ui-nav-chip" style="margin-top:0.6rem;">Modes</div>
+              <div class="ui-nav-line"></div>
+              <div class="ui-nav-line mid"></div>
+              <div class="ui-nav-line short"></div>
+            </div>
+            <div class="ui-main">
+              <div class="ui-search">
+                <span class="ui-search-badge">hybrid</span>
+                <span class="ui-search-text">Search the local corpus for operator-controlled excerpts…</span>
+              </div>
+              <div class="ui-results" aria-hidden="true">
+                <div class="ui-result">
+                  <div class="ui-result-top">
+                    <div class="ui-result-heading"></div>
+                    <div class="ui-result-meta"></div>
+                  </div>
+                  <div class="ui-result-chip">exact excerpt</div>
+                  <div class="ui-line"></div>
+                  <div class="ui-line mid"></div>
+                  <div class="ui-line short"></div>
+                </div>
+                <div class="ui-result">
+                  <div class="ui-result-top">
+                    <div class="ui-result-heading" style="width:52%;"></div>
+                    <div class="ui-result-meta" style="width:17%;"></div>
+                  </div>
+                  <div class="ui-result-chip">semantic match</div>
+                  <div class="ui-line"></div>
+                  <div class="ui-line"></div>
+                  <div class="ui-line short"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <p class="caption">
-          Screenshot from the public <a href="https://github.com/Spitfire-Cowboy/alcove">Alcove core repository</a>.
+          Inline product mockup standing in for the public <a href="https://github.com/Spitfire-Cowboy/alcove">Alcove core repository</a> UI.
           The shipped runtime includes a local web UI, CLI, API server, and machine-readable capability surface.
         </p>
       </aside>
