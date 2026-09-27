@@ -3,106 +3,77 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alcove Software</title>
-  <meta name="description" content="Alcove is local-first document retrieval infrastructure: operator-controlled indexes, retrieval instead of generation, and optional AI.">
+  <title>Alcove | Find what matters. Go back to the source.</title>
+  <meta name="description" content="Search personal archives, team documents, and public records with Alcove. Watch a real Home prototype demo or try the live Congress and Los Angeles law searches.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="https://alcove.software/">
-  <script defer data-domain="alcove.software" src="https://analytics.spitfirecowboy.com/js/script.js"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alcove.software/">
+  <meta property="og:title" content="Alcove | Find what matters. Go back to the source.">
+  <meta property="og:description" content="A search engine for personal archives, team documents, and public records. Real demonstrations. Sources you can open.">
+  <meta property="og:image" content="https://alcove.software/assets/alcove-social.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Alcove: Find what matters. Go back to the source.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#183e31">
   <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/homepage.css">
+  <link rel="icon" href="/assets/alcove-mark.svg" type="image/svg+xml">
+  <script defer data-domain="alcove.software" src="https://analytics.spitfirecowboy.com/js/script.js"></script>
 </head>
-<body>
+<body class="front-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
-  <header class="site-header wrap"><a class="wordmark" href="/" aria-label="Alcove overview">alcove</a><nav class="site-nav" aria-label="Main navigation"><a href="/home/">Home</a><a href="/business/">Business</a><a href="/government/">Government</a><a href="/docs/">Docs</a></nav></header>
-  <main class="wrap" id="main-content">
-    <section class="hero">
-      <div>
-        <span class="eyebrow">Local-first document retrieval</span>
-        <h1>Search infrastructure for documents you control.</h1>
-        <p class="lead">
-          Alcove ingests local files, builds local indexes, and returns matching excerpts through a CLI or local web API.
-          It is retrieval, not generation: real text from operator-controlled corpora, with semantic search as an option instead of a requirement.
-        </p>
-
-        <div class="actions" aria-label="Primary links">
-          <a class="btn primary" href="https://github.com/Spitfire-Cowboy/alcove">View the core repository</a>
-          <a class="btn secondary" href="/docs/">Read the public docs</a>
-          <a class="btn secondary" href="https://spitfire-cowboy.github.io/alcove/demo.html">See the 30-second demo</a>
+  <header class="front-header shell">
+    <a class="front-brand" href="/" aria-label="Alcove home"><span class="brand-mark" aria-hidden="true"></span>alcove<span class="brand-dot" aria-hidden="true">.</span></a>
+    <nav class="front-nav" aria-label="Main navigation"><a href="/home/">Home</a><a href="/business/">Business</a><a href="/government/">Government</a><a class="nav-demo" href="#film">Watch the demo <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main-content">
+    <section class="front-hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="overline"><span class="small-star" aria-hidden="true">✳</span> A little closer to what you know</p>
+        <h1 id="hero-title">Find what matters.<br> <span>Go back to<br class="desktop-break"> the source.</span></h1>
+        <p class="hero-lead">A search engine for personal archives, team documents, and public records. Explore the evidence behind a memory, a decision, or a question.</p>
+        <div class="hero-actions"><a class="action solid" href="#film">See Alcove in action <span aria-hidden="true">↗</span></a><a class="action quiet" href="#public-search">Try a live public search <span aria-hidden="true">→</span></a></div>
+        <p class="hero-note">Start with a real demo. Follow it to the original material.</p>
+      </div>
+      <div class="memory-scene" role="group" aria-label="A real example from the recorded Home prototype">
+        <div class="scene-heading"><span class="overline">From the Home prototype</span><span class="scene-badge">Real archive</span></div>
+        <p class="scene-question">“Which years did we go to the Renaissance Festival?”</p>
+        <div class="photo-pair">
+          <figure class="memory-photo first"><img src="/assets/home-festival-2023.jpg" width="640" height="480" alt="A child with a costumed performer at the Renaissance Festival in 2023" fetchpriority="high"><figcaption><span>One familiar place.</span><strong>2023</strong></figcaption></figure>
+          <figure class="memory-photo second"><img src="/assets/home-festival-2024.jpg" width="640" height="480" alt="Two children on decorative thrones at the Renaissance Festival in 2024"><figcaption><span>Another year of stories.</span><strong>2024</strong></figcaption></figure>
         </div>
-
-        <div class="summary" aria-label="Alcove summary">
-          <div class="stat">
-            <strong>Local by default</strong>
-            <span>Indexes live on operator-controlled disk.</span>
-          </div>
-          <div class="stat">
-            <strong>Retrieval, not generation</strong>
-            <span>Results are excerpts, not invented answers.</span>
-          </div>
-          <div class="stat">
-            <strong>AI optional</strong>
-            <span>Hash, semantic, or hybrid search depending on operator choice.</span>
-          </div>
-        </div>
-      </div>
-
-      <aside class="shot" aria-label="Alcove screenshot">
-        <img src="/assets/web-ui-light.png" alt="Alcove local search web UI from the public core repository">
-        <p class="caption">
-          Screenshot from the public <a href="https://github.com/Spitfire-Cowboy/alcove">Alcove core repository</a>.
-          The shipped runtime includes a local web UI, CLI, API server, and machine-readable capability surface.
-        </p>
-      </aside>
-    </section>
-
-    <section class="block audiences" aria-labelledby="audiences"><h2 id="audiences" class="section-title">Choose your Alcove</h2><div class="three-up">
-      <a class="mini-link" href="/home/"><article class="card"><h3>Home &rarr;</h3><p>A personal search prototype, with a real-archive demo and the Malone Multiverse slideshow.</p></article></a>
-      <a class="mini-link" href="/business/"><article class="card"><h3>Business &rarr;</h3><p>Explore an early use case for searching the documents your team chooses.</p></article></a>
-      <a class="mini-link" href="/government/"><article class="card"><h3>Government &rarr;</h3><p>Open the public Congress and Los Angeles law search projects.</p></article></a>
-    </div></section>
-
-    <section class="block" aria-labelledby="what-you-get">
-      <h2 id="what-you-get" class="section-title">What Alcove gives you</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Operator-controlled retrieval</h3>
-          <p>Recursive ingest, chunking, indexing, and query over local corpora without turning the product into a chat wrapper.</p>
-        </article>
-        <article class="card">
-          <h3>Multiple search modes</h3>
-          <p>Keyword, semantic, and hybrid retrieval are all available, with deterministic offline defaults for smoke tests and low-trust environments.</p>
-        </article>
-        <article class="card">
-          <h3>Composable runtime surfaces</h3>
-          <p>CLI commands, a local API, a web UI, and machine-readable capabilities make Alcove usable from scripts, apps, and operator workflows.</p>
-        </article>
+        <div class="scene-foot"><span class="source-dot" aria-hidden="true"></span><p>Photos from 2023 and 2024.<br> <span>Original photos, dates, and supporting messages.</span></p><a href="#film" aria-label="Watch the Home demo"><span aria-hidden="true">↗</span></a></div>
       </div>
     </section>
-
-    <section class="block" aria-labelledby="where-next">
-      <h2 id="where-next" class="section-title">Start in the right place</h2>
-      <div class="three-up">
-        <a class="mini-link" href="https://github.com/Spitfire-Cowboy/alcove#quick-start">
-          <article class="card">
-            <h3>Quick start</h3>
-            <p>Install the package, seed the demo corpus, and run the local server in a few commands.</p>
-          </article>
-        </a>
-        <a class="mini-link" href="/docs/">
-          <article class="card">
-            <h3>Public docs</h3>
-            <p>Trust boundaries, API direction, federation schema, and operator-facing documentation for the public Alcove surface.</p>
-          </article>
-        </a>
-        <a class="mini-link" href="https://github.com/Spitfire-Cowboy/alcove/blob/main/docs/ARCHITECTURE.md">
-          <article class="card">
-            <h3>Architecture</h3>
-            <p>See how ingest, index, query, plugins, and the local service boundary fit together in the core project.</p>
-          </article>
-        </a>
+    <div class="proof-strip shell" role="navigation" aria-label="Explore what exists today"><span>Take a closer look</span><a href="#film">A real Home demonstration <span aria-hidden="true">↗</span></a><a href="#public-search">Two live public searches <span aria-hidden="true">↗</span></a><a href="https://github.com/Spitfire-Cowboy/alcove">An open-source core <span aria-hidden="true">↗</span></a></div>
+    <section class="audience-section shell" aria-labelledby="audience-title">
+      <div class="section-intro"><p class="overline">One idea. Different worlds.</p><h2 id="audience-title">What would you like<br> to find again?</h2><p>The photo you remember. The document behind a decision. The public record you want to read for yourself.</p></div>
+      <div class="audience-columns">
+        <article class="audience-item"><div class="audience-top"><span class="audience-number">01 / HOME</span><span class="availability">Private prototype</span></div><h3>Your life,<br> within reach.</h3><p>Revisit photos, messages, and memories in a demonstration built from a real personal archive.</p><a class="text-action" href="/home/">Explore Alcove Home <span aria-hidden="true">↗</span></a></article>
+        <article class="audience-item"><div class="audience-top"><span class="audience-number">02 / BUSINESS</span><span class="availability">Illustrative use case</span></div><h3>The work behind<br> the answer.</h3><p>See how a selected collection of contracts, policies, or project notes could help a team find its bearings.</p><a class="text-action" href="/business/">Explore Alcove Business <span aria-hidden="true">↗</span></a></article>
+        <article class="audience-item"><div class="audience-top"><span class="audience-number">03 / GOVERNMENT</span><span class="availability live">Public demos</span></div><h3>Public records.<br> A way in.</h3><p>Search indexed Congressional material and Los Angeles city law, then follow the links to their sources.</p><a class="text-action" href="/government/">Explore Alcove Government <span aria-hidden="true">↗</span></a></article>
       </div>
     </section>
-
-    <footer></footer>
+    <section class="film-section" id="film" aria-labelledby="film-title">
+      <div class="film-layout shell">
+        <div class="film-copy"><p class="overline">See it for yourself / 2 minutes</p><h2 id="film-title">Real questions.<br> Real records.<br> <em>A way back.</em></h2><p>Family outings, appointment messages, and the sources behind them. The Home demo shows what a selected personal collection can reveal, and where the evidence ends.</p><p class="film-status">Recorded private prototype. Includes a lookup over selected records with the browser offline.</p><a class="text-action" href="/home/">More about the Home demo <span aria-hidden="true">↗</span></a></div>
+        <figure class="film-player"><video controls playsinline preload="none" poster="/assets/home-demo-poster.svg" aria-label="Alcove Home two-minute recorded prototype demo"><source src="https://spitfirecowboy.com/_share/09188fbdacd7d2cd6b3c8e8dbc859ddf3d4b0291/Alcove-Home-v3.mp4" type="video/mp4"><track kind="captions" src="/assets/alcove-home-v3.vtt" srclang="en" label="English"><p><a href="https://spitfirecowboy.com/_share/09188fbdacd7d2cd6b3c8e8dbc859ddf3d4b0291/Alcove-Home-v3.mp4">Open the demo video</a>.</p></video><figcaption>Selected real photos and messages. English captions available. <a href="https://spitfirecowboy.com/_share/09188fbdacd7d2cd6b3c8e8dbc859ddf3d4b0291/Alcove-Home-v3.mp4">Open video directly ↗</a></figcaption></figure>
+      </div>
+    </section>
+    <section class="public-section shell" id="public-search" aria-labelledby="public-title">
+      <div class="section-intro"><p class="overline">Open a collection. Follow a question.</p><h2 id="public-title">Try a search<br> right now.</h2><p>These public projects are open to explore. Start with a topic, read the matching material, and check the upstream record.</p></div>
+      <div class="search-examples">
+        <a class="search-example" href="https://congress.alcove.software/search?q=housing&amp;lang=en"><span class="search-symbol" aria-hidden="true"></span><span class="search-text"><span class="search-label">CONGRESS</span><strong>Housing</strong><span class="search-description">Explore indexed bills and resolutions</span></span><span class="search-arrow" aria-hidden="true">↗</span></a>
+        <a class="search-example" href="https://la.alcove.software/search?q=rent%20stabilization&amp;lang=en"><span class="search-symbol" aria-hidden="true"></span><span class="search-text"><span class="search-label">LOS ANGELES CITY LAW</span><strong>Rent stabilization</strong><span class="search-description">Find matching law and source references</span></span><span class="search-arrow" aria-hidden="true">↗</span></a>
+      </div>
+      <p class="coverage-note">Independent projects with defined collections, not a complete or continuously current record. <a href="/government/">See sources and coverage →</a></p>
+    </section>
+    <section class="approach-section shell" aria-labelledby="approach-title"><div><p class="overline">The idea behind Alcove</p><h2 id="approach-title">A useful result<br> has somewhere<br> to take you.</h2></div><div class="approach-points"><article><span>01</span><div><h3>Start with a collection.</h3><p>Search a defined set of material. Know what is included, and what still sits outside it.</p></div></article><article><span>02</span><div><h3>Read the relevant text.</h3><p>Alcove’s core retrieves matching excerpts, so you can see the material behind a result.</p></div></article><article><span>03</span><div><h3>Go back to the source.</h3><p>Follow the original document or record. Check its context, its date, and what it actually says.</p></div></article></div></section>
+    <section class="faq-section shell" aria-labelledby="faq-title"><h2 id="faq-title">A few good questions.</h2><div class="faq-list"><details><summary>What can I use today?</summary><p>The <a href="https://congress.alcove.software/">Congress</a> and <a href="https://la.alcove.software/">Los Angeles law</a> search projects are public. The <a href="https://github.com/Spitfire-Cowboy/alcove">Alcove core</a> is available to run yourself. Home is a private prototype with a recorded demonstration; Business examples illustrate workflows still in development.</p></details><details><summary>Does Home already connect to all my accounts?</summary><p>No. The demonstration uses selected records from a real personal archive. It does not demonstrate a complete account import or an open, self-service Home product.</p></details><details><summary>Can Alcove run locally?</summary><p>The core supports local file ingestion, indexing, and search. The Home film also demonstrates an offline lookup over a selected collection. What you can search depends on the material and search mode you have configured.</p></details><details><summary>Where can I learn how it works?</summary><p>Start with the <a href="/docs/">public documentation</a> or the <a href="https://github.com/Spitfire-Cowboy/alcove#quick-start">core quick start</a>. They describe the existing software and its interfaces.</p></details></div></section>
+    <section class="closing-section shell"><div><p class="overline">A question is a good place to start.</p><h2>See what you can find.</h2></div><a class="action solid" href="#public-search">Try a live public search <span aria-hidden="true">↗</span></a></section>
   </main>
+  <footer class="front-footer shell"><a class="front-brand" href="/" aria-label="Alcove home">alcove<span class="brand-dot" aria-hidden="true">.</span></a><p>Find what matters. Keep the source in view.</p><nav aria-label="Footer navigation"><a href="/docs/">Documentation</a><a href="https://github.com/Spitfire-Cowboy/alcove">Source code</a><a href="/home/">Home demo</a></nav></footer>
 </body>
 </html>
