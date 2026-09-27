@@ -8,180 +8,12 @@
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="https://alcove.software/">
   <script defer data-domain="alcove.software" src="https://analytics.spitfirecowboy.com/js/script.js"></script>
-  <style>
-    :root {
-      --bg: #f7faf6;
-      --ink: #182319;
-      --muted: #4c5a4c;
-      --card: #ffffff;
-      --line: #d9e2d5;
-      --brand: #1f6f43;
-      --brand-2: #0f5130;
-      --shadow: 0 18px 40px rgba(21, 43, 24, 0.08);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top right, #e8f5ea 0, transparent 42%),
-        radial-gradient(circle at bottom left, #eef3ea 0, transparent 42%),
-        var(--bg);
-      line-height: 1.55;
-    }
-    .wrap {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem 4rem;
-    }
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-      gap: 1.5rem;
-      align-items: start;
-    }
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 0.85rem;
-      padding: 0.28rem 0.55rem;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--brand-2);
-      background: #eef8f0;
-      border: 1px solid #cfe2d1;
-    }
-    h1 {
-      font-size: clamp(2.2rem, 4.8vw, 4rem);
-      line-height: 1.04;
-      letter-spacing: -0.03em;
-      margin: 0 0 0.9rem;
-      max-width: 11ch;
-    }
-    p.lead {
-      font-size: 1.12rem;
-      color: var(--muted);
-      margin: 0 0 1.25rem;
-      max-width: 60ch;
-    }
-    .summary {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 0.8rem;
-      margin: 1.25rem 0 0;
-    }
-    .summary .stat {
-      background: rgba(255,255,255,0.72);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 0.85rem 0.9rem;
-    }
-    .summary strong {
-      display: block;
-      font-size: 0.95rem;
-      margin-bottom: 0.2rem;
-    }
-    .summary span {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-    .actions {
-      margin-top: 1.4rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    a.btn {
-      text-decoration: none;
-      border-radius: 10px;
-      padding: 0.68rem 0.96rem;
-      font-weight: 600;
-      transition: transform 120ms ease, opacity 120ms ease;
-      border: 1px solid transparent;
-    }
-    a.btn:hover { transform: translateY(-1px); opacity: 0.97; }
-    a.btn.primary { background: var(--brand); color: #fff; }
-    a.btn.secondary {
-      color: var(--brand-2);
-      border-color: #bcd4c1;
-      background: #f3faf4;
-    }
-    .shot {
-      background: rgba(255,255,255,0.76);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 0.9rem;
-      box-shadow: var(--shadow);
-    }
-    .shot img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      border: 1px solid #d7e3d8;
-    }
-    .caption {
-      margin-top: 0.65rem;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-    section.block { margin-top: 2.2rem; }
-    h2.section-title {
-      margin: 0 0 0.9rem;
-      font-size: 1.35rem;
-      letter-spacing: -0.02em;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1rem;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 1rem;
-      box-shadow: 0 8px 24px rgba(31, 42, 31, 0.05);
-    }
-    .card h3 {
-      margin: 0 0 0.4rem;
-      font-size: 1.02rem;
-    }
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-    .three-up {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1rem;
-    }
-    .mini-link {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .mini-link:hover h3 { color: var(--brand); }
-    footer {
-      margin-top: 2.5rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-    footer a { color: var(--brand-2); }
-    @media (max-width: 920px) {
-      .hero { grid-template-columns: 1fr; }
-      h1 { max-width: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
-  <main class="wrap">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header wrap"><a class="wordmark" href="/" aria-label="Alcove overview">alcove</a><nav class="site-nav" aria-label="Main navigation"><a href="/home/">Home</a><a href="/business/">Business</a><a href="/government/">Government</a><a href="/docs/">Docs</a></nav></header>
+  <main class="wrap" id="main-content">
     <section class="hero">
       <div>
         <span class="eyebrow">Local-first document retrieval</span>
@@ -221,6 +53,12 @@
         </p>
       </aside>
     </section>
+
+    <section class="block audiences" aria-labelledby="audiences"><h2 id="audiences" class="section-title">Choose your Alcove</h2><div class="three-up">
+      <a class="mini-link" href="/home/"><article class="card"><h3>Home &rarr;</h3><p>A personal search prototype, with a real-archive demo and the Malone Multiverse slideshow.</p></article></a>
+      <a class="mini-link" href="/business/"><article class="card"><h3>Business &rarr;</h3><p>Explore an early use case for searching the documents your team chooses.</p></article></a>
+      <a class="mini-link" href="/government/"><article class="card"><h3>Government &rarr;</h3><p>Open the public Congress and Los Angeles law search projects.</p></article></a>
+    </div></section>
 
     <section class="block" aria-labelledby="what-you-get">
       <h2 id="what-you-get" class="section-title">What Alcove gives you</h2>
