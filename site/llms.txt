@@ -8,3 +8,8 @@ Alcove is local-first search infrastructure.
 - Retrieval, not generation.
 
 Primary codebase: https://github.com/Spitfire-Cowboy/alcove
+
+Audience pages:
+- Home (private prototype and recorded demo): https://alcove.software/home/
+- Business (early use case, not a customer case study): https://alcove.software/business/
+- Government (public Congress and LA law search projects): https://alcove.software/government/
