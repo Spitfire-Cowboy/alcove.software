@@ -3,6 +3,7 @@ addEventListener('fetch', event => {
   event.respondWith(handle(event.request))
 })
 
+/** Serve the site's static files with explicit MIME types and a narrow CSP. */
 async function handle(request) {
   const url = new URL(request.url)
   let path = url.pathname
@@ -10,7 +11,12 @@ async function handle(request) {
   if (path === '') path = '/index.html'
   const upstream = new URL('https://raw.githubusercontent.com/Spitfire-Cowboy/alcove.software/main/site' + path)
   upstream.searchParams.set('v', String(Date.now()))
-  const resp = await fetch(upstream.toString(), { cf: { cacheTtl: 0, cacheEverything: false } })
+  let resp
+  try {
+    resp = await fetch(upstream.toString(), { cf: { cacheTtl: 0, cacheEverything: false } })
+  } catch {
+    return new Response('Upstream unavailable', { status: 502, headers: { 'cache-control': 'no-store' } })
+  }
   if (!resp.ok) return new Response(resp.status === 404 ? 'Not Found' : 'Upstream unavailable', {
     status: resp.status === 404 || resp.status === 429 ? resp.status : 502,
     headers: { 'cache-control': 'no-store' }
