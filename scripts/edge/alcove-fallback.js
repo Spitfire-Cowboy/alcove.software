@@ -11,7 +11,10 @@ async function handle(request) {
   const upstream = new URL('https://raw.githubusercontent.com/Spitfire-Cowboy/alcove.software/main/site' + path)
   upstream.searchParams.set('v', String(Date.now()))
   const resp = await fetch(upstream.toString(), { cf: { cacheTtl: 0, cacheEverything: false } })
-  if (!resp.ok) return new Response('Not Found', { status: 404 })
+  if (!resp.ok) return new Response(resp.status === 404 ? 'Not Found' : 'Upstream unavailable', {
+    status: resp.status === 404 || resp.status === 429 ? resp.status : 502,
+    headers: { 'cache-control': 'no-store' }
+  })
   const headers = new Headers(resp.headers)
   headers.set('cache-control', 'public, max-age=60')
   headers.set('x-alcove-fallback', 'cloudflare-worker')

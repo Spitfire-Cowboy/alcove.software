@@ -14,7 +14,8 @@
   };
   // Apply before the body is parsed to avoid flashing the wrong theme.
   apply();
-  system.addEventListener('change', apply);
+  if (system.addEventListener) system.addEventListener('change', apply);
+  else system.addListener(apply);
   window.addEventListener('storage', event => {
     if (event.key === key || event.key === null) {
       preference = valid(event.newValue);
