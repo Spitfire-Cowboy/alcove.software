@@ -6,6 +6,8 @@ PAGES_REPO="${PAGES_REPO:-Spitfire-Cowboy/alcove.software}"
 EXPECTED_CNAME="${EXPECTED_CNAME:-$DOMAIN}"
 EXPECTED_PUBLIC="${EXPECTED_PUBLIC:-true}"
 EXPECTED_HTTPS_ENFORCED="${EXPECTED_HTTPS_ENFORCED:-true}"
+CHECK_HTTP_REDIRECT="${CHECK_HTTP_REDIRECT:-true}"
+CHECK_PAGES_SETTINGS="${CHECK_PAGES_SETTINGS:-true}"
 
 failures=0
 
@@ -87,6 +89,11 @@ check_https_path() {
 }
 
 check_http_redirect() {
+  if [[ "$CHECK_HTTP_REDIRECT" == "false" ]]; then
+    echo "INFO: skipping HTTP redirect check (CHECK_HTTP_REDIRECT=false)."
+    return
+  fi
+
   local url="http://${DOMAIN}/"
   local result http_code final_url
   if ! result="$(curl -sS -L -o /dev/null -w '%{http_code} %{url_effective}' --max-time 20 "$url" 2>&1)"; then
@@ -103,6 +110,11 @@ check_http_redirect() {
 }
 
 check_pages_settings() {
+  if [[ "$CHECK_PAGES_SETTINGS" == "false" ]]; then
+    echo "INFO: skipping GitHub Pages checks (CHECK_PAGES_SETTINGS=false)."
+    return
+  fi
+
   if ! command -v gh >/dev/null 2>&1; then
     echo "INFO: gh not found, skipping Pages API check."
     return
@@ -154,6 +166,13 @@ check_pages_settings() {
     fail "Pages certificate expected approved, got ${cert_state:-<empty>} (${cert_desc:-no description})"
   fi
 }
+
+for setting in CHECK_HTTP_REDIRECT CHECK_PAGES_SETTINGS; do
+  case "${!setting}" in
+    true|false) ;;
+    *) echo "Invalid ${setting}: expected true or false." >&2; exit 1 ;;
+  esac
+done
 
 require_cmd curl
 require_cmd python3
