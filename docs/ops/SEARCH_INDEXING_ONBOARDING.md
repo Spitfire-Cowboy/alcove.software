@@ -58,7 +58,7 @@ Validation includes:
 - live domain resolution, HTTPS endpoint health, and HTTP->HTTPS redirect behavior
 - GitHub Pages public/custom-domain/HTTPS/build-mode state when strict cutover assertions are enabled
 
-The scheduled production monitor (`.github/workflows/domain-health.yml`) is intentionally narrower: it tracks public HTTPS availability and the Pages custom-domain binding that the repo can observe safely in automation. Keep the stricter manual cutover verification for GitHub Pages certificate/build-mode recovery or edge-routing changes.
+The scheduled production monitor (`.github/workflows/domain-health.yml`) is intentionally narrower: it tracks DNS resolution and public HTTPS availability. The Cloudflare Worker serves `main/site` directly; GitHub Pages state is not a production serving dependency. The edge currently serves HTTP without redirecting, so scheduled checks set `CHECK_HTTP_REDIRECT=false` and `CHECK_PAGES_SETTINGS=false`. These switches skip the corresponding requests entirely; DNS and all four HTTPS route checks remain mandatory. Keep the default strict manual cutover verification for GitHub Pages certificate/build-mode recovery or edge-routing changes.
 
 ## 4) Post-Submit Monitoring
 

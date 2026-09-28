@@ -5,19 +5,14 @@ DOMAIN="${1:-alcove.software}"
 PAGES_REPO="${PAGES_REPO:-Spitfire-Cowboy/alcove.software}"
 EXPECTED_CNAME="${EXPECTED_CNAME:-$DOMAIN}"
 EXPECTED_PUBLIC="${EXPECTED_PUBLIC:-true}"
-EXPECTED_HTTPS_ENFORCED="${EXPECTED_HTTPS_ENFORCED-true}"
-EXPECTED_HTTP_REDIRECT="${EXPECTED_HTTP_REDIRECT-true}"
-EXPECTED_PAGES_BUILD_TYPE="${EXPECTED_PAGES_BUILD_TYPE-workflow}"
-EXPECTED_CERT_STATE="${EXPECTED_CERT_STATE-approved}"
+EXPECTED_HTTPS_ENFORCED="${EXPECTED_HTTPS_ENFORCED:-true}"
+CHECK_HTTP_REDIRECT="${CHECK_HTTP_REDIRECT:-true}"
+CHECK_PAGES_SETTINGS="${CHECK_PAGES_SETTINGS:-true}"
 
 failures=0
 
 ok() {
   echo "OK: $1"
-}
-
-info() {
-  echo "INFO: $1"
 }
 
 fail() {
@@ -94,6 +89,11 @@ check_https_path() {
 }
 
 check_http_redirect() {
+  if [[ "$CHECK_HTTP_REDIRECT" == "false" ]]; then
+    echo "INFO: skipping HTTP redirect check (CHECK_HTTP_REDIRECT=false)."
+    return
+  fi
+
   local url="http://${DOMAIN}/"
   local result http_code final_url
   if ! result="$(curl -sS -L -o /dev/null -w '%{http_code} %{url_effective}' --max-time 20 "$url" 2>&1)"; then
@@ -102,12 +102,6 @@ check_http_redirect() {
   fi
   http_code="${result%% *}"
   final_url="${result#* }"
-
-  if [[ "$EXPECTED_HTTP_REDIRECT" != "true" ]]; then
-    info "HTTP->HTTPS redirect expectation disabled; observed ${http_code} (${final_url})"
-    return
-  fi
-
   if [[ "$http_code" == "200" && "$final_url" == "https://${DOMAIN}"* ]]; then
     ok "${url} redirects to HTTPS (${final_url})"
   else
@@ -116,6 +110,11 @@ check_http_redirect() {
 }
 
 check_pages_settings() {
+  if [[ "$CHECK_PAGES_SETTINGS" == "false" ]]; then
+    echo "INFO: skipping GitHub Pages checks (CHECK_PAGES_SETTINGS=false)."
+    return
+  fi
+
   if ! command -v gh >/dev/null 2>&1; then
     echo "INFO: gh not found, skipping Pages API check."
     return
@@ -149,30 +148,31 @@ check_pages_settings() {
     fail "Pages visibility expected ${EXPECTED_PUBLIC}, got ${actual_public:-<empty>}"
   fi
 
-  if [[ -z "$EXPECTED_HTTPS_ENFORCED" ]]; then
-    info "Skipping Pages HTTPS enforcement check (observed ${actual_https:-<empty>})"
-  elif [[ "$actual_https" == "$EXPECTED_HTTPS_ENFORCED" ]]; then
+  if [[ "$actual_https" == "$EXPECTED_HTTPS_ENFORCED" ]]; then
     ok "Pages HTTPS enforcement is ${EXPECTED_HTTPS_ENFORCED}"
   else
     fail "Pages HTTPS enforcement expected ${EXPECTED_HTTPS_ENFORCED}, got ${actual_https:-<empty>}"
   fi
 
-  if [[ -z "$EXPECTED_PAGES_BUILD_TYPE" ]]; then
-    info "Skipping Pages build type check (observed ${build_type:-<empty>})"
-  elif [[ "$build_type" == "$EXPECTED_PAGES_BUILD_TYPE" ]]; then
-    ok "Pages build type is ${EXPECTED_PAGES_BUILD_TYPE}"
+  if [[ "$build_type" == "workflow" ]]; then
+    ok "Pages build type is workflow"
   else
-    fail "Pages build type expected ${EXPECTED_PAGES_BUILD_TYPE}, got ${build_type:-<empty>}"
+    fail "Pages build type expected workflow, got ${build_type:-<empty>}"
   fi
 
-  if [[ -z "$EXPECTED_CERT_STATE" ]]; then
-    info "Skipping Pages certificate state check (observed ${cert_state:-<empty>}: ${cert_desc:-no description})"
-  elif [[ "$cert_state" == "$EXPECTED_CERT_STATE" ]]; then
-    ok "Pages certificate is ${EXPECTED_CERT_STATE}"
+  if [[ "$cert_state" == "approved" ]]; then
+    ok "Pages certificate is approved"
   else
-    fail "Pages certificate expected ${EXPECTED_CERT_STATE}, got ${cert_state:-<empty>} (${cert_desc:-no description})"
+    fail "Pages certificate expected approved, got ${cert_state:-<empty>} (${cert_desc:-no description})"
   fi
 }
+
+for setting in CHECK_HTTP_REDIRECT CHECK_PAGES_SETTINGS; do
+  case "${!setting}" in
+    true|false) ;;
+    *) echo "Invalid ${setting}: expected true or false." >&2; exit 1 ;;
+  esac
+done
 
 require_cmd curl
 require_cmd python3
