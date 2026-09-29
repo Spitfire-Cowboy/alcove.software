@@ -5,9 +5,9 @@ set -euo pipefail
 : "${DEST_TOKEN:?DEST_TOKEN is required}"
 
 pairs=(
-  "Spitfire-Cowboy/alcove Pro777/alcove main"
-  "Spitfire-Cowboy/alcove-private Pro777/alcove-private develop"
-  "Spitfire-Cowboy/alcove-demo Pro777/alcove-demo main"
+  "direct|Spitfire-Cowboy/alcove|Pro777/alcove|main|"
+  "pull_request|Spitfire-Cowboy/alcove-private|Pro777/alcove-private|develop|mirror/spitfire-alcove-private-develop"
+  "direct|Spitfire-Cowboy/alcove-demo|Pro777/alcove-demo|main|"
 )
 
 src_url() {
@@ -28,12 +28,12 @@ report_file="${RUNNER_TEMP:-/tmp}/mirror-health-report.md"
   echo
   echo "Generated: ${now_utc}"
   echo
-  echo "| Source | Destination | Branch | Heads | Tags | SHA Match |"
-  echo "|---|---|---:|---:|---:|---|"
+  echo "| Source | Destination | Mode | Branch | Heads | Tags | Status |"
+  echo "|---|---|---|---:|---:|---:|---|"
 
   overall_ok=1
   for row in "${pairs[@]}"; do
-    read -r source_repo dest_repo default_branch <<<"$row"
+    IFS='|' read -r mode source_repo dest_repo default_branch sync_branch <<<"$row"
 
     src_heads=$(git ls-remote --heads "$(src_url "$source_repo")" | wc -l | tr -d ' ')
     dst_heads=$(git ls-remote --heads "$(dst_url "$dest_repo")" | wc -l | tr -d ' ')
@@ -42,16 +42,38 @@ report_file="${RUNNER_TEMP:-/tmp}/mirror-health-report.md"
     src_sha=$(git ls-remote --heads "$(src_url "$source_repo")" "$default_branch" | awk '{print $1}')
     dst_sha=$(git ls-remote --heads "$(dst_url "$dest_repo")" "$default_branch" | awk '{print $1}')
 
-    heads_ok="no"
-    tags_ok="no"
-    sha_ok="no"
-    [[ "$src_heads" == "$dst_heads" ]] && heads_ok="yes"
-    [[ "$src_tags" == "$dst_tags" ]] && tags_ok="yes"
-    [[ "$src_sha" == "$dst_sha" ]] && sha_ok="yes"
+    if [[ "$mode" == "direct" ]]; then
+      heads_ok="no"
+      tags_ok="no"
+      sha_ok="no"
+      [[ "$src_heads" == "$dst_heads" ]] && heads_ok="yes"
+      [[ "$src_tags" == "$dst_tags" ]] && tags_ok="yes"
+      [[ "$src_sha" == "$dst_sha" ]] && sha_ok="yes"
+      status="sha=${sha_ok}"
 
-    [[ "$heads_ok" == "yes" && "$tags_ok" == "yes" && "$sha_ok" == "yes" ]] || overall_ok=0
+      [[ "$heads_ok" == "yes" && "$tags_ok" == "yes" && "$sha_ok" == "yes" ]] || overall_ok=0
 
-    echo "| ${source_repo} | ${dest_repo} | ${default_branch} | ${src_heads}/${dst_heads} (${heads_ok}) | ${src_tags}/${dst_tags} (${tags_ok}) | ${sha_ok} |"
+      echo "| ${source_repo} | ${dest_repo} | ${mode} | ${default_branch} | ${src_heads}/${dst_heads} (${heads_ok}) | ${src_tags}/${dst_tags} (${tags_ok}) | ${status} |"
+    elif [[ "$mode" == "pull_request" ]]; then
+      pr_number="$(GH_TOKEN="$DEST_TOKEN" gh pr list --repo "$dest_repo" --state open --head "$sync_branch" --base "$default_branch" --json number --jq '.[0].number // ""')"
+      pr_head_sha="$(GH_TOKEN="$DEST_TOKEN" gh pr list --repo "$dest_repo" --state open --head "$sync_branch" --base "$default_branch" --json headRefOid --jq '.[0].headRefOid // ""')"
+
+      heads_display="${src_heads}/${dst_heads} (n/a)"
+      tags_display="${src_tags}/${dst_tags} (n/a)"
+      if [[ "$src_sha" == "$dst_sha" ]]; then
+        status="base matches source"
+      elif [[ -n "$pr_number" && "$pr_head_sha" == "$src_sha" ]]; then
+        status="pending PR #${pr_number}"
+      else
+        status="drift"
+        overall_ok=0
+      fi
+
+      echo "| ${source_repo} | ${dest_repo} | ${mode} | ${default_branch} | ${heads_display} | ${tags_display} | ${status} |"
+    else
+      echo "| ${source_repo} | ${dest_repo} | ${mode} | ${default_branch} | n/a | n/a | unsupported mode |"
+      overall_ok=0
+    fi
   done
 
   echo
