@@ -7,6 +7,13 @@ addEventListener('fetch', event => {
 async function handle(request) {
   const url = new URL(request.url)
   let path = url.pathname
+  if (url.hostname === 'lp.alcove.software' && path !== '/assets' && !path.startsWith('/assets/')) {
+    if (path === '/support' || path === '/privacy') {
+      url.pathname = path + '/'
+      return Response.redirect(url.toString(), 308)
+    }
+    path = '/lp' + path
+  }
   if (path.endsWith('/')) path += 'index.html'
   if (path === '') path = '/index.html'
   const upstream = new URL('https://raw.githubusercontent.com/Spitfire-Cowboy/alcove.software/main/site' + path)
@@ -24,8 +31,8 @@ async function handle(request) {
   const headers = new Headers(resp.headers)
   headers.set('cache-control', 'public, max-age=60')
   headers.set('x-alcove-fallback', 'cloudflare-worker')
-  headers.set('x-alcove-worker-version', 'v4')
-  headers.set('content-security-policy', "default-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; media-src 'self' https://spitfirecowboy.com/_share/09188fbdacd7d2cd6b3c8e8dbc859ddf3d4b0291/Alcove-Home-v3.mp4; script-src https://analytics.spitfirecowboy.com https://alcove.software/assets/theme.js https://www.alcove.software/assets/theme.js; connect-src https://analytics.spitfirecowboy.com; base-uri 'none'; form-action 'none'; frame-ancestors 'self'")
+  headers.set('x-alcove-worker-version', 'v5')
+  headers.set('content-security-policy', "default-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; media-src 'self' https://spitfirecowboy.com/_share/09188fbdacd7d2cd6b3c8e8dbc859ddf3d4b0291/Alcove-Home-v3.mp4; script-src 'self' https://analytics.spitfirecowboy.com https://alcove.software/assets/theme.js https://www.alcove.software/assets/theme.js; connect-src https://analytics.spitfirecowboy.com; base-uri 'none'; form-action 'none'; frame-ancestors 'self'")
   if (path.endsWith('.html')) headers.set('content-type', 'text/html; charset=utf-8')
   else if (path.endsWith('.txt')) headers.set('content-type', 'text/plain; charset=utf-8')
   else if (path.endsWith('.xml')) headers.set('content-type', 'application/xml; charset=utf-8')
