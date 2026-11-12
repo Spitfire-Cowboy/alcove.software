@@ -11,6 +11,14 @@ required=(
   "$SITE_DIR/robots.txt"
   "$SITE_DIR/sitemap.xml"
   "$SITE_DIR/llms.txt"
+  "$SITE_DIR/lp/index.html"
+  "$SITE_DIR/lp/support/index.html"
+  "$SITE_DIR/lp/privacy/index.html"
+  "$SITE_DIR/lp/robots.txt"
+  "$SITE_DIR/lp/sitemap.xml"
+  "$SITE_DIR/assets/lp.css"
+  "$SITE_DIR/assets/alcove-lp-demo.jpg"
+  "$SITE_DIR/assets/alcove-lp-shelf.jpg"
 )
 
 for f in "${required[@]}"; do
@@ -69,6 +77,30 @@ if ! grep -Eq '<link rel="canonical" href="https://alcove\.software/">' "$SITE_D
   echo "index.html missing canonical URL tag" >&2
   exit 1
 fi
+
+for route in '' 'support/' 'privacy/'; do
+  file="$SITE_DIR/lp/${route}index.html"
+  if ! grep -Fq "<link rel=\"canonical\" href=\"https://lp.alcove.software/${route}\">" "$file"; then
+    echo "Alcove LP page missing canonical URL: $file" >&2
+    exit 1
+  fi
+  if grep -Fq 'analytics.spitfirecowboy.com' "$file"; then
+    echo "Alcove LP pages must remain analytics-free: $file" >&2
+    exit 1
+  fi
+done
+
+if ! grep -Fq 'Sitemap: https://lp.alcove.software/sitemap.xml' "$SITE_DIR/lp/robots.txt"; then
+  echo "Alcove LP robots.txt missing canonical sitemap URL" >&2
+  exit 1
+fi
+
+for route in '' 'support/' 'privacy/'; do
+  if ! grep -Fq "<loc>https://lp.alcove.software/${route}</loc>" "$SITE_DIR/lp/sitemap.xml"; then
+    echo "Alcove LP sitemap missing route: /${route}" >&2
+    exit 1
+  fi
+done
 
 jq -e 'type == "array" and length >= 1' "$SITE_DIR/federation/nodes.sample.json" >/dev/null
 jq -e 'map(.node_id) | length == (unique | length)' "$SITE_DIR/federation/nodes.sample.json" >/dev/null

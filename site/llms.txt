@@ -13,3 +13,4 @@ Audience pages:
 - Home (private prototype and recorded demo): https://alcove.software/home/
 - Business (early use case, not a customer case study): https://alcove.software/business/
 - Government (public Congress and LA law search projects): https://alcove.software/government/
+- Alcove LP (private, album-first Apple Music player): https://lp.alcove.software/

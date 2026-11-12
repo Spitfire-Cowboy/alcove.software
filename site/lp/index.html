@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="/assets/theme.js"></script>
+  <title>Alcove LP | Albums worth remembering</title>
+  <meta name="description" content="A private, album-first Apple Music player with a persistent whole-album queue, local notes, and local listening history.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <link rel="canonical" href="https://lp.alcove.software/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lp.alcove.software/">
+  <meta property="og:title" content="Alcove LP | Albums worth remembering">
+  <meta property="og:description" content="A private, album-first Apple Music player. No account, ads, analytics, or telemetry.">
+  <meta property="og:image" content="https://lp.alcove.software/assets/alcove-lp-demo.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#171613">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+  <link rel="stylesheet" href="/assets/lp.css">
+  <link rel="icon" href="/assets/alcove-mark.svg" type="image/svg+xml">
+</head>
+<body class="lp-page">
+  <a class="lp-skip" href="#main-content">Skip to content</a>
+  <header class="lp-header lp-shell">
+    <a class="lp-brand" href="./" aria-label="Alcove LP home">alcove<span>.</span>lp</a>
+    <nav class="lp-nav" aria-label="Main navigation">
+      <a href="#inside">Inside</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#modes">Modes</a>
+      <a href="support/">Support</a>
+      <a class="lp-nav-cta" href="https://testflight.apple.com/join/up96tX1g">Join TestFlight</a>
+    </nav>
+    <label class="theme-chooser" hidden>Theme <select aria-label="Color theme"><option value="light">Light</option><option value="dark">Dark</option><option value="auto" selected>Auto</option></select></label>
+  </header>
+
+  <main id="main-content">
+    <section class="lp-hero lp-shell" aria-labelledby="lp-title">
+      <div>
+        <p class="lp-kicker">Private listening / iPhone alpha</p>
+        <h1 id="lp-title">Albums worth <em>remembering.</em></h1>
+        <p class="lp-lead">Alcove LP is a quiet, album-first home for Apple Music. Save the records that matter, queue whole albums, and keep the notes and listening history on your device.</p>
+        <div class="lp-actions">
+          <a class="lp-button primary" href="https://testflight.apple.com/join/up96tX1g">Join the free TestFlight alpha&nbsp;↗</a>
+          <a class="lp-button" href="#inside">See what is inside</a>
+        </div>
+        <p class="lp-meta">Requires iPhone with iOS 17 or later. Apple Music catalog playback requires an active Apple Music subscription.</p>
+      </div>
+      <div class="lp-record-stage" aria-label="Alcove LP shown beside a vinyl record motif">
+        <div class="lp-record" aria-hidden="true"></div>
+        <div class="lp-phone"><img src="/assets/alcove-lp-demo.jpg" width="1206" height="2622" alt="Alcove LP welcome screen with two built-in demo albums"></div>
+        <div class="lp-sticker">No feed.<br>Just records.</div>
+      </div>
+    </section>
+
+    <hr class="lp-rule">
+
+    <section class="lp-section lp-shell" id="inside" aria-labelledby="inside-title">
+      <div class="lp-section-head">
+        <h2 id="inside-title">The whole record. Not the feed.</h2>
+        <p>Alcove LP starts with albums, keeps their order intact, and makes room for the memory around the music. The first alpha is deliberately small and useful.</p>
+      </div>
+      <div class="lp-features">
+        <article class="lp-feature"><span class="number">01</span><h3>Apple Music catalog</h3><p>Connect through MusicKit, search by album, and play through the subscription you already use.</p></article>
+        <article class="lp-feature"><span class="number">02</span><h3>Your shelf</h3><p>Save exact album editions and add private listening notes that stay on your iPhone.</p></article>
+        <article class="lp-feature"><span class="number">03</span><h3>Whole-album queue</h3><p>Arrange multiple albums in order, then load them atomically into one linear listening session.</p></article>
+        <article class="lp-feature"><span class="number">04</span><h3>Now Playing</h3><p>Native play, pause, previous, next, progress, background audio, and album artwork.</p></article>
+        <article class="lp-feature"><span class="number">05</span><h3>Local history</h3><p>Play counts and first- and last-played dates are recorded only after playback begins.</p></article>
+        <article class="lp-feature"><span class="number">06</span><h3>Useful without a login</h3><p>Two built-in demo albums let anyone explore the shelf and notes without connecting music.</p></article>
+      </div>
+    </section>
+
+    <section class="lp-section lp-shell lp-showcase" aria-labelledby="shelf-title">
+      <div class="lp-showcase-copy">
+        <p class="lp-kicker">A place for the music you keep</p>
+        <h2 id="shelf-title">Your records. Your shelf.</h2>
+        <p>Search is for finding. The shelf is for returning. Save an album, leave a note, and come back without turning your listening into content for somebody else.</p>
+        <p>The alpha is free, has no ads, and contains no purchases.</p>
+      </div>
+      <div class="lp-phone-pair" aria-label="Alcove LP demo and shelf screens">
+        <figure><img src="/assets/alcove-lp-demo.jpg" width="1206" height="2622" loading="lazy" alt="Alcove LP demo albums and Apple Music connection screen"></figure>
+        <figure><img src="/assets/alcove-lp-shelf.jpg" width="1206" height="2622" loading="lazy" alt="Alcove LP shelf with a private note on the Night Window demo album"></figure>
+      </div>
+    </section>
+
+    <section class="lp-privacy" id="privacy" aria-labelledby="privacy-title">
+      <div class="lp-section lp-shell">
+        <div class="lp-section-head">
+          <h2 id="privacy-title">Listening is not telemetry.</h2>
+          <p>Alcove LP has no account system or Alcove server for the app to call. Its source policy rejects analytics, tracking, crash-reporting SDKs, CloudKit, and general-purpose networking.</p>
+        </div>
+        <div class="lp-privacy-grid">
+          <article><strong>No account</strong><span>Your Apple ID password is never provided to Alcove LP.</span></article>
+          <article><strong>No analytics</strong><span>No product analytics, tracking, ads, or behavioral telemetry.</span></article>
+          <article><strong>Local by default</strong><span>Shelf, queue, notes, and listening history stay on your device.</span></article>
+          <article><strong>You can clear it</strong><span>Reset an album's history or clear all local history from the app.</span></article>
+        </div>
+        <div class="lp-actions"><a class="lp-button" href="privacy/">Read the privacy policy</a></div>
+      </div>
+    </section>
+
+    <section class="lp-section lp-shell" id="modes" aria-labelledby="modes-title">
+      <div class="lp-section-head">
+        <h2 id="modes-title">One mode now. Two on the workbench.</h2>
+        <p>Modes change listening behavior, not the sound. LP is the first release; cassette and 8-track are named roadmap ideas, not hidden or placeholder features.</p>
+      </div>
+      <div class="lp-modes">
+        <article class="lp-mode current"><span class="status">Available in alpha</span><h3>LP</h3><p>Linear whole-album playback, no shuffle, and a deliberate end.</p></article>
+        <article class="lp-mode"><span class="status">Roadmap</span><h3>Cassette</h3><p>A continuous album timeline with the character of a counter, without invented metadata.</p></article>
+        <article class="lp-mode"><span class="status">Roadmap</span><h3>8-track</h3><p>A circular album session that can return from the last track to the first.</p></article>
+      </div>
+    </section>
+
+    <section class="lp-closing lp-shell" aria-labelledby="closing-title">
+      <p class="lp-kicker">First pressing / TestFlight</p>
+      <h2 id="closing-title">Put an album on.</h2>
+      <p>The alpha is ready for a small group of listeners.</p>
+      <div class="lp-actions"><a class="lp-button primary" href="https://testflight.apple.com/join/up96tX1g">Open the public TestFlight link&nbsp;↗</a></div>
+    </section>
+  </main>
+
+  <footer class="lp-footer lp-shell">
+    <a class="lp-brand" href="./">alcove<span>.</span>lp</a>
+    <nav aria-label="Footer navigation"><a href="support/">Support</a><a href="privacy/">Privacy</a><a href="https://alcove.software/">Alcove</a></nav>
+    <span>Made for intentional listening.</span>
+  </footer>
+</body>
+</html>
