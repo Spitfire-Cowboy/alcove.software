@@ -17,8 +17,8 @@ required=(
   "$SITE_DIR/lp/robots.txt"
   "$SITE_DIR/lp/sitemap.xml"
   "$SITE_DIR/assets/lp.css"
-  "$SITE_DIR/assets/alcove-lp-demo.jpg"
-  "$SITE_DIR/assets/alcove-lp-shelf.jpg"
+  "$SITE_DIR/assets/alcove-lp-demo.png"
+  "$SITE_DIR/assets/alcove-lp-shelf.png"
 )
 
 for f in "${required[@]}"; do
