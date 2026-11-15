@@ -139,6 +139,17 @@ body.lp-page {
 .lp-mode p { margin: 0; color: var(--lp-muted); font-size: .92rem; }
 .lp-mode.current p { color: #f2cfc3; }
 
+.lp-campaign { margin: 0; }
+.lp-campaign img { display: block; width: 100%; height: auto; border-radius: 20px; }
+.lp-campaign figcaption { margin-top: .8rem; color: var(--lp-muted); font-size: .9rem; text-align: center; }
+
+.lp-faq { border-top: 1px solid var(--lp-line); }
+.lp-faq details { padding: 1.3rem 0; border-bottom: 1px solid var(--lp-line); }
+.lp-faq summary { cursor: pointer; color: var(--lp-ink); font-size: 1.1rem; font-weight: 700; }
+.lp-faq p { max-width: 48rem; margin: .85rem 0 0; color: var(--lp-muted); }
+.lp-faq a { color: var(--lp-accent-dark); }
+.lp-faq summary:focus-visible { outline: 3px solid var(--lp-accent); outline-offset: 4px; }
+
 .lp-closing { padding-block: clamp(4rem, 9vw, 8rem); text-align: center; }
 .lp-closing h2 { margin: 0 auto 1rem; max-width: 11ch; font-size: clamp(3rem, 7vw, 6.5rem); line-height: .92; letter-spacing: -.07em; }
 .lp-closing p { color: var(--lp-muted); }
