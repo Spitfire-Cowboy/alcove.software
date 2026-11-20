@@ -3,7 +3,7 @@
 This repository runs scheduled one-way mirroring for:
 
 - `Spitfire-Cowboy/alcove` -> `Pro777/alcove`
-- `Spitfire-Cowboy/alcove-private` -> `Pro777/alcove-private`
+- `Spitfire-Cowboy/alcove-private` -> `Pro777/alcove-private` (PR-based sync into `develop`)
 - `Spitfire-Cowboy/alcove-demo` -> `Pro777/alcove-demo`
 
 Workflow: `.github/workflows/mirror-pro777-repos.yml`
@@ -31,13 +31,18 @@ Script: `scripts/ops/mirror_repo_pair.sh`
 
 ## Behavior
 
-- Mirrors all branches and tags.
-- Uses prune mode so deleted source branches/tags are deleted in destination.
-- Default mode is safety-first:
-  - Fast-forward-only branch updates
-  - Tag rewrites blocked
-  - Large prune deletions blocked when count exceeds `MAX_PRUNE_DELETIONS` (default `5`)
-- Destructive reconciliation requires explicit opt-in (`ALLOW_FORCE_MIRROR=1`) via manual workflow dispatch.
+- Direct mirror pairs (`alcove`, `alcove-demo`):
+  - Mirror all branches and tags.
+  - Use prune mode so deleted source branches/tags are deleted in destination.
+  - Default mode is safety-first:
+    - Fast-forward-only branch updates
+    - Tag rewrites blocked
+    - Large prune deletions blocked when count exceeds `MAX_PRUNE_DELETIONS` (default `5`)
+  - Destructive reconciliation requires explicit opt-in (`ALLOW_FORCE_MIRROR=1`) via manual workflow dispatch.
+- PR-based pair (`alcove-private`):
+  - Mirror the canonical `develop` tip onto automation branch `mirror/spitfire-alcove-private-develop`.
+  - Open or update a destination PR from that sync branch into `Pro777/alcove-private:develop`.
+  - Do **not** prune destination-only branches/tags in this mode; the destination repo may carry review-only or historical branches that should not be deleted automatically.
 - Does not mirror Issues/PR metadata/settings/secrets.
 - Hidden GitHub refs (`refs/pull/*`) are intentionally excluded.
 
@@ -48,6 +53,7 @@ Script: `scripts/ops/mirror_repo_pair.sh`
   - `allow_force_mirror=false` (default): safe mode
   - `allow_force_mirror=true`: allows non-fast-forward updates and large prune deletes
   - `max_prune_deletions`: safe-mode deletion guardrail override for that run
+- `allow_force_mirror` and `max_prune_deletions` apply only to direct mirror pairs; the PR-based `alcove-private` sync ignores prune/force options and refreshes its promotion PR instead.
 
 ## Monitoring
 
@@ -56,9 +62,12 @@ Script: `scripts/ops/mirror_repo_pair.sh`
 - Weekly status is appended as comments to issue #9.
 - Rolling incident issues:
   - Parity drift: #116
-  - Mirror blocked: #117
+  - Mirror blocked: #143
 - Alert dedupe: workflows post at most one marker comment per workflow run to each rolling incident issue.
 - Closure condition: rolling incidents auto-close only after 3 consecutive healthy workflow runs.
+- PR-based parity for `alcove-private` is considered healthy when either:
+  - `Pro777/alcove-private:develop` already matches `Spitfire-Cowboy/alcove-private:develop`, or
+  - an open PR from `mirror/spitfire-alcove-private-develop` carries the current source SHA.
 
 ## Operational Rules
 
