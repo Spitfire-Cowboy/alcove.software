@@ -113,6 +113,11 @@ body.lp-page {
 .lp-feature h3 { margin: 2.8rem 0 .55rem; font-size: 1.35rem; letter-spacing: -.03em; }
 .lp-feature p { margin: 0; color: var(--lp-muted); font-size: .94rem; }
 
+.lp-app-screens { display: grid; grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: end; }
+.lp-app-screens figure { min-width: 0; margin: 0; text-align: center; }
+.lp-app-screens img { display: block; width: 100%; max-height: 680px; object-fit: contain; filter: drop-shadow(0 28px 36px rgba(24, 20, 15, .22)); }
+.lp-app-screens figcaption { margin-top: .8rem; color: var(--lp-muted); font-size: .9rem; }
+
 .lp-showcase { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(2rem, 7vw, 6rem); align-items: center; }
 .lp-showcase-copy h2 { margin: 0 0 1rem; max-width: 11ch; font-size: clamp(2.7rem, 5vw, 5rem); line-height: .95; letter-spacing: -.06em; }
 .lp-showcase-copy p { color: var(--lp-muted); }
@@ -190,7 +195,8 @@ body.lp-page a:focus-visible, body.lp-page select:focus-visible { outline: 3px s
   .lp-nav { order: 3; width: 100%; overflow-x: auto; padding-bottom: .3rem; }
   .lp-hero { grid-template-columns: 1fr; }
   .lp-record-stage { margin-inline: auto; }
-  .lp-section-head, .lp-showcase { grid-template-columns: 1fr; }
+  .lp-section-head, .lp-showcase, .lp-app-screens { grid-template-columns: 1fr; }
+  .lp-app-screens img { max-height: 620px; }
   .lp-features { grid-template-columns: repeat(2, 1fr); }
   .lp-feature:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; }
   .lp-feature:nth-child(even) { padding-left: 1.5rem; border-left: 1px solid var(--lp-line); }
@@ -214,6 +220,8 @@ body.lp-page a:focus-visible, body.lp-page select:focus-visible { outline: 3px s
   .lp-feature, .lp-feature:nth-child(even), .lp-privacy-grid article, .lp-privacy-grid article:not(:first-child) { padding: 1.3rem 0; border-left: 0; }
   .lp-feature h3 { margin-top: 1.6rem; }
   .lp-phone-pair { min-height: 440px; }
+  .lp-app-screens { gap: 2.5rem; }
+  .lp-app-screens img { max-height: 560px; }
   .lp-mode { min-height: 210px; }
   .lp-mode h3 { margin-top: 3.5rem; }
   .lp-footer { align-items: flex-start; flex-direction: column; }
