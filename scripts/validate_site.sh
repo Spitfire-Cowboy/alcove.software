@@ -17,8 +17,6 @@ required=(
   "$SITE_DIR/lp/robots.txt"
   "$SITE_DIR/lp/sitemap.xml"
   "$SITE_DIR/assets/lp.css"
-  "$SITE_DIR/assets/alcove-lp-demo.png"
-  "$SITE_DIR/assets/alcove-lp-shelf.png"
   "$SITE_DIR/assets/alcove-lp-queue.png"
   "$SITE_DIR/assets/alcove-lp-now-playing.png"
 )
