@@ -113,7 +113,7 @@ body.lp-page {
 .lp-feature h3 { margin: 2.8rem 0 .55rem; font-size: 1.35rem; letter-spacing: -.03em; }
 .lp-feature p { margin: 0; color: var(--lp-muted); font-size: .94rem; }
 
-.lp-app-screens { display: grid; grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: end; }
+.lp-app-screens { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); align-items: end; }
 .lp-app-screens figure { min-width: 0; margin: 0; text-align: center; }
 .lp-app-screens img { display: block; width: 100%; max-height: 680px; object-fit: contain; filter: drop-shadow(0 28px 36px rgba(24, 20, 15, .22)); }
 .lp-app-screens figcaption { margin-top: .8rem; color: var(--lp-muted); font-size: .9rem; }
