@@ -19,6 +19,7 @@ required=(
   "$SITE_DIR/assets/lp.css"
   "$SITE_DIR/assets/alcove-lp-queue.png"
   "$SITE_DIR/assets/alcove-lp-now-playing.png"
+  "$SITE_DIR/assets/alcove-lp-my-library.png"
 )
 
 for f in "${required[@]}"; do
