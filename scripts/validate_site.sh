@@ -81,7 +81,7 @@ fi
 
 for route in '' 'support/' 'privacy/'; do
   file="$SITE_DIR/lp/${route}index.html"
-  if ! grep -Fq "<link rel=\"canonical\" href=\"https://lp.alcove.software/${route}\">" "$file"; then
+  if ! grep -Fq "<link rel=\"canonical\" href=\"https://alcove.software/lp/${route}\">" "$file"; then
     echo "Alcove LP page missing canonical URL: $file" >&2
     exit 1
   fi
@@ -91,13 +91,23 @@ for route in '' 'support/' 'privacy/'; do
   fi
 done
 
-if ! grep -Fq 'Sitemap: https://lp.alcove.software/sitemap.xml' "$SITE_DIR/lp/robots.txt"; then
+if grep -Riq 'testflight' "$SITE_DIR/lp"; then
+  echo "Alcove LP pages must not mention or link to TestFlight" >&2
+  exit 1
+fi
+
+if grep -Riq 'https://lp.alcove.software' "$SITE_DIR"; then
+  echo "Site content must use the canonical Alcove LP path URL" >&2
+  exit 1
+fi
+
+if ! grep -Fq 'Sitemap: https://alcove.software/sitemap.xml' "$SITE_DIR/lp/robots.txt"; then
   echo "Alcove LP robots.txt missing canonical sitemap URL" >&2
   exit 1
 fi
 
 for route in '' 'support/' 'privacy/'; do
-  if ! grep -Fq "<loc>https://lp.alcove.software/${route}</loc>" "$SITE_DIR/lp/sitemap.xml"; then
+  if ! grep -Fq "<loc>https://alcove.software/lp/${route}</loc>" "$SITE_DIR/lp/sitemap.xml"; then
     echo "Alcove LP sitemap missing route: /${route}" >&2
     exit 1
   fi

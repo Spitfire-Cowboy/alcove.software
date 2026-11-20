@@ -7,12 +7,14 @@ addEventListener('fetch', event => {
 async function handle(request) {
   const url = new URL(request.url)
   let path = url.pathname
-  if (url.hostname === 'lp.alcove.software' && path !== '/assets' && !path.startsWith('/assets/')) {
-    if (path === '/support' || path === '/privacy') {
-      url.pathname = path + '/'
-      return Response.redirect(url.toString(), 308)
-    }
-    path = '/lp' + path
+  if (url.hostname === 'lp.alcove.software') {
+    const isRootAsset = path === '/assets' || path.startsWith('/assets/')
+    const isDiscoveryFile = path === '/robots.txt' || path === '/sitemap.xml'
+    url.hostname = 'alcove.software'
+    if (isDiscoveryFile || isRootAsset) url.pathname = path
+    else if (path === '/support' || path === '/privacy') url.pathname = '/lp' + path + '/'
+    else url.pathname = '/lp' + path
+    return Response.redirect(url.toString(), 308)
   }
   if (path.endsWith('/')) path += 'index.html'
   if (path === '') path = '/index.html'
