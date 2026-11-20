@@ -118,15 +118,6 @@ body.lp-page {
 .lp-app-screens img { display: block; width: 100%; max-height: 680px; object-fit: contain; filter: drop-shadow(0 28px 36px rgba(24, 20, 15, .22)); }
 .lp-app-screens figcaption { margin-top: .8rem; color: var(--lp-muted); font-size: .9rem; }
 
-.lp-showcase { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(2rem, 7vw, 6rem); align-items: center; }
-.lp-showcase-copy h2 { margin: 0 0 1rem; max-width: 11ch; font-size: clamp(2.7rem, 5vw, 5rem); line-height: .95; letter-spacing: -.06em; }
-.lp-showcase-copy p { color: var(--lp-muted); }
-.lp-phone-pair { display: flex; align-items: end; justify-content: center; gap: 1.2rem; min-height: 560px; }
-.lp-phone-pair figure { width: min(245px, 47%); margin: 0; padding: 8px; border-radius: 34px; background: #171613; box-shadow: var(--lp-shadow); }
-.lp-phone-pair figure:first-child { transform: translateY(-2rem) rotate(-2deg); }
-.lp-phone-pair figure:last-child { transform: rotate(2deg); }
-.lp-phone-pair img { display: block; width: 100%; height: auto; border-radius: 27px; }
-
 .lp-privacy { color: #f8f5ed; background: #1b1916; }
 .lp-privacy .lp-section-head p { color: #c8c0b2; }
 .lp-privacy-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid #4a453d; }
@@ -195,7 +186,7 @@ body.lp-page a:focus-visible, body.lp-page select:focus-visible { outline: 3px s
   .lp-nav { order: 3; width: 100%; overflow-x: auto; padding-bottom: .3rem; }
   .lp-hero { grid-template-columns: 1fr; }
   .lp-record-stage { margin-inline: auto; }
-  .lp-section-head, .lp-showcase, .lp-app-screens { grid-template-columns: 1fr; }
+  .lp-section-head, .lp-app-screens { grid-template-columns: 1fr; }
   .lp-app-screens img { max-height: 620px; }
   .lp-features { grid-template-columns: repeat(2, 1fr); }
   .lp-feature:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; }
@@ -219,7 +210,6 @@ body.lp-page a:focus-visible, body.lp-page select:focus-visible { outline: 3px s
   .lp-features, .lp-privacy-grid, .lp-modes { grid-template-columns: 1fr; }
   .lp-feature, .lp-feature:nth-child(even), .lp-privacy-grid article, .lp-privacy-grid article:not(:first-child) { padding: 1.3rem 0; border-left: 0; }
   .lp-feature h3 { margin-top: 1.6rem; }
-  .lp-phone-pair { min-height: 440px; }
   .lp-app-screens { gap: 2.5rem; }
   .lp-app-screens img { max-height: 560px; }
   .lp-mode { min-height: 210px; }
