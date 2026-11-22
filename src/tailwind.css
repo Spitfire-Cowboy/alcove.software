@@ -329,6 +329,10 @@
     color: #626f5d;
   }
 
+  .theme-label {
+    @apply sr-only;
+  }
+
   @media (max-width: 399px) {
     .global-header {
       @apply gap-2 px-4;
@@ -336,10 +340,6 @@
 
     .global-brand {
       @apply text-2xl;
-    }
-
-    .theme-label {
-      @apply sr-only;
     }
   }
 }
