@@ -34,7 +34,7 @@
 [data-theme="dark"] :is(.hero-lead, .hero-note, .scene-foot p span, .featured-work-heading > p, .featured-work-foot,
   .section-intro > p:last-child, .audience-item > p, .film-copy > p:not(.overline),
   .film-player figcaption,
-  .approach-points p, .faq-list p, .front-footer p) { color: var(--muted); }
+  .approach-points p, .faq-list p, .global-footer-intro p) { color: var(--muted); }
 [data-theme="dark"] :is(.front-page h1 > span, .film-copy h2 em, .small-star,
   .approach-points article > span) { color: #accb99; }
 [data-theme="dark"] .source-dot { border-color: #accb99; }

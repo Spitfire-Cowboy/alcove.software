@@ -107,6 +107,61 @@
     --nav-accent: var(--lp-accent);
   }
 
+  .global-footer {
+    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-7 lg:px-10;
+    --nav-accent: #96a573;
+    color: var(--muted);
+  }
+
+  .global-footer-inner {
+    @apply flex flex-col gap-6 border-t py-8 sm:flex-row sm:items-end sm:justify-between;
+    border-color: var(--line);
+  }
+
+  .global-footer-intro {
+    @apply flex flex-col items-start gap-2;
+  }
+
+  .global-footer-brand {
+    @apply text-2xl;
+    /* Legacy unlayered page link rules otherwise override shared components. */
+    color: var(--ink) !important;
+  }
+
+  .global-footer-product {
+    @apply text-xl font-bold tracking-[-0.04em] no-underline;
+    color: var(--ink) !important;
+  }
+
+  .global-footer-product span {
+    color: var(--nav-accent);
+  }
+
+  .global-footer-intro p {
+    @apply m-0 text-xs/5;
+    color: var(--muted);
+  }
+
+  .global-footer-nav {
+    @apply flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold;
+  }
+
+  .global-footer-nav a {
+    @apply no-underline;
+    color: var(--ink) !important;
+  }
+
+  .global-footer-nav a:hover {
+    @apply underline;
+  }
+
+  .lp-page .global-footer {
+    --ink: var(--lp-ink);
+    --muted: var(--lp-muted);
+    --line: var(--lp-line);
+    --nav-accent: var(--lp-accent);
+  }
+
   .product-header {
     @apply mx-auto flex min-h-16 w-full max-w-[1240px] items-center gap-4 border-y px-5 sm:px-7 lg:px-10;
     color: var(--lp-ink);

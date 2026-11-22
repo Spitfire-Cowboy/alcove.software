@@ -51,6 +51,10 @@ for file in "${shared_navigation_pages[@]}"; do
     echo "Shared site page missing the global header: $file" >&2
     exit 1
   fi
+  if ! grep -Fq 'class="global-footer"' "$file"; then
+    echo "Shared site page missing the global footer: $file" >&2
+    exit 1
+  fi
   for href in '/home/' '/business/' '/library/' '/lp/' '/docs/' 'https://congress.alcove.software/'; do
     if ! grep -Fq "href=\"$href\"" "$file"; then
       echo "Shared site navigation missing $href: $file" >&2
