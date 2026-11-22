@@ -64,8 +64,8 @@ for file in "${shared_navigation_pages[@]}"; do
 done
 
 for route in home business library; do
-  if ! grep -Fq 'class="landing-status"' "$SITE_DIR/$route/index.html"; then
-    echo "Audience page missing the shared project status: $route" >&2
+  if ! grep -Fq 'class="landing-status" role="group" aria-label="Project status"' "$SITE_DIR/$route/index.html"; then
+    echo "Audience page missing the named project-status group: $route" >&2
     exit 1
   fi
 done
