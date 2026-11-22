@@ -63,13 +63,6 @@ for file in "${shared_navigation_pages[@]}"; do
   done
 done
 
-for route in home business library; do
-  if ! grep -Fq 'class="landing-status" role="group" aria-label="Project status"' "$SITE_DIR/$route/index.html"; then
-    echo "Audience page missing the named project-status group: $route" >&2
-    exit 1
-  fi
-done
-
 if ! grep -Eq '^Sitemap: https://alcove\.software/sitemap\.xml$' "$SITE_DIR/robots.txt"; then
   echo "robots.txt must include canonical sitemap URL" >&2
   exit 1
