@@ -37,6 +37,9 @@ shared_navigation_pages=(
   "$SITE_DIR/business/index.html"
   "$SITE_DIR/library/index.html"
   "$SITE_DIR/docs/index.html"
+  "$SITE_DIR/lp/index.html"
+  "$SITE_DIR/lp/support/index.html"
+  "$SITE_DIR/lp/privacy/index.html"
 )
 
 for file in "${shared_navigation_pages[@]}"; do

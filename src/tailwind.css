@@ -15,6 +15,7 @@
 @layer components {
   .global-header {
     @apply mx-auto flex min-h-[6.75rem] w-full max-w-[1240px] items-center gap-3 px-5 py-5 sm:gap-4 sm:px-7 lg:px-10;
+    --nav-accent: #96a573;
   }
 
   .global-brand {
@@ -30,11 +31,11 @@
   .global-brand-mark::after {
     content: "";
     @apply absolute bottom-0 right-1 h-4 w-[5px] rounded-t-lg;
-    background: #96a573;
+    background: var(--nav-accent);
   }
 
   .global-brand-dot {
-    color: #798751;
+    color: var(--nav-accent);
   }
 
   .global-nav {
@@ -48,7 +49,7 @@
 
   .global-nav-link:hover,
   .global-nav-link[aria-current="page"] {
-    border-color: #96a573;
+    border-color: var(--nav-accent);
   }
 
   .global-actions {
@@ -63,7 +64,7 @@
 
   .global-congress:hover {
     background: var(--card);
-    border-color: #96a573;
+    border-color: var(--nav-accent);
   }
 
   .global-menu {
@@ -94,7 +95,83 @@
 
   .global-menu-panel a:hover,
   .global-menu-panel a[aria-current="page"] {
-    background: color-mix(in srgb, var(--brand) 12%, transparent);
+    background: color-mix(in srgb, var(--nav-accent) 12%, transparent);
+  }
+
+  .lp-page .global-header {
+    --ink: var(--lp-ink);
+    --muted: var(--lp-muted);
+    --card: var(--lp-card);
+    --line: var(--lp-line);
+    --brand: var(--lp-accent);
+    --nav-accent: var(--lp-accent);
+  }
+
+  .product-header {
+    @apply mx-auto flex min-h-16 w-full max-w-[1240px] items-center gap-4 border-y px-5 sm:px-7 lg:px-10;
+    color: var(--lp-ink);
+    border-color: var(--lp-line);
+  }
+
+  .product-brand {
+    @apply shrink-0 text-lg font-bold tracking-[-0.04em] no-underline;
+    color: var(--lp-ink);
+  }
+
+  .product-brand span {
+    color: var(--lp-accent);
+  }
+
+  .product-links {
+    @apply ml-auto hidden items-center gap-5 text-sm md:flex;
+  }
+
+  .product-links a {
+    @apply border-b-2 border-transparent py-5 no-underline;
+    color: var(--lp-ink);
+  }
+
+  .product-links a:hover,
+  .product-links a[aria-current="page"] {
+    border-color: var(--lp-accent);
+  }
+
+  .product-links .product-cta {
+    @apply my-2.5 rounded-full border-0 px-4 py-2.5 font-semibold;
+    /* The legacy unlayered site link rule otherwise wins over Tailwind layers. */
+    color: var(--lp-paper) !important;
+    background: var(--lp-ink);
+  }
+
+  .product-menu {
+    @apply relative ml-auto md:hidden;
+  }
+
+  .product-menu > summary {
+    @apply flex min-h-11 cursor-pointer list-none items-center rounded-md border px-3 text-sm font-semibold;
+    color: var(--lp-ink);
+    border-color: var(--lp-line);
+  }
+
+  .product-menu > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .product-menu-panel {
+    @apply absolute right-0 z-40 mt-2 flex w-52 flex-col rounded-xl border p-2 shadow-xl;
+    color: var(--lp-ink);
+    background: var(--lp-card);
+    border-color: var(--lp-line);
+  }
+
+  .product-menu-panel a {
+    @apply rounded-lg px-3 py-2.5 text-sm font-semibold no-underline;
+    color: var(--lp-ink);
+  }
+
+  .product-menu-panel a:hover,
+  .product-menu-panel a[aria-current="page"] {
+    background: color-mix(in srgb, var(--lp-accent) 12%, transparent);
   }
 
   @media (max-width: 399px) {
