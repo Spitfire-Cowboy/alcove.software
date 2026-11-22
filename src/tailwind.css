@@ -401,6 +401,21 @@
     @apply underline;
   }
 
+  .landing-status {
+    @apply mt-5 flex max-w-[42rem] flex-col gap-1 border-l-4 pl-4 sm:flex-row sm:items-baseline sm:gap-3;
+    border-color: var(--brand);
+  }
+
+  .landing-status strong {
+    @apply shrink-0 text-xs font-bold uppercase tracking-[0.1em];
+    color: var(--brand-2);
+  }
+
+  .landing-status span {
+    @apply text-sm/6;
+    color: var(--muted);
+  }
+
   .featured-work {
     @apply py-14 sm:py-20;
   }
