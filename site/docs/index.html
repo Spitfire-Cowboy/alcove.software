@@ -101,10 +101,12 @@
       .hero { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="/assets/tailwind.css">
+  <link rel="icon" href="/assets/alcove-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body>
-  <header class="docs-header"><a href="/">Alcove</a><label class="theme-chooser" hidden>Theme <select aria-label="Color theme"><option value="light">Light</option><option value="dark">Dark</option><option value="auto" selected>Auto</option></select></label></header>
+  <header class="global-header"><a class="global-brand" href="/" aria-label="Alcove overview"><span class="global-brand-mark" aria-hidden="true"></span><span>alcove<span class="global-brand-dot" aria-hidden="true">.</span></span></a><nav class="global-nav" aria-label="Main navigation"><a class="global-nav-link" href="/home/">Home</a><a class="global-nav-link" href="/business/">Business</a><a class="global-nav-link" href="/library/">Library</a><a class="global-nav-link" href="/lp/">LP</a><a class="global-nav-link" href="/docs/" aria-current="page">Docs</a></nav><div class="global-actions"><a class="global-congress" href="https://congress.alcove.software/">Search Congress <span aria-hidden="true">↗</span></a><label class="theme-chooser" hidden><span class="theme-label">Theme</span><select aria-label="Color theme"><option value="light">Light</option><option value="dark">Dark</option><option value="auto" selected>Auto</option></select></label><details class="global-menu"><summary>Menu</summary><nav class="global-menu-panel" aria-label="Mobile navigation"><a href="/home/">Home</a><a href="/business/">Business</a><a href="/library/">Library</a><a href="/lp/">LP</a><a href="/docs/" aria-current="page">Docs</a><a href="https://congress.alcove.software/">Search Congress ↗</a></nav></details></div></header>
   <main>
     <section class="hero">
       <div>

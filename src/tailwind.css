@@ -1,0 +1,113 @@
+@layer theme, components, utilities;
+
+/*
+ * This site predates Tailwind, so keep the reset opt-in: the editorial artwork
+ * and LP screenshots still rely on their existing element styles. New shared
+ * layout and navigation should use Tailwind utilities instead of new ad-hoc CSS.
+ */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source("../site");
+
+@utility site-shell {
+  @apply mx-auto w-full max-w-[1240px] px-5 sm:px-7 lg:px-10;
+}
+
+@layer components {
+  .global-header {
+    @apply mx-auto flex min-h-[6.75rem] w-full max-w-[1240px] items-center gap-3 px-5 py-5 sm:gap-4 sm:px-7 lg:px-10;
+  }
+
+  .global-brand {
+    @apply inline-flex shrink-0 items-center gap-2 text-[1.75rem]/none font-bold tracking-[-0.055em] no-underline;
+    color: var(--ink);
+  }
+
+  .global-brand-mark {
+    @apply relative block h-7 w-6 rounded-t-2xl border-[5px] border-b-0;
+    border-color: currentColor;
+  }
+
+  .global-brand-mark::after {
+    content: "";
+    @apply absolute bottom-0 right-1 h-4 w-[5px] rounded-t-lg;
+    background: #96a573;
+  }
+
+  .global-brand-dot {
+    color: #798751;
+  }
+
+  .global-nav {
+    @apply hidden items-center gap-6 text-sm font-semibold lg:flex;
+  }
+
+  .global-nav-link {
+    @apply border-b-2 border-transparent py-3 no-underline transition-colors;
+    color: var(--ink);
+  }
+
+  .global-nav-link:hover,
+  .global-nav-link[aria-current="page"] {
+    border-color: #96a573;
+  }
+
+  .global-actions {
+    @apply ml-auto flex items-center gap-3;
+  }
+
+  .global-congress {
+    @apply hidden min-h-11 items-center gap-2 rounded-md border px-4 text-sm font-semibold no-underline transition-colors sm:inline-flex;
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  .global-congress:hover {
+    background: var(--card);
+    border-color: #96a573;
+  }
+
+  .global-menu {
+    @apply relative lg:hidden;
+  }
+
+  .global-menu > summary {
+    @apply flex min-h-11 cursor-pointer list-none items-center rounded-md border px-3 text-sm font-semibold;
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  .global-menu > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .global-menu-panel {
+    @apply absolute right-0 z-50 mt-2 flex w-56 flex-col rounded-xl border p-2 shadow-xl;
+    color: var(--ink);
+    background: var(--card);
+    border-color: var(--line);
+  }
+
+  .global-menu-panel a {
+    @apply rounded-lg px-3 py-2.5 text-sm font-semibold no-underline;
+    color: var(--ink);
+  }
+
+  .global-menu-panel a:hover,
+  .global-menu-panel a[aria-current="page"] {
+    background: color-mix(in srgb, var(--brand) 12%, transparent);
+  }
+
+  @media (max-width: 399px) {
+    .global-header {
+      @apply gap-2 px-4;
+    }
+
+    .global-brand {
+      @apply text-2xl;
+    }
+
+    .theme-label {
+      @apply sr-only;
+    }
+  }
+}
