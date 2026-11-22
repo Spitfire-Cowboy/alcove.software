@@ -33,7 +33,7 @@
 [data-theme="dark"] .search-example { background: var(--card); border-color: var(--line); }
 [data-theme="dark"] .search-example:hover { background: #304335; border-color: #8fa88c; }
 [data-theme="dark"] :is(.availability, .availability.live) { background: #334637; color: #d0e0c6; }
-[data-theme="dark"] :is(.hero-lead, .hero-note, .scene-foot p span, .proof-strip > span,
+[data-theme="dark"] :is(.hero-lead, .hero-note, .scene-foot p span, .featured-work-heading > p, .featured-swipe-hint,
   .section-intro > p:last-child, .audience-item > p, .film-copy > p:not(.overline),
   .film-player figcaption, .search-label, .search-description, .coverage-note,
   .approach-points p, .faq-list p, .front-footer p) { color: var(--muted); }
