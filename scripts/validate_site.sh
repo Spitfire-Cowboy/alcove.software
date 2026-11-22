@@ -19,9 +19,9 @@ required=(
   "$SITE_DIR/lp/robots.txt"
   "$SITE_DIR/lp/sitemap.xml"
   "$SITE_DIR/assets/lp.css"
-  "$SITE_DIR/assets/alcove-lp-queue.png"
-  "$SITE_DIR/assets/alcove-lp-now-playing.png"
-  "$SITE_DIR/assets/alcove-lp-my-library.png"
+  "$SITE_DIR/assets/alcove-lp-queue.webp"
+  "$SITE_DIR/assets/alcove-lp-now-playing.webp"
+  "$SITE_DIR/assets/alcove-lp-my-library.webp"
 )
 
 for f in "${required[@]}"; do
