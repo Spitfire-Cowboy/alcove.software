@@ -93,6 +93,16 @@ if ! grep -Eq '<loc>https://alcove\.software/docs/</loc>' "$SITE_DIR/sitemap.xml
   exit 1
 fi
 
+if grep -Fq '<style>' "$SITE_DIR/docs/index.html"; then
+  echo "Docs page must use the shared Tailwind stylesheet instead of inline CSS" >&2
+  exit 1
+fi
+
+if ! grep -Fq 'class="docs-page"' "$SITE_DIR/docs/index.html"; then
+  echo "Docs page missing its Tailwind page shell" >&2
+  exit 1
+fi
+
 if ! grep -Eq '<loc>https://alcove\.software/library/</loc>' "$SITE_DIR/sitemap.xml"; then
   echo "sitemap.xml missing open-source library URL" >&2
   exit 1

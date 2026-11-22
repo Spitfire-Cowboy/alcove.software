@@ -5,9 +5,6 @@
 .theme-chooser select { font: inherit; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 6px; min-height: 44px; padding: .45rem .6rem; cursor: pointer; }
 .theme-chooser select:focus-visible { outline: 3px solid #a55d24; outline-offset: 3px; }
 .front-header, .site-header { flex-wrap: wrap; }
-.docs-header { max-width: 1080px; margin: auto; padding: 1.25rem 1.25rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-.docs-header > a { color: var(--ink); font-weight: 700; text-decoration: none; }
-
 /* Keep the original photographs and artwork in their original colors. */
 :root[data-theme="dark"] {
   color-scheme: dark;

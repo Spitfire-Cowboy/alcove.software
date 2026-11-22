@@ -13,6 +13,17 @@
 }
 
 @layer components {
+  .skip-link {
+    @apply absolute -top-24 left-4 z-[60] rounded-md border px-3 py-2 text-sm font-semibold no-underline shadow-lg;
+    color: var(--ink) !important;
+    background: var(--card);
+    border-color: var(--line);
+  }
+
+  .skip-link:focus {
+    @apply top-2;
+  }
+
   .global-header {
     @apply mx-auto flex min-h-[6.75rem] w-full max-w-[1240px] items-center gap-3 px-5 py-5 sm:gap-4 sm:px-7 lg:px-10;
     --nav-accent: #96a573;
@@ -227,6 +238,167 @@
   .product-menu-panel a:hover,
   .product-menu-panel a[aria-current="page"] {
     background: color-mix(in srgb, var(--lp-accent) 12%, transparent);
+  }
+
+  .docs-root {
+    --bg: #f8faf8;
+    --ink: #1f2a1f;
+    --muted: #4d5b4d;
+    --card: #ffffff;
+    --line: #dbe5d9;
+    --brand: #1f6f43;
+    --brand-2: #0f5130;
+    --shadow: 0 16px 32px rgba(26, 45, 28, 0.06);
+  }
+
+  .docs-page {
+    @apply m-0;
+    color: var(--ink);
+    background: var(--bg);
+    font-family: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+
+  .docs-page,
+  .docs-page *,
+  .docs-page *::before,
+  .docs-page *::after {
+    box-sizing: border-box;
+  }
+
+  .docs-main {
+    @apply mx-auto w-full max-w-[1120px] px-5 pb-16 pt-9 sm:px-7 sm:pb-20 sm:pt-12 lg:px-10;
+  }
+
+  .docs-hero {
+    @apply grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.82fr)] lg:gap-12;
+  }
+
+  .docs-kicker {
+    @apply mb-3 text-xs font-bold uppercase tracking-[0.14em];
+    color: var(--brand-2);
+  }
+
+  .docs-title {
+    @apply m-0 max-w-[13ch] text-[clamp(2.5rem,5vw,4.5rem)]/none font-semibold tracking-[-0.055em];
+  }
+
+  .docs-lead {
+    @apply mb-0 mt-5 max-w-[62ch] text-base/7 sm:text-lg/8;
+    color: var(--muted);
+  }
+
+  .docs-actions {
+    @apply mt-7 flex flex-wrap gap-3;
+  }
+
+  .docs-button {
+    @apply inline-flex min-h-11 items-center justify-center rounded-md border px-4 py-2.5 text-sm font-semibold no-underline transition-colors;
+    color: var(--brand-2) !important;
+    background: var(--card);
+    border-color: var(--line);
+  }
+
+  .docs-button:hover {
+    border-color: var(--brand);
+  }
+
+  .docs-button--primary {
+    color: #ffffff !important;
+    background: var(--brand);
+    border-color: var(--brand);
+  }
+
+  .docs-preview {
+    @apply m-0 rounded-2xl border p-3 shadow-sm sm:p-4;
+    background: var(--card);
+    border-color: var(--line);
+  }
+
+  .docs-preview img {
+    @apply block h-auto w-full rounded-xl border;
+    border-color: var(--line);
+  }
+
+  .docs-preview figcaption {
+    @apply px-1 pb-1 pt-3 text-sm/6;
+    color: var(--muted);
+  }
+
+  .docs-section {
+    @apply mt-16 sm:mt-20;
+  }
+
+  .docs-section-heading {
+    @apply mb-7 border-t pt-7 sm:flex sm:items-end sm:justify-between sm:gap-8;
+    border-color: var(--line);
+  }
+
+  .docs-section-heading h2 {
+    @apply m-0 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl;
+  }
+
+  .docs-section-heading p {
+    @apply mb-0 mt-3 max-w-md text-sm/6 sm:mt-0;
+    color: var(--muted);
+  }
+
+  .docs-grid {
+    @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-4;
+  }
+
+  .docs-card {
+    @apply flex min-h-52 flex-col rounded-xl border p-5 no-underline shadow-sm transition-transform duration-200;
+    color: var(--ink) !important;
+    background: var(--card);
+    border-color: var(--line);
+  }
+
+  .docs-card:hover {
+    @apply -translate-y-1;
+    border-color: var(--brand);
+  }
+
+  .docs-card-index {
+    @apply text-xs font-bold tracking-[0.12em];
+    color: var(--brand-2);
+  }
+
+  .docs-card h3 {
+    @apply mb-2 mt-8 text-lg font-semibold tracking-[-0.025em];
+  }
+
+  .docs-card p {
+    @apply m-0 text-sm/6;
+    color: var(--muted);
+  }
+
+  .docs-card-action {
+    @apply mt-auto pt-5 text-xs font-semibold;
+    color: var(--brand-2);
+  }
+
+  .docs-resources {
+    @apply mt-12 flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between;
+    border-color: var(--line);
+  }
+
+  .docs-resources p {
+    @apply m-0 text-xs font-bold uppercase tracking-[0.12em];
+    color: var(--muted);
+  }
+
+  .docs-resources nav {
+    @apply flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold;
+  }
+
+  .docs-resources a {
+    @apply no-underline;
+    color: var(--brand-2) !important;
+  }
+
+  .docs-resources a:hover {
+    @apply underline;
   }
 
   .featured-work {
