@@ -51,6 +51,10 @@ for file in "${shared_navigation_pages[@]}"; do
     echo "Shared site page missing the global header: $file" >&2
     exit 1
   fi
+  if ! grep -Fq 'class="global-footer"' "$file"; then
+    echo "Shared site page missing the global footer: $file" >&2
+    exit 1
+  fi
   for href in '/home/' '/business/' '/library/' '/lp/' '/docs/' 'https://congress.alcove.software/'; do
     if ! grep -Fq "href=\"$href\"" "$file"; then
       echo "Shared site navigation missing $href: $file" >&2
@@ -86,6 +90,16 @@ fi
 
 if ! grep -Eq '<loc>https://alcove\.software/docs/</loc>' "$SITE_DIR/sitemap.xml"; then
   echo "sitemap.xml missing docs landing URL" >&2
+  exit 1
+fi
+
+if grep -Fq '<style>' "$SITE_DIR/docs/index.html"; then
+  echo "Docs page must use the shared Tailwind stylesheet instead of inline CSS" >&2
+  exit 1
+fi
+
+if ! grep -Fq 'class="docs-page"' "$SITE_DIR/docs/index.html"; then
+  echo "Docs page missing its Tailwind page shell" >&2
   exit 1
 fi
 
