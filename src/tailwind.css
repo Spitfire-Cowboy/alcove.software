@@ -174,6 +174,148 @@
     background: color-mix(in srgb, var(--lp-accent) 12%, transparent);
   }
 
+  .featured-work {
+    @apply py-14 sm:py-20;
+  }
+
+  .featured-work-heading {
+    @apply mb-8 grid gap-4 border-t pt-8 md:grid-cols-2 md:items-end md:gap-12;
+    border-color: var(--rule);
+  }
+
+  .featured-work-heading .overline {
+    @apply mb-3;
+  }
+
+  .featured-work-heading > p {
+    @apply m-0 max-w-md text-sm/7;
+    color: #5c695c;
+  }
+
+  .featured-track {
+    @apply flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 xl:grid xl:grid-cols-12 xl:overflow-visible xl:pb-0;
+    scrollbar-color: #96a573 transparent;
+    scrollbar-width: thin;
+  }
+
+  .featured-card {
+    @apply relative isolate flex min-h-[390px] w-[84%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border p-6 no-underline shadow-sm transition-transform duration-200 sm:w-[72%] sm:p-7 xl:col-span-3 xl:w-auto;
+  }
+
+  .featured-card:hover {
+    @apply -translate-y-1;
+  }
+
+  .featured-card:focus-visible {
+    outline-offset: 5px;
+  }
+
+  .featured-card--lead {
+    @apply xl:col-span-6;
+  }
+
+  .featured-card > * {
+    @apply relative z-10;
+  }
+
+  .featured-card--congress {
+    color: #f5f7f1 !important;
+    background: #173d30;
+    border-color: #2f5a49;
+  }
+
+  .featured-card--congress::after {
+    content: "";
+    @apply absolute -bottom-28 -right-20 z-0 h-80 w-80 rounded-full border;
+    border-color: #ffffff24;
+    box-shadow: 0 0 0 28px #ffffff0c, 0 0 0 58px #ffffff0a;
+  }
+
+  .featured-card--lp {
+    color: #fff9ef !important;
+    background: #1d1916;
+    border-color: #4e4035;
+  }
+
+  .featured-card--lp::before {
+    content: "";
+    @apply absolute inset-0 z-0 bg-cover bg-center;
+    background-image: linear-gradient(180deg, #17131070 0%, #171310d9 70%, #171310 100%), url("/assets/alcove-lp-campaign.jpg");
+  }
+
+  .featured-card--la {
+    color: #3d3226 !important;
+    background: #eee5d3;
+    border-color: #d6c6aa;
+  }
+
+  .featured-card--la::after {
+    content: "";
+    @apply absolute -bottom-20 -right-8 z-0 h-64 w-52 rounded-t-full border-[2rem] border-b-0;
+    border-color: #9a643f18;
+  }
+
+  .featured-card-top {
+    @apply flex items-center justify-between gap-3 text-[0.65rem]/4 font-semibold uppercase tracking-[0.12em];
+  }
+
+  .featured-status {
+    @apply shrink-0 rounded-full border px-2.5 py-1 tracking-normal normal-case;
+    border-color: currentColor;
+  }
+
+  .featured-card-copy {
+    @apply mt-auto flex flex-col pt-14;
+  }
+
+  .featured-card-kicker {
+    @apply mb-3 text-[0.68rem]/4 font-semibold uppercase tracking-[0.13em];
+    opacity: 0.75;
+  }
+
+  .featured-card-title {
+    @apply text-[1.7rem]/[1.05] font-semibold tracking-[-0.04em] sm:text-[2rem]/[1.04];
+  }
+
+  .featured-card--lead .featured-card-title {
+    @apply sm:text-[2.6rem]/[1.02];
+  }
+
+  .featured-card-description {
+    @apply mt-4 max-w-md text-sm/6;
+    opacity: 0.82;
+  }
+
+  .featured-card-action {
+    @apply mt-7 flex items-center justify-between gap-4 border-t pt-4 text-sm font-semibold;
+    border-color: color-mix(in srgb, currentColor 25%, transparent);
+  }
+
+  .featured-query {
+    @apply mt-7 flex items-center justify-between gap-4 rounded-xl border px-4 py-3;
+    color: #203d32;
+    background: #f3f5ed;
+    border-color: #d9e1d4;
+  }
+
+  .featured-query > span:first-child {
+    @apply flex flex-col;
+  }
+
+  .featured-query small {
+    @apply text-[0.65rem]/4 uppercase tracking-[0.1em];
+    color: #68776a;
+  }
+
+  .featured-query strong {
+    @apply text-lg font-semibold;
+  }
+
+  .featured-swipe-hint {
+    @apply mb-0 mt-3 flex items-center justify-end gap-2 text-xs xl:hidden;
+    color: #626f5d;
+  }
+
   @media (max-width: 399px) {
     .global-header {
       @apply gap-2 px-4;

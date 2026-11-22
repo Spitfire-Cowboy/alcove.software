@@ -50,10 +50,6 @@
 .scene-foot p { font-size: 12px; line-height: 1.65; margin: 0; }
 .scene-foot p span { color: #59684f; font-size: 11px; }
 .scene-foot a { margin-left: auto; width: 40px; height: 40px; border: 1px solid #aab99c; display: grid; place-items: center; border-radius: 50%; text-decoration: none; flex-shrink: 0; }
-.proof-strip { display: flex; align-items: center; justify-content: space-between; gap: 22px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); min-height: 86px; font-size: 12px; }
-.proof-strip > span { color: #626f5d; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
-.proof-strip a { text-decoration: none; display: flex; gap: 17px; align-items: center; font-weight: 550; padding-block: 16px; }
-.proof-strip a:hover { text-decoration: underline; }
 .audience-section { padding-top: 91px; padding-bottom: 94px; }
 .section-intro { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; align-items: end; margin-bottom: 40px; }
 .section-intro .overline { grid-column: 1/-1; margin-bottom: 17px; }
@@ -133,8 +129,6 @@
   .film-layout { gap: 35px; }
   .section-intro, .approach-section, .faq-section { gap: 40px; }
   .audience-top { min-height: 47px; align-content: flex-start; }
-  .proof-strip { gap: 14px; font-size: 11px; }
-  .proof-strip > span { display: none; }
   .search-example { padding: 22px 17px; gap: 13px; }
   .search-text strong { font-size: 22px; }
   .front-footer { gap: 20px; }
@@ -154,8 +148,6 @@
   .memory-scene { max-width: 520px; width: 100%; box-sizing: border-box; margin: auto; padding: 25px 23px; }
   .scene-question { font-size: 27px; max-width: 390px; margin: 23px 0 30px; }
   .memory-photo figcaption span { display: block; }
-  .proof-strip { flex-wrap: wrap; justify-content: flex-start; gap: 0 30px; padding-block: 12px; min-height: 0; }
-  .proof-strip a { padding-block: 10px; }
   .audience-section, .public-section { padding-top: 57px; padding-bottom: 58px; }
   .section-intro { display: block; margin-bottom: 28px; }
   .front-page h2 { font-size: 35px; letter-spacing: -1.3px; }
@@ -198,8 +190,6 @@
   .memory-photo figcaption span { display: none; }
   .scene-foot p { font-size: 11px; }
   .scene-foot p span { font-size: 10px; }
-  .proof-strip { gap: 0 20px; }
-  .proof-strip a { font-size: 11px; }
   .search-text strong { font-size: 21px; }
   .search-description { font-size: 11px; }
   .front-footer nav { gap: 17px; font-size: 11px; }

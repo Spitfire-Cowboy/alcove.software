@@ -119,6 +119,18 @@ if ! grep -Eq '<link rel="canonical" href="https://alcove\.software/">' "$SITE_D
   exit 1
 fi
 
+if ! grep -Fq 'id="featured-work"' "$SITE_DIR/index.html"; then
+  echo "index.html missing the featured work section" >&2
+  exit 1
+fi
+
+for project in 'Alcove Congress' 'Alcove LP' 'Alcove Los Angeles'; do
+  if ! grep -Fq "$project" "$SITE_DIR/index.html"; then
+    echo "index.html featured work missing $project" >&2
+    exit 1
+  fi
+done
+
 for route in '' 'support/' 'privacy/'; do
   file="$SITE_DIR/lp/${route}index.html"
   if ! grep -Fq "<link rel=\"canonical\" href=\"https://alcove.software/lp/${route}\">" "$file"; then
