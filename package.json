@@ -1,0 +1,12 @@
+{
+  "name": "alcove-software-site",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/tailwind.css -o ./site/assets/tailwind.css --minify",
+    "check:css": "npm run build:css && git diff --exit-code -- site/assets/tailwind.css"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.5",
+    "tailwindcss": "4.3.5"
+  }
+}

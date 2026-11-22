@@ -12,10 +12,15 @@ This repo owns:
 Build/validate site artifacts:
 
 ```bash
+npm ci
+npm run build:css
 ./scripts/validate_site.sh
 ```
 
-Artifacts are served directly from `site/`.
+Tailwind scans the static HTML and writes `site/assets/tailwind.css`. The
+generated file is committed so a checkout can still serve `site/` directly.
+Page-specific artwork remains in the existing CSS files; new shared layout and
+navigation should use Tailwind utilities.
 
 ## Deployment
 

@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="/assets/theme.js"></script>
   <title>Alcove | Find what matters. Go back to the source.</title>
-  <meta name="description" content="Search personal archives, team documents, and public records with Alcove. Watch a real Home prototype demo or try the live Congress and Los Angeles law searches.">
+  <meta name="description" content="Search collections you choose—personal archives, team documents, or public records—and open the material behind every result.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="https://alcove.software/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://alcove.software/">
   <meta property="og:title" content="Alcove | Find what matters. Go back to the source.">
-  <meta property="og:description" content="A search engine for personal archives, team documents, and public records. Real demonstrations. Sources you can open.">
+  <meta property="og:description" content="Search collections you choose, inspect the matching material, and go back to the source.">
   <meta property="og:image" content="https://alcove.software/assets/alcove-social.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -20,25 +20,26 @@
   <meta name="theme-color" content="#183e31">
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/homepage.css">
+  <link rel="stylesheet" href="/assets/tailwind.css">
   <link rel="icon" href="/assets/alcove-mark.svg" type="image/svg+xml">
   <script defer data-domain="alcove.software" src="https://analytics.spitfirecowboy.com/js/script.js"></script>
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body class="front-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
-  <header class="front-header shell">
-    <a class="front-brand" href="/" aria-label="Alcove home"><span class="brand-mark" aria-hidden="true"></span>alcove<span class="brand-dot" aria-hidden="true">.</span></a>
-    <nav class="front-nav" aria-label="Main navigation"><a href="/home/">Home</a><a href="/business/">Business</a><a href="/government/">Government</a><a href="/lp/">LP</a><a class="nav-demo" href="#film">Watch the demo <span aria-hidden="true">↗</span></a></nav>
-    <label class="theme-chooser" hidden>Theme <select aria-label="Color theme"><option value="light">Light</option><option value="dark">Dark</option><option value="auto" selected>Auto</option></select></label>
+  <header class="global-header">
+    <a class="global-brand" href="/" aria-label="Alcove overview"><span class="global-brand-mark" aria-hidden="true"></span><span>alcove<span class="global-brand-dot" aria-hidden="true">.</span></span></a>
+    <nav class="global-nav" aria-label="Main navigation"><a class="global-nav-link" href="/home/">Home</a><a class="global-nav-link" href="/business/">Business</a><a class="global-nav-link" href="/library/">Library</a><a class="global-nav-link" href="/lp/">LP</a><a class="global-nav-link" href="/docs/">Docs</a></nav>
+    <div class="global-actions"><a class="global-congress" href="https://congress.alcove.software/">Search Congress <span aria-hidden="true">↗</span></a><label class="theme-chooser" hidden><span class="theme-label">Theme</span><select aria-label="Color theme"><option value="light">Light</option><option value="dark">Dark</option><option value="auto" selected>Auto</option></select></label><details class="global-menu"><summary>Menu</summary><nav class="global-menu-panel" aria-label="Mobile navigation"><a href="/home/">Home</a><a href="/business/">Business</a><a href="/library/">Library</a><a href="/lp/">LP</a><a href="/docs/">Docs</a><a href="https://congress.alcove.software/">Search Congress ↗</a></nav></details></div>
   </header>
   <main id="main-content">
     <section class="front-hero shell" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="overline"><span class="small-star" aria-hidden="true">✳</span> A little closer to what you know</p>
+        <p class="overline"><span class="small-star" aria-hidden="true">✳</span> Search a collection. Check the source.</p>
         <h1 id="hero-title">Find what matters.<br> <span>Go back to<br class="desktop-break"> the source.</span></h1>
-        <p class="hero-lead">A search engine for personal archives, team documents, and public records. Explore the evidence behind a memory, a decision, or a question.</p>
-        <div class="hero-actions"><a class="action solid" href="#film">See Alcove in action <span aria-hidden="true">↗</span></a><a class="action quiet" href="#public-search">Try a live public search <span aria-hidden="true">→</span></a></div>
-        <p class="hero-note">Start with a real demo. Follow it to the original material.</p>
+        <p class="hero-lead">Search collections you choose&mdash;personal archives, team documents, or public records&mdash;and open the material behind every result.</p>
+        <div class="hero-actions"><a class="action solid" href="https://congress.alcove.software/">Search Congress now <span aria-hidden="true">↗</span></a><a class="action quiet" href="#film">Watch the 2-minute Home demo <span aria-hidden="true">→</span></a></div>
+        <p class="hero-note">Start with a question. Read the match. Open the source.</p>
       </div>
       <div class="memory-scene" role="group" aria-label="A real example from the recorded Home prototype">
         <div class="scene-heading"><span class="overline">From the Home prototype</span><span class="scene-badge">Real archive</span></div>
@@ -50,13 +51,13 @@
         <div class="scene-foot"><span class="source-dot" aria-hidden="true"></span><p>Photos from 2023 and 2024.<br> <span>Original photos, dates, and supporting messages.</span></p><a href="#film" aria-label="Watch the Home demo"><span aria-hidden="true">↗</span></a></div>
       </div>
     </section>
-    <div class="proof-strip shell" role="navigation" aria-label="Explore what exists today"><span>Take a closer look</span><a href="/lp/">Alcove LP: private whole-album listening <span aria-hidden="true">↗</span></a><a href="#public-search">Two live public searches <span aria-hidden="true">↗</span></a><a href="https://github.com/Spitfire-Cowboy/alcove">An open-source core <span aria-hidden="true">↗</span></a></div>
+    <nav class="proof-strip shell" aria-label="Use Alcove today"><span>Available now</span><a href="https://congress.alcove.software/">Search U.S. Congress <span aria-hidden="true">↗</span></a><a href="/lp/">Get Alcove LP <span aria-hidden="true">↗</span></a><a href="https://github.com/Spitfire-Cowboy/alcove">Run the open-source core <span aria-hidden="true">↗</span></a></nav>
     <section class="audience-section shell" aria-labelledby="audience-title">
-      <div class="section-intro"><p class="overline">One idea. Different worlds.</p><h2 id="audience-title">What would you like<br> to find again?</h2><p>The photo you remember. The document behind a decision. The public record you want to read for yourself.</p></div>
+      <div class="section-intro"><p class="overline">One idea. Different collections.</p><h2 id="audience-title">What do you need<br> to find?</h2><p>The photo you remember. The clause behind a decision. The public record you want to read for yourself.</p></div>
       <div class="audience-columns">
-        <article class="audience-item"><div class="audience-top"><span class="audience-number">01 / HOME</span><span class="availability">Private prototype</span></div><h3>Your life,<br> within reach.</h3><p>Revisit photos, messages, and memories in a demonstration built from a real personal archive.</p><a class="text-action" href="/home/">Explore Alcove Home <span aria-hidden="true">↗</span></a></article>
-        <article class="audience-item"><div class="audience-top"><span class="audience-number">02 / BUSINESS</span><span class="availability">Illustrative use case</span></div><h3>The work behind<br> the answer.</h3><p>See how a selected collection of contracts, policies, or project notes could help a team find its bearings.</p><a class="text-action" href="/business/">Explore Alcove Business <span aria-hidden="true">↗</span></a></article>
-        <article class="audience-item"><div class="audience-top"><span class="audience-number">03 / GOVERNMENT</span><span class="availability live">Public demos</span></div><h3>Public records.<br> A way in.</h3><p>Search indexed Congressional material and Los Angeles city law, then follow the links to their sources.</p><a class="text-action" href="/government/">Explore Alcove Government <span aria-hidden="true">↗</span></a></article>
+        <article class="audience-item"><div class="audience-top"><span class="audience-number">01 / HOME</span><span class="availability">Private prototype</span></div><h3>Your life,<br> within reach.</h3><p>See a selected personal archive bring photos and messages together around a real question.</p><a class="text-action" href="/home/">Explore Alcove Home <span aria-hidden="true">↗</span></a></article>
+        <article class="audience-item"><div class="audience-top"><span class="audience-number">02 / BUSINESS</span><span class="availability">Illustrative use case</span></div><h3>The work behind<br> the answer.</h3><p>See how an approved set of contracts, policies, or project notes could help a team find the right passage.</p><a class="text-action" href="/business/">Explore Alcove Business <span aria-hidden="true">↗</span></a></article>
+        <article class="audience-item"><div class="audience-top"><span class="audience-number">03 / OPEN-SOURCE LIBRARY</span><span class="availability live">Congress live today</span></div><h3>Public records.<br> Open to explore.</h3><p>Start with the live Alcove Congress search, or explore Los Angeles city law alongside it.</p><a class="text-action" href="/library/">Explore the library <span aria-hidden="true">↗</span></a></article>
       </div>
     </section>
     <section class="film-section" id="film" aria-labelledby="film-title">
@@ -66,16 +67,16 @@
       </div>
     </section>
     <section class="public-section shell" id="public-search" aria-labelledby="public-title">
-      <div class="section-intro"><p class="overline">Open a collection. Follow a question.</p><h2 id="public-title">Try a search<br> right now.</h2><p>These public projects are open to explore. Start with a topic, read the matching material, and check the upstream record.</p></div>
+      <div class="section-intro"><p class="overline">No setup required.</p><h2 id="public-title">Search public records<br> right now.</h2><p>Start with a topic, read the matching material, and open the upstream record. Congress and Los Angeles law are live.</p></div>
       <div class="search-examples">
         <a class="search-example" href="https://congress.alcove.software/search?q=housing&amp;lang=en"><span class="search-symbol" aria-hidden="true"></span><span class="search-text"><span class="search-label">CONGRESS</span><strong>Housing</strong><span class="search-description">Explore indexed bills and resolutions</span></span><span class="search-arrow" aria-hidden="true">↗</span></a>
         <a class="search-example" href="https://la.alcove.software/search?q=rent%20stabilization&amp;lang=en"><span class="search-symbol" aria-hidden="true"></span><span class="search-text"><span class="search-label">LOS ANGELES CITY LAW</span><strong>Rent stabilization</strong><span class="search-description">Find matching law and source references</span></span><span class="search-arrow" aria-hidden="true">↗</span></a>
       </div>
-      <p class="coverage-note">Independent projects with defined collections, not a complete or continuously current record. <a href="/government/">See sources and coverage →</a></p>
+      <p class="coverage-note">Independent projects with defined collections, not a complete or continuously current record. <a href="/library/">Explore the open-source library →</a></p>
     </section>
     <section class="approach-section shell" aria-labelledby="approach-title"><div><p class="overline">The idea behind Alcove</p><h2 id="approach-title">A useful result<br> has somewhere<br> to take you.</h2></div><div class="approach-points"><article><span>01</span><div><h3>Start with a collection.</h3><p>Search a defined set of material. Know what is included, and what still sits outside it.</p></div></article><article><span>02</span><div><h3>Read the relevant text.</h3><p>Alcove’s core retrieves matching excerpts, so you can see the material behind a result.</p></div></article><article><span>03</span><div><h3>Go back to the source.</h3><p>Follow the original document or record. Check its context, its date, and what it actually says.</p></div></article></div></section>
     <section class="faq-section shell" aria-labelledby="faq-title"><h2 id="faq-title">A few good questions.</h2><div class="faq-list"><details><summary>What can I use today?</summary><p>The <a href="https://congress.alcove.software/">Congress</a> and <a href="https://la.alcove.software/">Los Angeles law</a> search projects are public. The <a href="https://github.com/Spitfire-Cowboy/alcove">Alcove core</a> is available to run yourself. Home is a private prototype with a recorded demonstration; Business examples illustrate workflows still in development.</p></details><details><summary>Does Home already connect to all my accounts?</summary><p>No. The demonstration uses selected records from a real personal archive. It does not demonstrate a complete account import or an open, self-service Home product.</p></details><details><summary>Can Alcove run locally?</summary><p>The core supports local file ingestion, indexing, and search. The Home film also demonstrates an offline lookup over a selected collection. What you can search depends on the material and search mode you have configured.</p></details><details><summary>Where can I learn how it works?</summary><p>Start with the <a href="/docs/">public documentation</a> or the <a href="https://github.com/Spitfire-Cowboy/alcove#quick-start">core quick start</a>. They describe the existing software and its interfaces.</p></details></div></section>
-    <section class="closing-section shell"><div><p class="overline">A question is a good place to start.</p><h2>See what you can find.</h2></div><a class="action solid" href="#public-search">Try a live public search <span aria-hidden="true">↗</span></a></section>
+    <section class="closing-section shell"><div><p class="overline">A question is a good place to start.</p><h2>Search the public record.</h2></div><a class="action solid" href="https://congress.alcove.software/">Search Congress now <span aria-hidden="true">↗</span></a></section>
   </main>
   <footer class="front-footer shell"><a class="front-brand" href="/" aria-label="Alcove home">alcove<span class="brand-dot" aria-hidden="true">.</span></a><p>Find what matters. Keep the source in view.</p><nav aria-label="Footer navigation"><a href="/docs/">Documentation</a><a href="https://github.com/Spitfire-Cowboy/alcove">Source code</a><a href="/home/">Home demo</a></nav></footer>
 </body>

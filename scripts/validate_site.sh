@@ -6,7 +6,9 @@ SITE_DIR="$ROOT_DIR/site"
 
 required=(
   "$SITE_DIR/index.html"
+  "$SITE_DIR/assets/tailwind.css"
   "$SITE_DIR/docs/index.html"
+  "$SITE_DIR/library/index.html"
   "$SITE_DIR/federation/nodes.sample.json"
   "$SITE_DIR/robots.txt"
   "$SITE_DIR/sitemap.xml"
@@ -27,6 +29,31 @@ for f in "${required[@]}"; do
     echo "Missing required file: $f" >&2
     exit 1
   fi
+done
+
+shared_navigation_pages=(
+  "$SITE_DIR/index.html"
+  "$SITE_DIR/home/index.html"
+  "$SITE_DIR/business/index.html"
+  "$SITE_DIR/library/index.html"
+  "$SITE_DIR/docs/index.html"
+)
+
+for file in "${shared_navigation_pages[@]}"; do
+  if ! grep -Fq 'href="/assets/tailwind.css"' "$file"; then
+    echo "Shared site page missing compiled Tailwind CSS: $file" >&2
+    exit 1
+  fi
+  if ! grep -Fq 'class="global-header"' "$file"; then
+    echo "Shared site page missing the global header: $file" >&2
+    exit 1
+  fi
+  for href in '/home/' '/business/' '/library/' '/lp/' '/docs/' 'https://congress.alcove.software/'; do
+    if ! grep -Fq "href=\"$href\"" "$file"; then
+      echo "Shared site navigation missing $href: $file" >&2
+      exit 1
+    fi
+  done
 done
 
 if ! grep -Eq '^Sitemap: https://alcove\.software/sitemap\.xml$' "$SITE_DIR/robots.txt"; then
@@ -56,6 +83,16 @@ fi
 
 if ! grep -Eq '<loc>https://alcove\.software/docs/</loc>' "$SITE_DIR/sitemap.xml"; then
   echo "sitemap.xml missing docs landing URL" >&2
+  exit 1
+fi
+
+if ! grep -Eq '<loc>https://alcove\.software/library/</loc>' "$SITE_DIR/sitemap.xml"; then
+  echo "sitemap.xml missing open-source library URL" >&2
+  exit 1
+fi
+
+if ! grep -Fq '<meta http-equiv="refresh" content="0; url=/library/">' "$SITE_DIR/government/index.html"; then
+  echo "legacy government route must redirect to the open-source library" >&2
   exit 1
 fi
 
