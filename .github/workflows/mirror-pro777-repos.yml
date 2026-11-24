@@ -36,10 +36,16 @@ jobs:
         include:
           - source_repo: Spitfire-Cowboy/alcove
             dest_repo: Pro777/alcove
+            mirror_mode: direct
           - source_repo: Spitfire-Cowboy/alcove-private
             dest_repo: Pro777/alcove-private
+            mirror_mode: pull_request
+            source_branch: develop
+            dest_branch: develop
+            dest_sync_branch: mirror/spitfire-alcove-private-develop
           - source_repo: Spitfire-Cowboy/alcove-demo
             dest_repo: Pro777/alcove-demo
+            mirror_mode: direct
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -50,6 +56,8 @@ jobs:
         env:
           SOURCE_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
           SSH_KEY: ${{ secrets.PRO777_MIRROR_SSH_KEY != '' && secrets.PRO777_MIRROR_SSH_KEY || secrets.SPITFIRE_MIRROR_SSH_KEY }}
+          DEST_API_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
+          MIRROR_MODE: ${{ matrix.mirror_mode }}
         run: |
           if [ -z "$SOURCE_TOKEN" ]; then
             echo "::error::Missing secret SPITFIRE_MIRROR_PAT"
@@ -57,6 +65,10 @@ jobs:
           fi
           if [ -z "$SSH_KEY" ]; then
             echo "::error::Missing secret PRO777_MIRROR_SSH_KEY (or fallback SPITFIRE_MIRROR_SSH_KEY)"
+            exit 1
+          fi
+          if [ "$MIRROR_MODE" = "pull_request" ] && [ -z "$DEST_API_TOKEN" ]; then
+            echo "::error::Missing secret PRO777_MIRROR_PAT for PR-based mirror sync"
             exit 1
           fi
 
@@ -79,7 +91,12 @@ jobs:
           DEST_REPO: ${{ matrix.dest_repo }}
           SOURCE_TOKEN: ${{ secrets.SPITFIRE_MIRROR_PAT }}
           DEST_PUSH_MODE: ssh
+          DEST_API_TOKEN: ${{ secrets.PRO777_MIRROR_PAT }}
           STRICT_PAIRING: "1"
+          MIRROR_MODE: ${{ matrix.mirror_mode }}
+          SOURCE_BRANCH: ${{ matrix.source_branch || '' }}
+          DEST_BRANCH: ${{ matrix.dest_branch || '' }}
+          DEST_SYNC_BRANCH: ${{ matrix.dest_sync_branch || '' }}
           MAX_PRUNE_DELETIONS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.max_prune_deletions || '5' }}
           ALLOW_FORCE_MIRROR: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.allow_force_mirror == 'true' && '1' || '0' }}
         run: ./scripts/ops/mirror_repo_pair.sh

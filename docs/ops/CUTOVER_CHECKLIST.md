@@ -6,8 +6,9 @@ Use this checklist for operating with `Spitfire-Cowboy/*` as canonical and `Pro7
 
 - [ ] Scheduled mirror workflow passes in `Spitfire-Cowboy/alcove.software`.
 - [ ] Manual workflow dispatch passes for all configured repo pairs (`alcove`, `alcove-private`, `alcove-demo`).
+- [ ] `alcove-private` PR sync branch (`mirror/spitfire-alcove-private-develop`) can be refreshed and opens/updates a PR into `Pro777/alcove-private:develop`.
 - [ ] Branch/tag counts match between source and destination.
-- [ ] Default branch commit SHAs match per repo.
+- [ ] Default branch commit SHAs match per direct mirror repo; `alcove-private` is either matched at `develop` or represented by an open sync PR carrying the current source SHA.
 
 ## 2) Secrets and Environments
 
@@ -24,6 +25,7 @@ Use this checklist for operating with `Spitfire-Cowboy/*` as canonical and `Pro7
 - [ ] Enforce PR review requirements.
 - [ ] Restrict direct pushes and force pushes.
 - [ ] Confirm admin/bypass settings are intentional.
+- [ ] If destination branch protections require PR-based updates, verify the sync workflow uses a dedicated automation branch and PR instead of direct pushes.
 
 ## 4) Runners and CI Cost Control
 
@@ -47,6 +49,6 @@ Use this checklist for operating with `Spitfire-Cowboy/*` as canonical and `Pro7
 ## 6) Cutover Execution
 
 - [ ] Announce freeze window and stop destination (`Pro777/*`) writes.
-- [ ] Run final manual mirror workflow.
+- [ ] Run final manual mirror workflow and, for `alcove-private`, merge or explicitly disposition the sync PR.
 - [ ] Switch docs/remotes/automation to `Spitfire-Cowboy/*` canonical URLs.
 - [ ] Monitor for 7-14 days and then archive/lock destination mirror repos if no longer needed.
